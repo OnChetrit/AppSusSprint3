@@ -15,10 +15,10 @@ export class MailSearch extends React.Component {
     render() {
         return (
             <form className="mail-search" onChange={this.onSearch}>
-                <label htmlFor='username'><h3></h3></label>
+                <label htmlFor='search'></label>
                     <input
-                        name='username'
-                        id='username'
+                        name='search'
+                        id='search'
                         type='text'
                         placeholder='username'
                         onChange={this.handleChange}
@@ -28,4 +28,4 @@ export class MailSearch extends React.Component {
         )
     }
 
-
+}
