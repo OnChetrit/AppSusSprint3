@@ -1,5 +1,7 @@
 import { UserPreview } from './UserPreview.jsx';
 
+const { Link } = ReactRouterDOM;
+
 export function UserList({ users }) {
   return (
     <div className="user-list flex justify-center direction-col al-items-center">
@@ -7,7 +9,9 @@ export function UserList({ users }) {
       {users.map((user) => (
         <UserPreview key={user.id} user={user} />
       ))}
-      <button>Create Acount</button>
+      <Link to={`/user/create`} className="reset-link">
+        <button>Create Acount</button>{' '}
+      </Link>
     </div>
   );
 }
