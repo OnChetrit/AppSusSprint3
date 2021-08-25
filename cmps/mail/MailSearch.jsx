@@ -14,7 +14,6 @@ export class MailSearch extends React.Component {
     };
 
     render() {
-        const { username } = this.state.SearchBy;
         return (
             <form className="mail-search" onChange={this.onSearch}>
                 <label htmlFor='username'><h3></h3></label>
@@ -23,7 +22,6 @@ export class MailSearch extends React.Component {
                         id='username'
                         type='text'
                         placeholder='username'
-                        value={username}
                         onChange={this.handleChange}
                     />
                 
