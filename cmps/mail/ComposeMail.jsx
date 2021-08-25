@@ -9,7 +9,6 @@ export class ComposeMail extends React.Component {
     handleChange = ({ target }) => {
         const field = target.name
         const value = target.value
-        console.log(target.value);
         this.setState(prevState => ({ mail: { ...prevState.mail, [field]: value } }))
     }
 

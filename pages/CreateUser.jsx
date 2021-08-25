@@ -10,7 +10,6 @@ export class CreatUser extends React.Component {
   handleChange = ({ target }) => {
     const field = target.name;
     const value = target.value;
-    console.log(target.value);
     this.setState((prevState) => ({
       user: { ...prevState.user, [field]: value },
     }));
@@ -18,8 +17,8 @@ export class CreatUser extends React.Component {
 
   onAddUser = (ev) => {
     ev.preventDefault();
-    console.log('on');
     userService.addUser(this.state.user);
+    this.props.history.push('/')
   };
 
   render() {

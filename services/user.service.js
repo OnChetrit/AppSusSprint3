@@ -8,6 +8,7 @@ export const userService = {
   composeMail,
   addUser,
   getEmailTimeSent,
+  removeMail
 };
 const months = [
   'Jan',
@@ -36,24 +37,17 @@ function _createUsers() {
   if (!users || !users.length) {
     users = [];
     users.push(
-      _createUser('On Chetrit', 'onchetrit@gmail.com', [
-        _createMail('Our Mail', 'Welcome', 'Enjoy from our Animals'),
-        _createMail('Adir Cohen', 'Shalom', 'hey how are you'),
-        _createMail('Ebay', 'Hey!', 'You want buy it?'),
-        _createMail('Adir Cohen', 'AHIII', 'Holeh lihyot tirof'),
-      ])
+      _createUser('On Chetrit', 'onchetrit@gmail.com')
     );
     users.push(
-      _createUser('Adir Cohen', 'adircohen@gmail.com', [
-        _createMail('Welcome', 'Enjoy from our features'),
-      ])
+      _createUser('Adir Cohen', 'adircohen@gmail.com')
     );
   }
   gUsers = users;
   storageService.saveToStorage(USER_KEY, gUsers);
 }
 
-function _createUser(username, emailAddress, mails) {
+function _createUser(username, emailAddress) {
   return {
     id: utilService.makeId(),
     username,
@@ -101,14 +95,13 @@ function getMailIdxById(userMails, mailId) {
 }
 
 function setStar(userId, mailId) {
-  console.log('mailId', mailId);
   getUserById(userId).then((user) => {
     const mailIdx = getMailIdxById(user.mails, mailId);
     user.mails[mailIdx].isStared = !user.mails[mailIdx].isStared;
   });
-  console.log(gUsers);
   storageService.saveToStorage(USER_KEY, gUsers);
 }
+
 
 function findUserByMail(emailAddress) {
   const user = gUsers.find((user) => {
@@ -142,6 +135,17 @@ function getEmailTimeSent(timestamp) {
   const hours = date.getHours();
   const minutes = '0' + date.getMinutes();
   const timeSent =
-    hours > 23 ? `${day} ${month}` : `${hours}:${minutes.substr(-2)}`;
+    hours > 24 ? `${day} ${month}` : `${hours}:${minutes.substr(-2)}`;
   return timeSent;
+}
+
+function removeMail(userId, mailId) {
+   getUserById(userId)
+      .then((user) => {
+        const mailIdx = getMailIdxById(user.mails, mailId)
+        const mails = user.mails
+        console.log(mails[mailIdx]);
+        mails.splice(mailIdx, 1)
+        storageService.saveToStorage(USER_KEY, gUsers);
+    })
 }
