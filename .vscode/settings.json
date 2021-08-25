@@ -4,5 +4,9 @@
         "activityBar.background": "#182B20",
         "titleBar.activeBackground": "#223C2D",
         "titleBar.activeForeground": "#F9FBFA"
+    },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
     }
 }
