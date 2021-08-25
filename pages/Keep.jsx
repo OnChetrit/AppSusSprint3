@@ -1,6 +1,8 @@
 export class Keep extends React.component {
   state = {};
   render() {
-    return;
+    return (
+        <div>Loading</div>
+    )
   }
 }
