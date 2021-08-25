@@ -20,7 +20,7 @@ export class MainApp extends React.Component {
     const { users } = this.state;
     if (!users) return <div>Loading...</div>;
     return (
-      <section className="mail-app">
+      <section className="main-app">
         <header>Logo</header>
         <UserList users={users} onGetUser={this.onGetUser} />
       </section>

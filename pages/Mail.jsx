@@ -50,11 +50,12 @@ export class Mail extends React.Component {
     const { user, isCompose } = this.state;
     if (!user) return <div className="">Loading...</div>;
     return (
-      <React.Fragment>
+      <div className="mail-app flex direction-col">
         <header>
           <AppHeader user={user} />
         </header>
-        <div className="mail-app">
+        <main className="flex">
+          <MailFilter user={user} onToggleCompose={this.onToggleCompose} />
           {user && (
             <MailList
               mails={user.mails}
@@ -63,12 +64,9 @@ export class Mail extends React.Component {
               onRemoveMail={this.onRemoveMail}
             />
           )}
-          <div className="side-nav">
-            {isCompose && <ComposeMail onComposeMail={this.onComposeMail} />}
-            <MailFilter user={user} onToggleCompose={this.onToggleCompose} />
-          </div>
-        </div>
-      </React.Fragment>
+          {isCompose && <ComposeMail onComposeMail={this.onComposeMail} />}
+        </main>
+      </div>
     );
   }
 }

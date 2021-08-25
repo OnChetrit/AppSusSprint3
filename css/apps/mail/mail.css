@@ -1,0 +1,15 @@
+.mail-app {
+  height: 100vh;
+}
+
+.mail-app main {
+  height: 100%;
+}
+
+.mail-app .mail-list {
+  flex: 1;
+}
+
+.mail-app .side-nav {
+  flex-basis: 200px;
+}

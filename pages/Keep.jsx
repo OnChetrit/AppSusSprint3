@@ -19,7 +19,6 @@ export class Keep extends React.Component {
 
   loadUser = () => {
     const id = this.props.match.params.userId;
-    console.log(`this.props.match`, this.props.match);
     userService.getUserById(id).then((user) => {
       if (!user) this.props.history.push('/');
       this.setState({ user });
