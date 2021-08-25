@@ -1,3 +1,5 @@
+import { userService } from "../../services/user.service.js";
+
 export function MailPreview({ mail, user, onIsStared }) {
   return (
     <div key={mail.id} className="mail-card flex">
@@ -11,6 +13,7 @@ export function MailPreview({ mail, user, onIsStared }) {
       <h4>{mail.from}</h4>
       <h4>{mail.subject}</h4>
       <p>{mail.body}</p>
+      <h4>{userService.getEmailTimeSent(mail.sentAt)}</h4>
     </div>
   );
 }

@@ -5,8 +5,11 @@ export const userService = {
   query,
   getUserById,
   setStar,
-  composeMail
+  composeMail,
+  addUser,
+  getEmailTimeSent
 };
+const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 const USER_KEY = 'userDB';
 let gUsers = [];
 _createUsers();
@@ -110,4 +113,21 @@ function composeMail(user, mail) {
   const mailToSend = _createMail(from, subject, body)
   sendToUser.mails.unshift(mailToSend)
   storageService.saveToStorage(USER_KEY,gUsers)
+}
+
+function addUser(userToAdd) {
+  const username = userToAdd.username
+  const emailAddress = userToAdd.emailAddress
+  _createUser(username,emailAddress)
+  storageService.saveToStorage(USER_KEY,gUsers)
+}
+
+function getEmailTimeSent(timestamp) {
+  const date = new Date(timestamp)
+  const month = months[date.getMonth()]
+  const day = date.getUTCDate()
+  const hours = date.getHours()
+  const minutes = "0" + date.getMinutes();
+  const timeSent = hours > 23 ? `${day} ${month}` : `${hours}:${minutes.substr(-2)}`
+  return timeSent
 }
