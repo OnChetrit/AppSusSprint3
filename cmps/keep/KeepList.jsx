@@ -2,10 +2,10 @@ import { KeepPreview } from "./KeepPreview.jsx";
 
 export function KeepList({keeps, user}) {
   if(!keeps) return <div>Load</div>
-  console.log(keeps);
   return (
-  <div className="keep-list">
+    <div className="keep-list">
     {keeps.map(keep => {
+
       <KeepPreview key={keep.id} keep={keep}/>
     })}
   </div>

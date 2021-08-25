@@ -24,8 +24,10 @@ export class Keep extends React.Component {
       this.setState({ user });
     });
   };
+  
 
   render() {
+
     const { user } = this.state;
     if (!user) return <div className="">Loading...</div>;
     return (
