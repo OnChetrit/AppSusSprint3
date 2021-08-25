@@ -6,7 +6,7 @@ export function UserMail({currUser}) {
         <div className="user-mail">
         <div className="mails-container">
             {mails.map(mail => (
-                <div className="mail-card">
+                <div key={mail.id} className="mail-card">
                     <h1>{mail.subject}</h1>
                     <h1>{mail.body}</h1>
                 </div>

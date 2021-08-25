@@ -6,6 +6,9 @@ export class MailApp extends React.Component {
     users: null,
     currUser: null,
   };
+  componentDidMount() {
+      this.loadUsers();
+  }
 
   loadUsers = () => {
     userService.query().then((users) => {
@@ -23,9 +26,13 @@ export class MailApp extends React.Component {
     if (!users) return <div>Loading...</div>;
     return (
       <section className="mail-app">
+          {!currUser && 
         <div className="user-list flex justify-center direction-col al-items-center">
+            <h1>Adir & On mail! logo</h1>
+            <h1>Choose an account</h1>
           {users.map((user) => (
             <div
+              key={user.id}
               className="user-card btn"
               onClick={() => {
                 this.onGetUser(user.id);
@@ -36,6 +43,7 @@ export class MailApp extends React.Component {
             </div>
           ))}
         </div>
+          }
         {currUser && <UserMail currUser={currUser} />}
       </section>
     );

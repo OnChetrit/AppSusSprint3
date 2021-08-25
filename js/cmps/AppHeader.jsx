@@ -5,11 +5,11 @@ class _AppHeader extends React.Component {
   render() {
     return (
       <nav className="flex align-center">
-        <NavLink activeClassName="my-active" exact to="/">
+        {/* <NavLink activeClassName="my-active" exact to="/">
           Home
-        </NavLink>
-        <NavLink to="/book">Mails</NavLink>
-        <NavLink to="/about">About</NavLink>
+        </NavLink> */}
+        <NavLink to="/mail">Mails</NavLink>
+        {/* <NavLink to="/about">About</NavLink> */}
       </nav>
     );
   }

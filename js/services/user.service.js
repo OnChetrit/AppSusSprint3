@@ -19,7 +19,7 @@ function _createUsers() {
     users = [];
     users.push(
       _createUser('On Chetrit', 'onchetrit@gmail.com', [
-        _createMail('Welcome', 'Enjoy from our features'),
+        _createMail('Welcome', 'Enjoy from our Animals'),
       ])
     );
     users.push(
