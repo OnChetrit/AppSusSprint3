@@ -33,11 +33,10 @@ export class MailApp extends React.Component {
             <section className="mail-app">
                 <div className="user-list">
                     {users.map(user => (
-                        <div className="user-card">
+                        <div className="user-card" onClick={() => {
+                                this.onGetUser(user.id)}}>
                             <h1>{user.username}</h1>
                             <h1>{user.emailAddress}</h1>
-                            <button className="login-btn" onClick={() => {
-                                this.onGetUser(user.id)}}>Go</button>
                         </div>
                     ))}
                 </div>
