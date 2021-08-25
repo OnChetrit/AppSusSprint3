@@ -1,6 +1,7 @@
 import { userService } from "../../services/user.service.js";
 
-export function MailPreview({ mail, user, onIsStared }) {
+export function MailPreview({ mail, user, onIsStared , onRemoveMail}) {
+  const bodyToPreview = mail.body.length > 100 ? mail.body.substr(0, 100) + '...' : mail.body
   return (
     <div key={mail.id} className="mail-card flex">
       <i
@@ -12,8 +13,11 @@ export function MailPreview({ mail, user, onIsStared }) {
       ></i>
       <h4>{mail.from}</h4>
       <h4>{mail.subject}</h4>
-      <p>{mail.body}</p>
+      <p>{bodyToPreview}</p>
       <h4>{userService.getEmailTimeSent(mail.sentAt)}</h4>
+      <button onClick={() => {
+        onRemoveMail(user.id, mail.id)
+      }}>X</button>
     </div>
   );
 }

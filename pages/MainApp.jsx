@@ -14,14 +14,14 @@ export class MainApp extends React.Component {
     userService.query().then((users) => {
       this.setState({ users });
     });
-  };
+  }
 
   render() {
     const { users } = this.state;
     if (!users) return <div>Loading...</div>;
     return (
       <section className="mail-app">
-        <UserList users={users} onGetUser={this.onGetUser} />
+        <UserList users={users} onGetUser={this.onGetUser}/>
       </section>
     );
   }
