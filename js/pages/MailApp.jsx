@@ -1,4 +1,5 @@
 import { userService } from "../services/user.service.js"
+import { UserMail } from "./UserMail.jsx"
 
 
 export class MailApp extends React.Component {
@@ -17,6 +18,13 @@ export class MailApp extends React.Component {
                 this.setState({users})
             })
     }
+    onGetUser = (userId) => {
+        userService.getUserById(userId)
+            .then(currUser => {
+                this.setState({currUser})
+            })
+    }
+
 
     render() {
         const { users, currUser } = this.state
@@ -28,6 +36,8 @@ export class MailApp extends React.Component {
                         <div className="user-card">
                             <h1>{user.username}</h1>
                             <h1>{user.emailAddress}</h1>
+                            <button className="login-btn" onClick={() => {
+                                this.onGetUser(user.id)}}>Go</button>
                         </div>
                     ))}
                 </div>

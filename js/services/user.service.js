@@ -1,10 +1,11 @@
 import { utilService} from './util.service.js'
 
 export const userService = {
-    query
+    query,
+    getUserById
 }
 const USER_KEY = 'userDB'
-const gUsers = []
+let gUsers = []
 _createUsers()
 
 
@@ -28,7 +29,6 @@ function _createUsers() {
     gUsers = users;
     storageService.saveToStorage(USER_KEY, gUsers)
 }
-
 
 function _createUser(username,emailAddress, mails) {
     return {
@@ -60,4 +60,11 @@ function _createNote() {
             txt
         }
     }
+}
+
+function getUserById(userId) {
+    const user = gUsers.find(user => {
+        return userId === user.id
+    })
+    return Promise.resolve(user)
 }
