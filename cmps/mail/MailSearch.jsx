@@ -1,4 +1,3 @@
-
 export class MailSearch extends React.Component {
     state = {
         SearchBy: ''
@@ -30,5 +29,3 @@ export class MailSearch extends React.Component {
     }
 
 
-
-}

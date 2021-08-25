@@ -1,0 +1,9 @@
+.mail-search .input-search {
+  background-color: #f1f3f4;
+  border: none;
+  border-radius: 5px;
+  outline: none;
+  height: 50px;
+  min-width: 500px;
+  font-size: 1.15rem;
+}

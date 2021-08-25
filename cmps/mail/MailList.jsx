@@ -1,11 +1,17 @@
-import { userService } from '../../services/user.service.js';
 import { MailPreview } from './MailPreview.jsx';
+import { MailSearch } from './MailSearch.jsx';
 
-export function MailList({ mails, user, onIsStared, onRemoveMail }) {
+export function MailList({
+  mails,
+  user,
+  onIsStared,
+  onRemoveMail,
+  onSetSearch,
+}) {
   if (!mails) return <div>There's No Mails</div>;
   return (
     <div className="mail-list">
-
+      <MailSearch onSetSearch={onSetSearch} />
       {mails.map((mail) => (
         <MailPreview
           key={mail.id}
