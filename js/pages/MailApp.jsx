@@ -1,4 +1,5 @@
 import { userService } from '../services/user.service.js';
+import { UserMail } from './UserMail.jsx';
 
 export class MailApp extends React.Component {
   state = {
@@ -6,13 +7,14 @@ export class MailApp extends React.Component {
     currUser: null,
   };
 
-  componentDidMount() {
-    this.loadUsers();
-  }
-
   loadUsers = () => {
     userService.query().then((users) => {
       this.setState({ users });
+    });
+  };
+  onGetUser = (userId) => {
+    userService.getUserById(userId).then((currUser) => {
+      this.setState({ currUser });
     });
   };
 
@@ -23,7 +25,12 @@ export class MailApp extends React.Component {
       <section className="mail-app">
         <div className="user-list flex justify-center direction-col al-items-center">
           {users.map((user) => (
-            <div key={user.id} className="user-card btn">
+            <div
+              className="user-card btn"
+              onClick={() => {
+                this.onGetUser(user.id);
+              }}
+            >
               <h4>{user.username}</h4>
               <p>{user.emailAddress}</p>
             </div>

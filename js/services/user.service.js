@@ -3,6 +3,7 @@ import { storageService } from './storage.service.js';
 
 export const userService = {
   query,
+  getUserById,
 };
 const USER_KEY = 'userDB';
 let gUsers = [];
@@ -60,4 +61,11 @@ function _createNote() {
       txt,
     },
   };
+}
+
+function getUserById(userId) {
+  const user = gUsers.find((user) => {
+    return userId === user.id;
+  });
+  return Promise.resolve(user);
 }
