@@ -19,7 +19,6 @@ export class Keep extends React.Component {
 
   loadUser = () => {
     const id = this.props.match.params.userId;
-    console.log(`this.props.match`, this.props.match);
     userService.getUserById(id).then((user) => {
       if (!user) this.props.history.push('/');
       this.setState({ user });
@@ -35,7 +34,7 @@ export class Keep extends React.Component {
           <AppHeader user={user} />
         </header>
         <div className="keep-app">
-          <KeepList keep={user.keeps} user={user} />
+          <KeepList keeps={user.keeps} user={user} />
         </div>
       </React.Fragment>
     );

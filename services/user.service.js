@@ -10,7 +10,7 @@ export const userService = {
   getEmailTimeSent,
   removeMail,
 };
-const months = [
+const gMonths = [
   'Jan',
   'Feb',
   'Mar',
@@ -23,6 +23,39 @@ const months = [
   'Oct',
   'Nov',
   'Dec',
+];
+
+const gNotes = [
+{
+ id: utilService.makeId(),
+ type: "txt",
+ isPinned: true,
+ info: {
+ txt: "Fullstack Me Baby!"
+ }
+},
+{
+ id: utilService.makeId(),
+ type: "img",
+ info: {
+ url: "https://picsum.photos/200/200",
+ title: "Bobi and Me"
+ },
+ style: {
+ backgroundColor: "#00d"
+ }
+},
+{
+ id: utilService.makeId(),
+ type: "todos",
+ info: {
+ label: "Get my stuff together",
+ todos: [
+ { txt: "Driving liscence", doneAt: null },
+ { txt: "Coding power", doneAt: 187111111 }
+ ]
+ }
+}
 ];
 const USER_KEY = 'userDB';
 let gUsers = [];
@@ -50,7 +83,7 @@ function _createUser(username, emailAddress) {
     emailAddress,
     mails: [_createMail('AdirOn', 'Welcome!', 'welcome to out app')],
     bgc: utilService.getRandomColor(),
-    keeps: [],
+    keeps: gNotes,
   };
 }
 
@@ -66,7 +99,7 @@ function _createMail(from, subject, body) {
   };
 }
 
-function _createKeep() {
+function _createKeep(type) {
   return {
     id: utilService.makeId(),
     type,
@@ -125,7 +158,7 @@ function addUser(userToAdd) {
 
 function getEmailTimeSent(timestamp) {
   const date = new Date(timestamp);
-  const month = months[date.getMonth()];
+  const month = gMonths[date.getMonth()];
   const day = date.getUTCDate();
   const hours = date.getHours();
   const minutes = '0' + date.getMinutes();
