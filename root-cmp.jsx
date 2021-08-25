@@ -1,8 +1,8 @@
 const Router = ReactRouterDOM.HashRouter;
 const { Route, Switch } = ReactRouterDOM;
-import { UserPreview } from './cmps/user-preview.jsx';
-import { AppHeader } from './js/cmps/AppHeader.jsx';
-import { MainApp } from './js/pages/MainApp.jsx';
+import { AppHeader } from './cmps/AppHeader.jsx';
+import { MainApp } from './pages/MainApp.jsx';
+import { UserMail } from './pages/UserMail.jsx';
 import { Home } from './pages/home.jsx';
 
 // Simple React Component

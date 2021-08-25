@@ -1,10 +1,10 @@
-export function UserPreview({ user }) {
+export function UserPreview({ user, onGetUser }) {
   return (
     <div
       key={user.id}
       className="user-card flex al-items-center btn"
       onClick={() => {
-        this.onGetUser(user.id);
+        onGetUser(user.id);
       }}
     >
       <div className="img-user" style={{ backgroundColor: user.bgc }}>

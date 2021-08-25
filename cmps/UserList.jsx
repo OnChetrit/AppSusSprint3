@@ -1,10 +1,11 @@
 import { UserPreview } from './UserPreview.jsx';
 
-export function UserList({ users }) {
+export function UserList({ users, onGetUser }) {
   return (
     <div className="user-list flex justify-center direction-col al-items-center">
+      <h1>Choose an account</h1>
       {users.map((user) => (
-        <UserPreview key={user.id} user={user} />
+        <UserPreview key={user.id} user={user} onGetUser={onGetUser} />
       ))}
     </div>
   );

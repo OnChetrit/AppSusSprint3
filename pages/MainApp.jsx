@@ -1,6 +1,5 @@
 import { UserList } from '../cmps/UserList.jsx';
 import { userService } from '../services/user.service.js';
-import { utilService } from '../services/util.service.js';
 import { UserMail } from './UserMail.jsx';
 
 export class MainApp extends React.Component {
@@ -8,6 +7,9 @@ export class MainApp extends React.Component {
     users: null,
     currUser: null,
   };
+  componentDidMount() {
+    this.loadUsers();
+  }
 
   componentDidMount() {
     this.loadUsers();
@@ -29,8 +31,7 @@ export class MainApp extends React.Component {
     if (!users) return <div>Loading...</div>;
     return (
       <section className="mail-app">
-        <UserList users={users} />
-
+        {!currUser && <UserList users={users} onGetUser={this.onGetUser} />}
         {currUser && <UserMail currUser={currUser} />}
       </section>
     );
