@@ -41,6 +41,11 @@ export class Mail extends React.Component {
     this.setState({ isCompose: this.toggleMsg });
   };
 
+  onRemoveMail = (user, mailId) => {
+    userService.removeMail(user, mailId);
+    this.loadUser();
+  };
+
   render() {
     const { user, isCompose } = this.state;
     if (!user) return <div className="">Loading...</div>;
@@ -55,6 +60,7 @@ export class Mail extends React.Component {
               mails={user.mails}
               user={user}
               onIsStared={this.onIsStared}
+              onRemoveMail={this.onRemoveMail}
             />
           )}
           <div className="side-nav">

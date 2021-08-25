@@ -35,7 +35,7 @@ export class Keep extends React.Component {
           <AppHeader user={user} />
         </header>
         <div className="keep-app">
-          <KeepList keep={user.notes} user={user} />
+          <KeepList keep={user.keeps} user={user} />
         </div>
       </React.Fragment>
     );

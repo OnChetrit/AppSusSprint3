@@ -1,7 +1,8 @@
-import { userService } from "../../services/user.service.js";
+import { userService } from '../../services/user.service.js';
 
-export function MailPreview({ mail, user, onIsStared , onRemoveMail}) {
-  const bodyToPreview = mail.body.length > 100 ? mail.body.substr(0, 100) + '...' : mail.body
+export function MailPreview({ mail, user, onIsStared, onRemoveMail }) {
+  const bodyToPreview =
+    mail.body.length > 100 ? mail.body.substr(0, 100) + '...' : mail.body;
   return (
     <div key={mail.id} className="mail-card flex">
       <i
@@ -15,9 +16,13 @@ export function MailPreview({ mail, user, onIsStared , onRemoveMail}) {
       <h4>{mail.subject}</h4>
       <p>{bodyToPreview}</p>
       <h4>{userService.getEmailTimeSent(mail.sentAt)}</h4>
-      <button onClick={() => {
-        onRemoveMail(user.id, mail.id)
-      }}>X</button>
+      <button
+        onClick={() => {
+          onRemoveMail(user, mail.id);
+        }}
+      >
+        X
+      </button>
     </div>
   );
 }

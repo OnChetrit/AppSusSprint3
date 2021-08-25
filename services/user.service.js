@@ -8,7 +8,7 @@ export const userService = {
   composeMail,
   addUser,
   getEmailTimeSent,
-  removeMail
+  removeMail,
 };
 const months = [
   'Jan',
@@ -36,12 +36,8 @@ function _createUsers() {
   let users = storageService.loadFromStorage(USER_KEY);
   if (!users || !users.length) {
     users = [];
-    users.push(
-      _createUser('On Chetrit', 'onchetrit@gmail.com')
-    );
-    users.push(
-      _createUser('Adir Cohen', 'adircohen@gmail.com')
-    );
+    users.push(_createUser('On Chetrit', 'onchetrit@gmail.com'));
+    users.push(_createUser('Adir Cohen', 'adircohen@gmail.com'));
   }
   gUsers = users;
   storageService.saveToStorage(USER_KEY, gUsers);
@@ -54,7 +50,7 @@ function _createUser(username, emailAddress) {
     emailAddress,
     mails: [_createMail('AdirOn', 'Welcome!', 'welcome to out app')],
     bgc: utilService.getRandomColor(),
-    notes: [],
+    keeps: [],
   };
 }
 
@@ -70,11 +66,11 @@ function _createMail(from, subject, body) {
   };
 }
 
-function _createNote() {
+function _createKeep() {
   return {
     id: utilService.makeId(),
     type,
-    isPinned: true,
+    isPinned: false,
     info: {
       txt,
     },
@@ -101,7 +97,6 @@ function setStar(userId, mailId) {
   });
   storageService.saveToStorage(USER_KEY, gUsers);
 }
-
 
 function findUserByMail(emailAddress) {
   const user = gUsers.find((user) => {
@@ -139,13 +134,10 @@ function getEmailTimeSent(timestamp) {
   return timeSent;
 }
 
-function removeMail(userId, mailId) {
-   getUserById(userId)
-      .then((user) => {
-        const mailIdx = getMailIdxById(user.mails, mailId)
-        const mails = user.mails
-        console.log(mails[mailIdx]);
-        mails.splice(mailIdx, 1)
-        storageService.saveToStorage(USER_KEY, gUsers);
-    })
+function removeMail(user, mailId) {
+  const mailIdx = getMailIdxById(user.mails, mailId);
+  const mails = user.mails;
+  console.log(mails[mailIdx]);
+  mails.splice(mailIdx, 1);
+  storageService.saveToStorage(USER_KEY, gUsers);
 }
