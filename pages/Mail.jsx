@@ -56,11 +56,8 @@ export class Mail extends React.Component {
   };
 
   onSetSearch = (searchBy) => {
-    console.log('dsad', searchBy);
-    this.setState({ searchBy });
-    this.loadMails(this.state.user, searchBy);
-  };
-
+        this.setState({ searchBy }, () => this.loadMails(this.state.user, searchBy))
+    };
   render() {
     const { user, isCompose, mails } = this.state;
     if (!user) return <div className="">Loading...</div>;

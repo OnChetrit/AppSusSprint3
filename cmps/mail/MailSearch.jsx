@@ -1,34 +1,31 @@
 export class MailSearch extends React.Component {
-  state = {
-    SearchBy: '',
-  };
-  handleChange = ({ target }) => {
-    const value = target.value;
-    this.setState({ SearchBy: value });
-  };
+    state = {
+        SearchBy: ''
+    }
+    handleChange = ({target}) => {
+        const value = target.value;
+        this.setState({ SearchBy: value })
+    };
 
-  onSearch = (ev) => {
-    ev.preventDefault();
-    this.props.onSetSearch(this.state.SearchBy);
-  };
+    onSearch = (ev) => {
+        ev.preventDefault();
+        this.props.onSetSearch(this.state.SearchBy)
+    };
 
-  render() {
-    const { username } = this.state.SearchBy;
-    return (
-      <form className="mail-search" onChange={this.onSearch}>
-        <label htmlFor="username">
-          <h3></h3>
-        </label>
-        <input
-          className="input-search"
-          name="username"
-          id="username"
-          type="text"
-          placeholder="Search mail"
-          value={username}
-          onChange={this.handleChange}
-        />
-      </form>
-    );
-  }
+    render() {
+        return (
+            <form className="mail-search" onChange={this.onSearch}>
+                <label htmlFor='search'></label>
+                    <input
+                        name='search'
+                        id='search'
+                        type='text'
+                        placeholder='username'
+                        onChange={this.handleChange}
+                    />
+                
+            </form>
+        )
+    }
+
 }
