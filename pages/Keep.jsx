@@ -24,8 +24,10 @@ export class Keep extends React.Component {
       this.setState({ user });
     });
   };
+  
 
   render() {
+
     const { user } = this.state;
     if (!user) return <div className="">Loading...</div>;
     return (
@@ -34,7 +36,7 @@ export class Keep extends React.Component {
           <AppHeader user={user} />
         </header>
         <div className="keep-app">
-          <KeepList keep={user.keeps} user={user} />
+          <KeepList keeps={user.keeps} user={user} />
         </div>
       </React.Fragment>
     );
