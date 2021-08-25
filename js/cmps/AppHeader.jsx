@@ -8,8 +8,8 @@ class _AppHeader extends React.Component {
         <NavLink activeClassName="my-active" exact to="/">
           Home
         </NavLink>
-        <NavLink to="/book">Mails</NavLink>
-        <NavLink to="/about">About</NavLink>
+        {/* <NavLink to="/book">Mails</NavLink> */}
+        {/* <NavLink to="/about">About</NavLink> */}
       </nav>
     );
   }
