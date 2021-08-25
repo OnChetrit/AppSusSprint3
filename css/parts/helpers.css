@@ -1,0 +1,22 @@
+.flex {
+  display: flex;
+}
+.flex.justify-center {
+  justify-content: center;
+}
+.flex.space-between {
+  justify-content: space-between;
+}
+.flex.al-content-center {
+  align-content: center;
+}
+.flex.al-items-center {
+  align-items: center;
+}
+.flex.direction-col {
+  flex-direction: column;
+}
+
+.btn {
+  cursor: pointer;
+}

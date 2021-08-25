@@ -1,0 +1,24 @@
+.user-list {
+  width: 350px;
+  margin: 0 auto;
+}
+
+.user-card {
+  width: 100%;
+  background-color: #f7f7f7;
+  border-bottom: 1px solid #e8e8e8;
+}
+
+.user-card:hover {
+  box-shadow: inset 3px 0 0 var(--main-color);
+}
+
+.user-card p,
+.user-card h4 {
+  padding-left: 10px;
+  margin: 5px 0;
+}
+
+.user-card h4 {
+  color: var(--main-color);
+}
