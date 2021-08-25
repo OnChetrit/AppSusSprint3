@@ -4,7 +4,8 @@ import { storageService } from './storage.service.js';
 export const userService = {
   query,
   getUserById,
-  setStar
+  setStar,
+  composeMail
 };
 const USER_KEY = 'userDB';
 let gUsers = [];
@@ -91,5 +92,22 @@ function setStar(userId, mailId) {
       user.mails[mailIdx].isStared = !user.mails[mailIdx].isStared;
     })
     console.log(gUsers);
+  storageService.saveToStorage(USER_KEY,gUsers)
+}
+
+function findUserByMail(emailAddress) {
+    const user = gUsers.find(user => {
+      return user.emailAddress === emailAddress
+    })
+    return user
+}
+
+function composeMail(user, mail) {
+  const sendToUser = findUserByMail(mail.sendTo)
+  const from = user.username
+  const subject = mail.subject
+  const body = mail.body
+  const mailToSend = _createMail(from, subject, body)
+  sendToUser.mails.unshift(mailToSend)
   storageService.saveToStorage(USER_KEY,gUsers)
 }

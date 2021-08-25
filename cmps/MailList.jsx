@@ -1,5 +1,16 @@
+import { userService } from "../services/user.service.js";
+import { ComposeMail } from "./mail/ComposeMail.jsx";
+
+
 export class MailList extends React.Component {
-  render() {
+
+
+
+onComposeMail =(mail) => {
+    userService.composeMail(this.props.user, mail)
+}
+
+render() {
     const { mails, user, onIsStared } = this.props;
     return (
       <div className="mail-list">
@@ -19,6 +30,7 @@ export class MailList extends React.Component {
             <p>{mail.body}</p>
           </div>
         ))}
+        <ComposeMail onComposeMail={this.onComposeMail}/>
       </div>
     );
   }
