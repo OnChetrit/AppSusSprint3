@@ -1,8 +1,8 @@
+import { ComposeMail } from '../cmps/mail/ComposeMail.jsx';
 import { MailList } from '../cmps/mail/MailList.jsx';
 import { userService } from '../services/user.service.js';
 
 export class Mail extends React.Component {
-  // ({ currUser, onIsStared })
   state = { user: null };
 
   componentDidMount() {
@@ -23,6 +23,10 @@ export class Mail extends React.Component {
     });
   };
 
+  onComposeMail = (mail) => {
+    userService.composeMail(this.state.user, mail);
+  };
+
   onIsStared = (user, mailId) => {
     userService.setStar(user, mailId);
     this.loadUser();
@@ -31,15 +35,17 @@ export class Mail extends React.Component {
   render() {
     const { user } = this.state;
     return (
-      <div className="mail">
-        <div className="mails-container">
-          {user && (
-            <MailList
-              mails={user.mails}
-              user={user}
-              onIsStared={this.onIsStared}
-            />
-          )}
+      <div className="mail-app">
+        {user && (
+          <MailList
+            mails={user.mails}
+            user={user}
+            onIsStared={this.onIsStared}
+          />
+        )}
+        <div className="">
+          <ComposeMail onComposeMail={this.onComposeMail} />
+          {/* <MailFilter /> */}
         </div>
       </div>
     );

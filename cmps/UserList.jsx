@@ -7,6 +7,7 @@ export function UserList({ users }) {
       {users.map((user) => (
         <UserPreview key={user.id} user={user} />
       ))}
+      <button>Create Acount</button>
     </div>
   );
 }
