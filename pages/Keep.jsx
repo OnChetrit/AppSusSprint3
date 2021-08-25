@@ -1,4 +1,5 @@
 import { AppHeader } from '../cmps/AppHeader.jsx';
+import { KeepFilter } from '../cmps/keep/KeepFilter.jsx';
 import { KeepList } from '../cmps/keep/KeepList.jsx';
 import { userService } from '../services/user.service.js';
 
@@ -9,6 +10,7 @@ export class Keep extends React.Component {
 
   componentDidMount() {
     this.loadUser();
+    console.log(`this.state.user`, this.state.user);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -24,21 +26,21 @@ export class Keep extends React.Component {
       this.setState({ user });
     });
   };
-  
 
   render() {
-
     const { user } = this.state;
     if (!user) return <div className="">Loading...</div>;
+    console.log(`user`, user);
     return (
-      <React.Fragment>
+      <div className="keep-app flex direction-col">
         <header>
           <AppHeader user={user} />
         </header>
-        <div className="keep-app">
-          <KeepList keeps={user.keeps} user={user} />
-        </div>
-      </React.Fragment>
+        <main className="flex">
+          <KeepFilter />
+          {user && <KeepList keeps={user.keeps} user={user} />}
+        </main>
+      </div>
     );
   }
 }
