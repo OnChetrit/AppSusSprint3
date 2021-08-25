@@ -1,4 +1,4 @@
-import { MailList } from '../cmps/MailList.jsx';
+import { MailList } from '../cmps/mail/MailList.jsx';
 import { userService } from '../services/user.service.js';
 
 export class Mail extends React.Component {
