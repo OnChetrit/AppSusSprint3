@@ -71,7 +71,7 @@ function query() {
 
 function queryMails(user, searchBy) {
   if(searchBy) {
-    const mailToShow = user.mails.filter(mail => mail.from.toLowerCase().includes(searchBy) || mail.subject.toLowerCase().includes(searchBy) || mail.body.toLowerCase().includes(searchBy))
+    const mailToShow = user.mails.filter(mail => mail.from.toLowerCase().includes(searchBy) || mail.subject.toLowerCase().includes(searchBy) || mail.body.toLowerCase().includes(searchBy) || mail.fromMail.toLowerCase().includes(searchBy))
     return Promise.resolve(mailToShow)
   }
   return Promise.resolve(user.mails)
@@ -93,21 +93,22 @@ function _createUser(username, emailAddress) {
     id: utilService.makeId(),
     username,
     emailAddress,
-    mails: [_createMail('AdirOn', 'Welcome!', 'welcome to our app'),
-            _createMail('Ron Bochris', 'Heyy', 'Ma kore havrim?'),
-            _createMail('Avishai etah', 'Sprint 4', 'can i be with u guys?'),
-            _createMail('Daniel Radia', 'ahiiiiiii', 'ata lo mavin'),],
+    mails: [_createMail('AdirOn', 'Welcome!', 'welcome to our app', 'adircohen@gmail.com'),
+            _createMail('Ron Bochris', 'Heyy', 'Ma kore havrim?', 'onchetrit@gmail.com'),
+            _createMail('Avishai etah', 'Sprint 4', 'can i be with u guys?', 'adircohen@gmail.com'),
+            _createMail('Daniel Radia', 'ahiiiiiii', 'ata lo mavin', 'adircohen@gmail.com')],
     bgc: utilService.getRandomColor(),
     keeps: gNotes,
   };
 }
 
-function _createMail(from, subject, body) {
+function _createMail(from, subject, body, fromMail) {
   return {
     id: utilService.makeId(),
     from,
     subject,
     body,
+    fromMail,
     isRead: false,
     isStared: false,
     sentAt: Date.now(),
@@ -156,9 +157,10 @@ function findUserByMail(emailAddress) {
 function composeMail(user, mail) {
   const sendToUser = findUserByMail(mail.sendTo);
   const from = user.username;
+  const fromMail = user.emailAddress
   const subject = mail.subject;
   const body = mail.body;
-  const mailToSend = _createMail(from, subject, body);
+  const mailToSend = _createMail(from, subject, body, fromMail);
   sendToUser.mails.unshift(mailToSend);
   storageService.saveToStorage(USER_KEY, gUsers);
 }

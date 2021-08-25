@@ -38,7 +38,6 @@ export class Mail extends React.Component {
       this.setState({ mails });
     });
   };
-
   onComposeMail = (mail) => {
     userService.composeMail(this.state.user, mail);
   };
@@ -47,12 +46,10 @@ export class Mail extends React.Component {
     userService.setStar(user, mailId);
     this.loadUser();
   };
-
   onToggleCompose = () => {
     this.toggleMsg = !this.state.isCompose;
     this.setState({ isCompose: this.toggleMsg });
   };
-
   onRemoveMail = (user, mailId) => {
     userService.removeMail(user, mailId);
     this.loadUser();
