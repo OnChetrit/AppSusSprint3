@@ -9,6 +9,7 @@ export const userService = {
   addUser,
   getEmailTimeSent,
   removeMail,
+  queryMails
 };
 const gMonths = [
   'Jan',
@@ -67,6 +68,15 @@ function query() {
   return Promise.resolve(gUsers);
 }
 
+
+function queryMails(user, searchBy) {
+  if(searchBy) {
+    const mailToShow = user.mails.filter(mail => mail.from.toLowerCase().includes(searchBy) || mail.subject.toLowerCase().includes(searchBy) || mail.body.toLowerCase().includes(searchBy))
+    return Promise.resolve(mailToShow)
+  }
+  return Promise.resolve(user.mails)
+}
+
 function _createUsers() {
   let users = storageService.loadFromStorage(USER_KEY);
   if (!users || !users.length) {
@@ -83,7 +93,10 @@ function _createUser(username, emailAddress) {
     id: utilService.makeId(),
     username,
     emailAddress,
-    mails: [_createMail('AdirOn', 'Welcome!', 'welcome to out app')],
+    mails: [_createMail('AdirOn', 'Welcome!', 'welcome to our app'),
+            _createMail('Ron Bochris', 'Heyy', 'Ma kore havrim?'),
+            _createMail('Avishai etah', 'Sprint 4', 'can i be with u guys?'),
+            _createMail('Daniel Radia', 'ahiiiiiii', 'ata lo mavin'),],
     bgc: utilService.getRandomColor(),
     keeps: gNotes,
   };

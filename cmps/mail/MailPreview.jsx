@@ -15,7 +15,7 @@ export function MailPreview({ mail, user, onIsStared, onRemoveMail }) {
       <h4>{mail.from}</h4>
       <h4>{mail.subject}</h4>
       <p>{bodyToPreview}</p>
-      <h4>{userService.getEmailTimeSent(mail.sentAt)}</h4>
+      <h5>{userService.getEmailTimeSent(mail.sentAt)}</h5>
       <button
         onClick={() => {
           onRemoveMail(user, mail.id);
