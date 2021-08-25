@@ -16,6 +16,7 @@ export class CreatUser extends React.Component {
 
     onAddUser = (ev) => {
         ev.preventDefault()
+        console.log('on');
         userService.addUser(this.state.user)
     }
 
