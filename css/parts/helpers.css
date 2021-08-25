@@ -20,3 +20,8 @@
 .btn {
   cursor: pointer;
 }
+
+.reset-link {
+  text-decoration: none;
+  color: inherit;
+}

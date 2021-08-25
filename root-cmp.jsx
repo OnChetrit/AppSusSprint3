@@ -2,8 +2,10 @@ const Router = ReactRouterDOM.HashRouter;
 const { Route, Switch } = ReactRouterDOM;
 import { AppHeader } from './cmps/AppHeader.jsx';
 import { MainApp } from './pages/MainApp.jsx';
-import { UserMail } from './pages/UserMail.jsx';
-import { Home } from './pages/home.jsx';
+// import { UserMail } from './pages/UserMail.jsx';
+// import { Home } from './pages/home.jsx';
+import { UserMsg } from './cmps/user-msg.jsx';
+import { Mail } from './pages/Mail.jsx';
 
 // Simple React Component
 export function App() {
@@ -15,11 +17,17 @@ export function App() {
 
       <section className="app">
         <Switch>
+          {/* <Route path="/car/edit/:carId?" component={CarEdit} /> */}
+          {/* <Route path="/car/:carId" component={CarDetails} /> */}
           {/* <Route path="/about" component={About} /> */}
+          {/* <Route path="/mail" component={MailApp} /> */}
+          {/* <Route path="/user/:userId/keep" component={Keep} /> */}
+          <Route path="/user/:userId/mail" component={Mail} />
           <Route path="/" component={MainApp} />
           {/* <Route path="/" activeClassName="my-active" component={Home} /> */}
         </Switch>
       </section>
+      <UserMsg />
     </Router>
   );
 }

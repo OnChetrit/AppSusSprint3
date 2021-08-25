@@ -1,11 +1,11 @@
 import { UserList } from '../cmps/UserList.jsx';
 import { userService } from '../services/user.service.js';
-import { UserMail } from './UserMail.jsx';
+import { Mail } from './Mail.jsx';
 
 export class MainApp extends React.Component {
   state = {
     users: null,
-    currUser: null,
+    // currUser: null,
   };
   componentDidMount() {
     this.loadUsers();
@@ -20,15 +20,6 @@ export class MainApp extends React.Component {
       this.setState({ users });
     });
   };
-  onGetUser = (userId) => {
-    userService.getUserById(userId).then((currUser) => {
-      this.setState({ currUser });
-    }); 
-  };
-
-  onIsStared = (user, mailId) => {
-    userService.setStar(user, mailId)
-  }
 
   render() {
     const { users, currUser } = this.state;
@@ -36,7 +27,7 @@ export class MainApp extends React.Component {
     return (
       <section className="mail-app">
         {!currUser && <UserList users={users} onGetUser={this.onGetUser} />}
-        {currUser && <UserMail currUser={currUser} onIsStared={this.onIsStared}/>}
+        {/* {currUser && <Mail currUser={currUser} onIsStared={this.onIsStared} />} */}
       </section>
     );
   }
