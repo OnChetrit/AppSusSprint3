@@ -1,4 +1,5 @@
 import { userService } from '../services/user.service.js';
+import { utilService } from '../services/util.service.js';
 import { UserMail } from './UserMail.jsx';
 
 export class MailApp extends React.Component {
@@ -8,6 +9,10 @@ export class MailApp extends React.Component {
   };
   componentDidMount() {
       this.loadUsers();
+  }
+
+  componentDidMount() {
+    this.loadUsers();
   }
 
   loadUsers = () => {
@@ -33,13 +38,18 @@ export class MailApp extends React.Component {
           {users.map((user) => (
             <div
               key={user.id}
-              className="user-card btn"
+              className="user-card flex al-items-center btn"
               onClick={() => {
                 this.onGetUser(user.id);
               }}
             >
-              <h4>{user.username}</h4>
-              <p>{user.emailAddress}</p>
+              <div className="img-user" style={{ backgroundColor: user.bgc }}>
+                <h3>{user.username[0].toUpperCase()}</h3>
+              </div>
+              <div className="">
+                <h4>{user.username}</h4>
+                <p>{user.emailAddress}</p>
+              </div>
             </div>
           ))}
         </div>

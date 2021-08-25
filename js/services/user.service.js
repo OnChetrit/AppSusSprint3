@@ -38,6 +38,7 @@ function _createUser(username, emailAddress, mails) {
     username,
     emailAddress,
     mails,
+    bgc: utilService.getRandomColor(),
     notes: [],
   };
 }

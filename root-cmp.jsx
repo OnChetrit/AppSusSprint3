@@ -16,10 +16,8 @@ export function App() {
 
       <section className="app">
         <Switch>
-          {/* <h1>My App</h1> */}
           {/* <Route path="/about" component={About} /> */}
-          <Route path="/mail/:user" component={UserMail} /> 
-          <Route path="/mail" component={MailApp} />
+          <Route path="/" component={MailApp} />
           {/* <Route path="/" activeClassName="my-active" component={Home} /> */}
         </Switch>
       </section>
