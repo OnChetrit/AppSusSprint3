@@ -1,9 +1,12 @@
 import { ComposeMail } from '../cmps/mail/ComposeMail.jsx';
+import { MailFilter } from '../cmps/mail/MailFilter.jsx';
 import { MailList } from '../cmps/mail/MailList.jsx';
 import { userService } from '../services/user.service.js';
 
 export class Mail extends React.Component {
-  state = { user: null };
+  state = { user: null, isCompose: false };
+
+  toggleMsg;
 
   componentDidMount() {
     this.loadUser();
@@ -32,8 +35,13 @@ export class Mail extends React.Component {
     this.loadUser();
   };
 
+  onToggleCompose = () => {
+    this.toggleMsg = !this.state.isCompose;
+    this.setState({ isCompose: this.toggleMsg });
+  };
+
   render() {
-    const { user } = this.state;
+    const { user, isCompose } = this.state;
     return (
       <div className="mail-app">
         {user && (
@@ -43,9 +51,9 @@ export class Mail extends React.Component {
             onIsStared={this.onIsStared}
           />
         )}
-        <div className="">
-          <ComposeMail onComposeMail={this.onComposeMail} />
-          {/* <MailFilter /> */}
+        <div className="side-nav">
+          {isCompose && <ComposeMail onComposeMail={this.onComposeMail} />}
+          <MailFilter user={user} onToggleCompose={this.onToggleCompose} />
         </div>
       </div>
     );
