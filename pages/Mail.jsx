@@ -1,3 +1,4 @@
+import { AppHeader } from '../cmps/AppHeader.jsx';
 import { ComposeMail } from '../cmps/mail/ComposeMail.jsx';
 import { MailFilter } from '../cmps/mail/MailFilter.jsx';
 import { MailList } from '../cmps/mail/MailList.jsx';
@@ -42,20 +43,26 @@ export class Mail extends React.Component {
 
   render() {
     const { user, isCompose } = this.state;
+    if (!user) return <div className="">Loading...</div>;
     return (
-      <div className="mail-app">
-        {user && (
-          <MailList
-            mails={user.mails}
-            user={user}
-            onIsStared={this.onIsStared}
-          />
-        )}
-        <div className="side-nav">
-          {isCompose && <ComposeMail onComposeMail={this.onComposeMail} />}
-          <MailFilter user={user} onToggleCompose={this.onToggleCompose} />
+      <React.Fragment>
+        <header>
+          <AppHeader user={user} />
+        </header>
+        <div className="mail-app">
+          {user && (
+            <MailList
+              mails={user.mails}
+              user={user}
+              onIsStared={this.onIsStared}
+            />
+          )}
+          <div className="side-nav">
+            {isCompose && <ComposeMail onComposeMail={this.onComposeMail} />}
+            <MailFilter user={user} onToggleCompose={this.onToggleCompose} />
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     );
   }
 }

@@ -21,6 +21,7 @@ export class MainApp extends React.Component {
     if (!users) return <div>Loading...</div>;
     return (
       <section className="mail-app">
+        <header>Logo</header>
         <UserList users={users} onGetUser={this.onGetUser} />
       </section>
     );
