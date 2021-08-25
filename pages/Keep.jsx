@@ -10,7 +10,6 @@ export class Keep extends React.Component {
 
   componentDidMount() {
     this.loadUser();
-    console.log(`this.state.user`, this.state.user);
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -30,7 +29,6 @@ export class Keep extends React.Component {
   render() {
     const { user } = this.state;
     if (!user) return <div className="">Loading...</div>;
-    console.log(`user`, user);
     return (
       <div className="keep-app flex direction-col">
         <header>
