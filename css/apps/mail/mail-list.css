@@ -1,0 +1,30 @@
+
+
+.mail-card {
+    border: 1px solid #eceff1;
+    align-items: center;
+}
+
+.star, .mail-card h4{
+    margin-left: 20px;
+}
+.mail-card p {
+    margin-left: 50px;
+
+}
+.star {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    background-color: rgba(161, 158, 158, 0);
+    border-radius: 50%;
+}
+.star:hover {
+    background-color: rgba(161, 158, 158, 0.699);
+}
+
+.gold {
+    color: gold;
+}

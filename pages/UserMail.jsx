@@ -1,14 +1,11 @@
-export function UserMail({ currUser }) {
+import { MailList } from "../cmps/MailList.jsx";
+
+export function UserMail({ currUser , onIsStared}) {
   const mails = currUser.mails;
   return (
     <div className="user-mail">
       <div className="mails-container">
-        {mails.map((mail) => (
-          <div key={mail.id} className="mail-card">
-            <h1>{mail.subject}</h1>
-            <h1>{mail.body}</h1>
-          </div>
-        ))}
+        <MailList mails={mails} currUser={currUser} onIsStared={onIsStared}/>
       </div>
     </div>
   );

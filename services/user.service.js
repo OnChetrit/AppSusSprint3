@@ -4,6 +4,7 @@ import { storageService } from './storage.service.js';
 export const userService = {
   query,
   getUserById,
+  setStar
 };
 const USER_KEY = 'userDB';
 let gUsers = [];
@@ -19,7 +20,10 @@ function _createUsers() {
     users = [];
     users.push(
       _createUser('On Chetrit', 'onchetrit@gmail.com', [
-        _createMail('Welcome', 'Enjoy from our Animals'),
+        _createMail('Our Mail','Welcome', 'Enjoy from our Animals'),
+        _createMail('Adir Cohen','Shalom', 'hey how are you'),
+        _createMail('Ebay','Hey!', 'You want buy it?'),
+        _createMail('Adir Cohen','AHIII', 'Holeh lihyot tirof'),
       ])
     );
     users.push(
@@ -43,12 +47,14 @@ function _createUser(username, emailAddress, mails) {
   };
 }
 
-function _createMail(subject, body) {
+function _createMail(from,subject, body) {
   return {
     id: utilService.makeId(),
+    from,
     subject,
     body,
     isRead: false,
+    isStared:false,
     sentAt: Date.now(),
   };
 }
@@ -69,4 +75,20 @@ function getUserById(userId) {
     return userId === user.id;
   });
   return Promise.resolve(user);
+}
+function getMailIdxById(userMails,mailId) {
+  const mailIdx = userMails.findIndex((mail) => {
+    return mailId === mail.id;
+  });
+  return mailIdx
+}
+
+function setStar(userId, mailId) {
+  console.log('mailId',mailId);
+  getUserById(userId)
+    .then(user => {
+      const mailIdx = getMailIdxById(user.mails, mailId)
+      user.mails[mailIdx].isStared = true;
+    })
+  storageService.saveToStorage(USER_KEY,gUsers)
 }

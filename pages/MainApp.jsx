@@ -23,8 +23,12 @@ export class MainApp extends React.Component {
   onGetUser = (userId) => {
     userService.getUserById(userId).then((currUser) => {
       this.setState({ currUser });
-    });
+    }); 
   };
+
+  onIsStared = (user, mailId) => {
+    userService.setStar(user, mailId)
+  }
 
   render() {
     const { users, currUser } = this.state;
@@ -32,7 +36,7 @@ export class MainApp extends React.Component {
     return (
       <section className="mail-app">
         {!currUser && <UserList users={users} onGetUser={this.onGetUser} />}
-        {currUser && <UserMail currUser={currUser} />}
+        {currUser && <UserMail currUser={currUser} onIsStared={this.onIsStared}/>}
       </section>
     );
   }
