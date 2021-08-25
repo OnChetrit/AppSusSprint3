@@ -16,7 +16,7 @@
 .flex.direction-col {
   flex-direction: column;
 }
-.flex.direction-col {
+.flex.wrap {
   flex-wrap: wrap;
 }
 

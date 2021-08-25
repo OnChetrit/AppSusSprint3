@@ -1,3 +1,27 @@
 .compose-mail textarea {
   resize: none;
 }
+.compose-btn {
+  width: 144px;
+  height: 48px;
+  font-size: .875rem;
+  align-items: center;
+  background-color: #fff;
+  background-image: none;
+  border-radius: 24px;
+  color: #3c4043;
+  font-weight: 500;
+  padding: 0 0 0 24px;
+  text-transform: none;
+  box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
+  margin-left: 10px;
+  background-image: url(https://www.gstatic.com/images/icons/material/colored_icons/1x/create_32dp.png);
+  background-position:10%;
+  background-repeat: no-repeat;
+  background-size: 32px;
+  content: '';
+  display: block;
+  height: 48px;
+  min-width: 56px;
+  border: none;
+}

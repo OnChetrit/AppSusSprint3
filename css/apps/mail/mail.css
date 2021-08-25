@@ -13,3 +13,29 @@
 .mail-app .side-nav {
   flex-basis: 200px;
 }
+.side-nav {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  align-items: center;
+}
+
+.filter:not:first-child {
+  margin-top:10px;
+}
+.filter {
+  border-bottom: 1px solid gray;
+  padding: 10px;
+}
+.filter:active {
+  background-color: #fce8e6;
+  color: #d93025;
+  font-weight: 600;
+}
+
+.filters-container {
+  border:1px solid gray;
+  width: 150px;
+  height: 300px;
+  margin-top: 10px;
+}
