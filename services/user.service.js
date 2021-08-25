@@ -88,7 +88,8 @@ function setStar(userId, mailId) {
   getUserById(userId)
     .then(user => {
       const mailIdx = getMailIdxById(user.mails, mailId)
-      user.mails[mailIdx].isStared = true;
+      user.mails[mailIdx].isStared = !user.mails[mailIdx].isStared;
     })
+    console.log(gUsers);
   storageService.saveToStorage(USER_KEY,gUsers)
 }

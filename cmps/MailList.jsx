@@ -6,7 +6,7 @@ export class MailList extends React.Component {
             <div className="mail-list">           
                 {mails.map((mail) => (
                   <div key={mail.id} className="mail-card flex">
-                    <i className={mail.isStared ? "fa fa-star star gold" : "fa fa-star-o star"}aria-hidden="true" onClick={() => {
+                    <i className={mail.isStared ? "fa fa-star star gold" : "fa fa-star-o star"} aria-hidden="true" onClick={() => {
                         onIsStared(currUser.id, mail.id)
                     }}></i>
                     <h4>{mail.from}</h4>
