@@ -22,7 +22,7 @@ export class MailSearch extends React.Component {
           name="search"
           id="search"
           type="text"
-          placeholder="username"
+          placeholder="Search in mail"
           onChange={this.handleChange}
         />
       </form>

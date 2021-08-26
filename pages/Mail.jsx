@@ -85,6 +85,11 @@ export class Mail extends React.Component {
     this.setState({ isMailOpen: this.toggleMail });
   };
 
+  onSetRead = (mail) => {
+    userService.setRead(mail).then(() => {
+      this.loadMails(this.state.user);
+    });
+  };
   render() {
     const { user, isCompose, mails, isMailOpen, onOpenMail } = this.state;
     if (!user) return <div className="">Loading...</div>;
@@ -109,6 +114,7 @@ export class Mail extends React.Component {
               onSetArchive={this.onSetArchive}
               onRestoreMail={this.onRestoreMail}
               onOpenMail={this.onOpenMail}
+              onSetRead={this.onSetRead}
             />
           )}
           {user && isMailOpen && (

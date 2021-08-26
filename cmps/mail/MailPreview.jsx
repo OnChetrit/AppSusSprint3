@@ -12,6 +12,7 @@ export function MailPreview({
   onSetArchive,
   onRestoreMail,
   onOpenMail,
+  onSetRead,
 }) {
   const bodyToPreview =
     mail.body.length > 100 ? mail.body.substr(0, 100) + '...' : mail.body;
@@ -23,6 +24,9 @@ export function MailPreview({
         onOpenMail();
       }}
     >
+      {/* <div key={mail.id} className={`mail-card flex btn space-between ${mail.isRead ? 'read' : ''}`} onClick={() => {
+      onSetRead(mail)
+    }}> */}
       <div className="flex al-items-center">
         <i
           className={
