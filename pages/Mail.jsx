@@ -103,6 +103,7 @@ export class Mail extends React.Component {
   }
 
   onForwardMail = (forwardMail) => {
+    console.log(forwardMail);
     this.onToggleCompose()
     this.setState({forwardMail})
   }
