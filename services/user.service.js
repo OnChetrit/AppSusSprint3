@@ -13,7 +13,9 @@ export const userService = {
   removeMail,
   queryMails,
   composeMail,
-  restoreMail
+  restoreMail,
+  setRead
+
 };
 
 const gMonths = [
@@ -93,6 +95,10 @@ function queryMails(user, searchBy, filterBy) {
     }
     if (filterBy === 'sent') {
       return Promise.resolve(user.sentEmails);
+    }
+    if (filterBy === 'read' || filterBy === 'unread' )  {
+      const mailsAfterFilter = filterByRead(filterBy, user.mails);
+      return Promise.resolve(mailsAfterFilter);
     }
   }
   if (searchBy) {
@@ -272,6 +278,16 @@ function filterByStars(mails) {
   return mailsToDisplay;
 }
 
+function filterByRead(filterBy, mails) {
+  const mailsToDisplay = filterBy === 'read' ?
+  mails.filter((mail) => mail.isRead === true) :
+  mails.filter((mail) => mail.isRead === false);
+  console.log(mailsToDisplay);
+  return mailsToDisplay
+
+
+}
+
 function setArchive(user, mail) {
   const mails = user.mails;
   const mailId = mail.id;
@@ -287,4 +303,11 @@ function setArchive(user, mail) {
     mail.isArchive = true;
   }
   storageService.saveToStorage(USER_KEY, gUsers);
+}
+
+function setRead(mail) {
+  mail.isRead = true;
+  storageService.saveToStorage(USER_KEY, gUsers);
+  return Promise.resolve()
+
 }

@@ -76,6 +76,12 @@ export class Mail extends React.Component {
     userService.setArchive(user, mail);
     this.loadMails(user, this.state.searchBy, this.state.filterBy);
   };
+
+  onSetRead = (mail) => {
+    userService.setRead(mail).then(() => {
+      this.loadMails(this.state.user)
+    })
+  }
   render() {
     const { user, isCompose, mails } = this.state;
     if (!user) return <div className="">Loading...</div>;
@@ -99,6 +105,7 @@ export class Mail extends React.Component {
               onRemoveMail={this.onRemoveMail}
               onSetArchive={this.onSetArchive}
               onRestoreMail={this.onRestoreMail}
+              onSetRead={this.onSetRead}
             />
           )}
           {isCompose && (

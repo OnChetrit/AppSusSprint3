@@ -8,7 +8,9 @@ export function MailList({
   onRemoveMail,
   onSetSearch,
   onSetArchive,
-  onRestoreMail
+  onRestoreMail,
+  onSetRead
+
 }) {
   if (!mails) return <div>There's No Mails</div>;
   return (
@@ -24,6 +26,7 @@ export function MailList({
           onRemoveMail={onRemoveMail}
           onSetArchive = {onSetArchive}
           onRestoreMail={onRestoreMail}
+          onSetRead={onSetRead}
         />
       ))}
     </div>
