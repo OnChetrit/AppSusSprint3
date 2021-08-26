@@ -14,21 +14,18 @@ export class Mail extends React.Component {
     mails: null,
     filterBy: null,
     isMailOpen: false,
+    mail: null,
   };
-
-  toggleMail;
   toggleMsg;
 
   componentDidMount() {
     this.loadUser();
   }
-
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.match.params.userId !== this.props.match.params.userId) {
       this.loadUser();
     }
   }
-
   loadUser = () => {
     const id = this.props.match.params.userId;
     userService.getUserById(id).then((user) => {
@@ -46,7 +43,6 @@ export class Mail extends React.Component {
   onComposeMail = (mail) => {
     userService.composeMail(this.state.user, mail);
   };
-
   onIsStared = (user, mailId) => {
     userService.setStar(user, mailId);
     this.loadUser();
@@ -59,12 +55,10 @@ export class Mail extends React.Component {
     userService.removeMail(mailId, mails, user);
     this.loadUser();
   };
-
   onRestoreMail = (mailId, mails, user) => {
     userService.restoreMail(mailId, mails, user);
     this.loadUser();
   };
-
   onSetSearch = (searchBy) => {
     this.setState({ searchBy }, () =>
       this.loadMails(this.state.user, searchBy, this.filterBy)
@@ -80,18 +74,19 @@ export class Mail extends React.Component {
     this.loadMails(user, this.state.searchBy, this.state.filterBy);
   };
 
-  onOpenMail = () => {
-    this.toggleMail = !this.state.isMailOpen;
-    this.setState({ isMailOpen: this.toggleMail });
+  onOpenMail = (mail) => {
+    this.setState({mail})
   };
 
-  onSetRead = (mail) => {
+  onSetRead = (ev,mail) => {
+    console.log(ev);
+    ev.stopImmediatePropagation();
     userService.setRead(mail).then(() => {
       this.loadMails(this.state.user);
     });
   };
   render() {
-    const { user, isCompose, mails, isMailOpen, onOpenMail } = this.state;
+    const { user, isCompose, mails, isMailOpen, onOpenMail ,mail} = this.state;
     if (!user) return <div className="">Loading...</div>;
     return (
       <div className="mail-app flex direction-col">
@@ -104,7 +99,7 @@ export class Mail extends React.Component {
             onSetFilterBy={this.onSetFilterBy}
             onToggleCompose={this.onToggleCompose}
           />
-          {user && !isMailOpen && (
+          {user && !mail&& (
             <MailList
               onSetSearch={this.onSetSearch}
               mails={mails}
@@ -117,10 +112,11 @@ export class Mail extends React.Component {
               onSetRead={this.onSetRead}
             />
           )}
-          {user && isMailOpen && (
+          {mail && (
             <MailDetails
               onSetSearch={this.onSetSearch}
               mails={mails}
+              mail={mail}
               user={user}
               onIsStared={this.onIsStared}
               onRemoveMail={this.onRemoveMail}

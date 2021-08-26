@@ -1,7 +1,4 @@
-const { Link } = ReactRouterDOM;
-
 import { mailService } from '../../services/mail.service.js';
-import { userService } from '../../services/user.service.js';
 
 export function MailPreview({
   mail,
@@ -20,14 +17,10 @@ export function MailPreview({
     <div
       key={mail.id}
       className="mail-card flex btn space-between"
-      onClick={() => {
-        onOpenMail();
-      }}
     >
-      {/* <div key={mail.id} className={`mail-card flex btn space-between ${mail.isRead ? 'read' : ''}`} onClick={() => {
-      onSetRead(mail)
-    }}> */}
-      <div className="flex al-items-center">
+      <div className="flex al-items-center" onClick={() => {
+        onOpenMail(mail);
+      }}>
         <i
           className={
             mail.isStared ? 'fa fa-star star gold' : 'fa fa-star-o star'
@@ -66,6 +59,14 @@ export function MailPreview({
           }}
         >
           R
+        </button>
+        <button
+          className="btn read-mail"
+          onClick={() => {
+          onSetRead(event,mail)
+          }}
+        >
+          Read
         </button>
       </div>
     </div>
