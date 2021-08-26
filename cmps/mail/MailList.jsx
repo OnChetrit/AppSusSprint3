@@ -7,6 +7,7 @@ export function MailList({
   onIsStared,
   onRemoveMail,
   onSetSearch,
+  onSetSpam
 }) {
   if (!mails) return <div>There's No Mails</div>;
   return (
@@ -19,6 +20,7 @@ export function MailList({
           user={user}
           onIsStared={onIsStared}
           onRemoveMail={onRemoveMail}
+          onSetSpam = {onSetSpam}
         />
       ))}
     </div>

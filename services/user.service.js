@@ -4,14 +4,17 @@ import { storageService } from './storage.service.js';
 export const userService = {
   query,
   getUserById,
-  setStar,
-  composeMail,
   addUser,
+  findUserByMail,
+  queryMails,
+  setStar,
+  setSpam,
   getEmailTimeSent,
   removeMail,
   queryMails,
-  addKeep,
+  composeMail,
 };
+
 const gMonths = [
   'Jan',
   'Feb',
@@ -26,7 +29,6 @@ const gMonths = [
   'Nov',
   'Dec',
 ];
-
 const gNotes = [
   {
     id: utilService.makeId(),
@@ -71,7 +73,23 @@ function query() {
   return Promise.resolve(gUsers);
 }
 
-function queryMails(user, searchBy) {
+function queryMails(user, searchBy, filterBy) {
+  if (filterBy) {
+    if (filterBy === 'stars') {
+      const mailsAfterFilter = filterByStars(user.mails);
+      return Promise.resolve(mailsAfterFilter);
+    }
+    if (filterBy === 'spam') {
+      const mailsAfterFilter = user.spam;
+      return Promise.resolve(mailsAfterFilter);
+    }
+    if (filterBy === 'inbox') {
+      return Promise.resolve(user.mails);
+    }
+    if (filterBy === 'sent') {
+      return Promise.resolve(user.sentEmails);
+    }
+  }
   if (searchBy) {
     const mailToShow = user.mails.filter(
       (mail) =>
@@ -122,6 +140,8 @@ function _createUser(username, emailAddress) {
         'adircohen@gmail.com'
       ),
     ],
+    spam: [],
+    sentEmails: [],
     bgc: utilService.getRandomColor(),
     keeps: gNotes,
   };
@@ -136,6 +156,7 @@ function _createMail(from, subject, body, fromMail) {
     fromMail,
     isRead: false,
     isStared: false,
+    isSpam: false,
     sentAt: Date.now(),
   };
 }
@@ -176,6 +197,7 @@ function composeMail(user, mail) {
   const body = mail.body;
   const mailToSend = _createMail(from, subject, body, fromMail);
   sendToUser.mails.unshift(mailToSend);
+  user.sentEmails.unshift(mailToSend);
   storageService.saveToStorage(USER_KEY, gUsers);
 }
 
@@ -204,5 +226,28 @@ function removeMail(user, mailId) {
   const mailIdx = getMailIdxById(user.mails, mailId);
   const mails = user.mails;
   mails.splice(mailIdx, 1);
+  storageService.saveToStorage(USER_KEY, gUsers);
+}
+
+function filterByStars(mails) {
+  const mailsToDisplay = mails.filter((mail) => mail.isStared === true);
+  console.log('mails', mailsToDisplay);
+  return mailsToDisplay;
+}
+
+function setSpam(user, mail) {
+  const mails = user.mails;
+  const mailId = mail.id;
+  const mailIdx = getMailIdxById(mails, mailId);
+  if (mail.isSpam) {
+    const spamMailIdx = getMailIdxById(user.spam, mailId);
+    mails.unshift(user.spam[spamMailIdx]);
+    user.spam.splice(spamMailIdx, 1);
+    mail.isSpam = false;
+  } else {
+    user.spam.push(mails[mailIdx]);
+    mails.splice(mailIdx, 1);
+    mail.isSpam = true;
+  }
   storageService.saveToStorage(USER_KEY, gUsers);
 }
