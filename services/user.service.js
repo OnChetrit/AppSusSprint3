@@ -198,13 +198,14 @@ function addUser(userToAdd) {
 }
 
 function getEmailTimeSent(timestamp) {
+  const nowTime = Date.now();
+  const pathDay = new Date(timestamp - nowTime).getHours()
   const date = new Date(timestamp);
   const month = gMonths[date.getMonth()];
   const day = date.getUTCDate();
   const hours = date.getHours();
   const minutes = '0' + date.getMinutes();
-  const timeSent =
-    hours > 24 ? `${day} ${month}` : `${hours}:${minutes.substr(-2)}`;
+  const timeSent = (hours+pathDay) > 24 ? `${day} ${month}` : `${hours}:${minutes.substr(-2)}`;
   return timeSent;
 }
 
