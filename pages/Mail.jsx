@@ -3,6 +3,7 @@ import { ComposeMail } from '../cmps/mail/ComposeMail.jsx';
 import { MailDetails } from '../cmps/mail/MailDetails.jsx';
 import { MailFilter } from '../cmps/mail/MailFilter.jsx';
 import { MailList } from '../cmps/mail/MailList.jsx';
+import { eventBusService } from '../services/event-bus-service.js';
 // import { mailService } from '../services/mail.service.js';
 import { userService } from '../services/user.service.js';
 
@@ -42,6 +43,7 @@ export class Mail extends React.Component {
   };
   onComposeMail = (mail) => {
     userService.composeMail(this.state.user, mail);
+    eventBusService.emit('user-msg', { txt: 'Mail Sent!', type: 'success' });
   };
   onIsStared = (user, mailId) => {
     userService.setStar(user, mailId);
@@ -53,6 +55,7 @@ export class Mail extends React.Component {
   };
   onRemoveMail = (mailId, mails, user) => {
     userService.removeMail(mailId, mails, user);
+    eventBusService.emit('user-msg', { txt: 'Mail deleted!', type: 'danger' });
     this.loadUser();
   };
   onRestoreMail = (mailId, mails, user) => {
@@ -75,10 +78,10 @@ export class Mail extends React.Component {
   };
 
   onOpenMail = (mail) => {
-    this.setState({mail})
+    this.setState({ mail });
   };
 
-  onSetRead = (ev,mail) => {
+  onSetRead = (ev, mail) => {
     console.log(ev);
     ev.stopImmediatePropagation();
     userService.setRead(mail).then(() => {
@@ -86,7 +89,7 @@ export class Mail extends React.Component {
     });
   };
   render() {
-    const { user, isCompose, mails, isMailOpen, onOpenMail ,mail} = this.state;
+    const { user, isCompose, mails, isMailOpen, onOpenMail, mail } = this.state;
     if (!user) return <div className="">Loading...</div>;
     return (
       <div className="mail-app flex direction-col">
@@ -99,7 +102,7 @@ export class Mail extends React.Component {
             onSetFilterBy={this.onSetFilterBy}
             onToggleCompose={this.onToggleCompose}
           />
-          {user && !mail&& (
+          {user && !mail && (
             <MailList
               onSetSearch={this.onSetSearch}
               mails={mails}

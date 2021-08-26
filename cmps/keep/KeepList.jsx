@@ -6,7 +6,7 @@ export function KeepList({ keeps, onAdd }) {
   return (
     <div className="keep-container">
       <KeepAdd onAdd={onAdd} />
-      <div className="keep-list flex">
+      <div className="keep-list">
         {keeps.map((keep) => (
           <KeepPreview key={keep.id} keep={keep} />
         ))}

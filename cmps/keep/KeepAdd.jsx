@@ -4,66 +4,82 @@ import { TxtInput } from './dynamicInputs/TxtInput.jsx';
 
 export class KeepAdd extends React.Component {
   state = {
-    keep: {
-      inputType: 'txt',
-      info: { title: '', txt: '' },
-      style: { color: '#ffffff' },
-    },
+    type: 'txt',
+    title: '',
+    txt: '',
+    // keep: {
+    //   type: 'txt',
+    //   info: { title: '', txt: '' },
+    //   style: { color: '#ffffff' },
+    // },
     isExpanded: false,
   };
+
+  // inputRef = React.createRef();
+
+  // componentDidMount() {
+  //   this.inputRef.current.focus();
+  // }
 
   onExpand = (isExpanded) => {
     this.setState({ isExpanded });
   };
 
-  onChangeInputType = (value) => {
-    console.log(`value`, value);
-    this.setState((prevState) => ({
-      keep: { ...prevState.keep, inputType: value },
-    }));
+  onChangeInputType = (val) => {
+    console.log(`value`, val);
+    this.setState({ type: val });
     this.onExpand(true);
   };
 
-  handleChange = ({ target }) => {
-    const field = target.name;
-    const value = target.value;
-    console.log(`value, field`, value, field);
-    this.setState((prevState) => ({
-      keep: {
-        ...prevState.keep,
-        info: { ...prevState.keep.info, [field]: value },
-      },
-    }));
-  };
-
-  onAddKeep = () => {
-    const { keep } = this.state;
-    this.props.onAdd(keep);
+  onAddKeep = (ev) => {
+    ev.preventDefault();
+    const { type, title, txt } = this.state;
+    if (!type || !txt) return;
+    console.log(`type,val`, type, title, txt);
+    this.props.onAdd(type, title, txt);
     this.setState({
-      keep: {
-        inputType: 'txt',
-        info: { title: '', txt: '' },
-        style: { color: '#ffffff' },
-      },
+      type: 'txt',
+      title: '',
+      txt: '',
       isExpanded: false,
     });
   };
 
+  handleChange = ({ target }) => {
+    const field = target.name;
+    const val = target.value;
+    console.log(`val, field`, val, field);
+    this.setState({ [field]: val });
+  };
+
+  // handleChange = ({ target }) => {
+  //   console.log(`from KeepAdd target`, target);
+  //   const field = target.name;
+  //   const value = target.value;
+  //   console.log(`value, field`, value, field);
+  //   this.setState((prevState) => ({
+  //     keep: {
+  //       ...prevState.keep,
+  //       info: { ...prevState.info, [field]: value },
+  //     },
+  //   }));
+  // };
+
   render() {
-    const { isExpanded, keep } = this.state;
-    const { inputType } = keep;
-    const DynamicInputs = (props) => {
-      switch (props.type) {
-        case 'txt':
-          return <TxtInput {...props} />;
-        case 'img':
-          return <ImgInput {...props} />;
-        case 'todo':
-          return <TodoInput {...props} />;
-        default:
-          break;
-      }
-    };
+    const { isExpanded } = this.state;
+    // const { type } = keep;
+    // const DynamicInputs = (props) => {
+    //   switch (this.state.keep.type) {
+    //     case 'txt':
+    //       return <TxtInput {...props} />;
+    //     case 'img':
+    //       return <ImgInput {...props} />;
+    //     case 'todo':
+    //       return <TodoInput {...props} />;
+    //     default:
+    //       break;
+    //   }
+    // };
     return (
       <div className="add-keep">
         <button className="txt" onClick={() => this.onChangeInputType('txt')}>
@@ -76,15 +92,45 @@ export class KeepAdd extends React.Component {
           Add Image
         </button>
         {isExpanded && (
-          <DynamicInputs
-            type={inputType}
-            handleChange={this.handleChange}
-            onExpand={this.onExpand}
-            onAddKeep={this.onAddKeep}
-            keep={keep}
-          />
+          <div className="add-todo">
+            <form onSubmit={this.onAddKeep}>
+              <label htmlFor="title"></label>
+              <input
+                // ref={this.inputRef}
+                type="text"
+                name="title"
+                id="title"
+                placeholder="Title"
+                value={this.state.title}
+                onChange={this.handleChange}
+              />
+              <label htmlFor="txt"></label>
+              <input
+                type="text"
+                name="txt"
+                id="txt"
+                placeholder="txt"
+                value={this.state.txt}
+                onChange={this.handleChange}
+              />
+              <button className="add" onClick={() => this.onAddKeep(event)}>
+                Add
+              </button>
+              <button className="close" onClick={() => this.onExpand()}>
+                close
+              </button>
+            </form>
+          </div>
         )}
       </div>
     );
   }
 }
+
+// <DynamicInputs
+//   type={type}
+//   handleChange={this.handleChange}
+//   onExpand={this.onExpand}
+//   onAddKeep={this.onAddKeep}
+//   keep={keep}
+// />
