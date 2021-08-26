@@ -1,8 +1,9 @@
 import { AppHeader } from '../cmps/AppHeader.jsx';
 import { ComposeMail } from '../cmps/mail/ComposeMail.jsx';
+import { MailDetails } from '../cmps/mail/MailDetails.jsx';
 import { MailFilter } from '../cmps/mail/MailFilter.jsx';
 import { MailList } from '../cmps/mail/MailList.jsx';
-import { mailService } from '../services/mail.service.js';
+// import { mailService } from '../services/mail.service.js';
 import { userService } from '../services/user.service.js';
 
 export class Mail extends React.Component {
@@ -12,8 +13,10 @@ export class Mail extends React.Component {
     searchBy: null,
     mails: null,
     filterBy: null,
+    isMailOpen: false,
   };
 
+  toggleMail;
   toggleMsg;
 
   componentDidMount() {
@@ -76,8 +79,14 @@ export class Mail extends React.Component {
     userService.setArchive(user, mail);
     this.loadMails(user, this.state.searchBy, this.state.filterBy);
   };
+
+  onOpenMail = () => {
+    this.toggleMail = !this.state.isMailOpen;
+    this.setState({ isMailOpen: this.toggleMail });
+  };
+
   render() {
-    const { user, isCompose, mails } = this.state;
+    const { user, isCompose, mails, isMailOpen, onOpenMail } = this.state;
     if (!user) return <div className="">Loading...</div>;
     return (
       <div className="mail-app flex direction-col">
@@ -90,8 +99,20 @@ export class Mail extends React.Component {
             onSetFilterBy={this.onSetFilterBy}
             onToggleCompose={this.onToggleCompose}
           />
-          {user && (
+          {user && !isMailOpen && (
             <MailList
+              onSetSearch={this.onSetSearch}
+              mails={mails}
+              user={user}
+              onIsStared={this.onIsStared}
+              onRemoveMail={this.onRemoveMail}
+              onSetArchive={this.onSetArchive}
+              onRestoreMail={this.onRestoreMail}
+              onOpenMail={this.onOpenMail}
+            />
+          )}
+          {user && isMailOpen && (
+            <MailDetails
               onSetSearch={this.onSetSearch}
               mails={mails}
               user={user}
@@ -101,6 +122,7 @@ export class Mail extends React.Component {
               onRestoreMail={this.onRestoreMail}
             />
           )}
+
           {isCompose && (
             <ComposeMail
               onComposeMail={this.onComposeMail}

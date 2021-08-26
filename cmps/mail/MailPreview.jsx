@@ -1,3 +1,5 @@
+const { Link } = ReactRouterDOM;
+
 import { mailService } from '../../services/mail.service.js';
 import { userService } from '../../services/user.service.js';
 
@@ -9,11 +11,18 @@ export function MailPreview({
   onRemoveMail,
   onSetArchive,
   onRestoreMail,
+  onOpenMail,
 }) {
   const bodyToPreview =
     mail.body.length > 100 ? mail.body.substr(0, 100) + '...' : mail.body;
   return (
-    <div key={mail.id} className="mail-card flex btn space-between">
+    <div
+      key={mail.id}
+      className="mail-card flex btn space-between"
+      onClick={() => {
+        onOpenMail();
+      }}
+    >
       <div className="flex al-items-center">
         <i
           className={

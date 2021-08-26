@@ -5,6 +5,7 @@ import { UserMsg } from './cmps/user-msg.jsx';
 import { Mail } from './pages/Mail.jsx';
 import { Keep } from './pages/Keep.jsx';
 import { CreatUser } from './pages/CreateUser.jsx';
+import { MailDetails } from './cmps/mail/MailDetails.jsx';
 
 // Simple React Component
 export function App() {
