@@ -2,7 +2,9 @@
 @import './parts/fonts.css';
 @import './parts/helpers.css';
 
-@import './apps/keep/note-preview.css';
+@import './apps/keep/keep.css';
+@import './apps/keep/keep-list.css';
+@import './apps/keep/keep-preview.css';
 
 @import './apps/mail/mail.css';
 @import './apps/mail/mail-list.css';

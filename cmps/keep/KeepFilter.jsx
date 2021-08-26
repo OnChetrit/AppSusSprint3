@@ -4,9 +4,10 @@ export class KeepFilter extends React.Component {
   render() {
     const { onToggleCompose } = this.props;
     return (
-      <div className="">
-        <div className="filter">Inbox</div>
-        <div className="filter">Stars</div>
+      <div className="side-nav">
+        <div className="filter">Text</div>
+        <div className="filter">Images</div>
+        <div className="filter">To Do Lists</div>
       </div>
     );
   }

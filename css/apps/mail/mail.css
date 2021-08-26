@@ -6,11 +6,12 @@
   height: 100%;
 }
 
+.keep-list,
 .mail-app .mail-list {
   flex: 1;
 }
 
-.mail-app .side-nav {
+.side-nav {
   flex-basis: 200px;
 }
 .side-nav {
@@ -21,7 +22,7 @@
 }
 
 .filter:not:first-child {
-  margin-top:10px;
+  margin-top: 10px;
 }
 .filter {
   border-bottom: 1px solid gray;
@@ -34,7 +35,7 @@
 }
 
 .filters-container {
-  border:1px solid gray;
+  border: 1px solid gray;
   width: 150px;
   height: 300px;
   margin-top: 10px;

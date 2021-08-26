@@ -1,8 +1,9 @@
-export function KeepTxt({keep}) {
-    console.log(keep);
-    return (
-        <div className="keep-txt">
-            <h1>{keep.info.txt}</h1>
-        </div>
-    )
+export function KeepTxt({ keep }) {
+  console.log(keep);
+  return (
+    <div className="keep">
+      <h4>{keep.info.title}</h4>
+      <p>{keep.info.txt}</p>
+    </div>
+  );
 }

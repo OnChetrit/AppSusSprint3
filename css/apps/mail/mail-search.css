@@ -6,4 +6,17 @@
   height: 50px;
   min-width: 500px;
   font-size: 1.1rem;
+  padding-inline-start: 50px;
+}
+
+.mail-search {
+  position: relative;
+}
+
+.mail-search img {
+  padding: 3px;
+  width: 28px;
+  position: absolute;
+  top: 10px;
+  left: 10px;
 }

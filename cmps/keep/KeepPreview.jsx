@@ -14,10 +14,5 @@ export function KeepPreview({ keep }) {
         return <KeepImg {...props} />;
     }
   };
-  return (
-    <div className={keep.type}>
-      <h3>keep</h3>
-      {<DynamicKeep keep={keep} />}
-    </div>
-  );
+  return <DynamicKeep keep={keep} />;
 }

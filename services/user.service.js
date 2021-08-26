@@ -9,7 +9,7 @@ export const userService = {
   addUser,
   getEmailTimeSent,
   removeMail,
-  queryMails
+  queryMails,
 };
 const gMonths = [
   'Jan',
@@ -32,7 +32,8 @@ const gNotes = [
     type: 'txt',
     isPinned: true,
     info: {
-      txt: 'Fullstack Me Baby!',
+      title: 'Title of text',
+      txt: 'txt txt txt txt!',
     },
   },
   {
@@ -40,8 +41,9 @@ const gNotes = [
     type: 'img',
     isPinned: false,
     info: {
+      title: 'Image title',
+      txt: 'image description',
       url: 'https://picsum.photos/200/200',
-      title: 'Bobi and Me',
     },
     style: {
       backgroundColor: '#00d',
@@ -52,10 +54,10 @@ const gNotes = [
     type: 'todo',
     isPinned: false,
     info: {
-      label: 'Get my stuff together',
+      title: 'To Do List',
       todos: [
-        { txt: 'Driving liscence', doneAt: null },
-        { txt: 'Coding power', doneAt: 187111111 },
+        { txt: ' - Driving liscence', doneAt: null },
+        { txt: ' - Coding power', doneAt: 187111111 },
       ],
     },
   },
@@ -68,13 +70,18 @@ function query() {
   return Promise.resolve(gUsers);
 }
 
-
 function queryMails(user, searchBy) {
-  if(searchBy) {
-    const mailToShow = user.mails.filter(mail => mail.from.toLowerCase().includes(searchBy) || mail.subject.toLowerCase().includes(searchBy) || mail.body.toLowerCase().includes(searchBy) || mail.fromMail.toLowerCase().includes(searchBy))
-    return Promise.resolve(mailToShow)
+  if (searchBy) {
+    const mailToShow = user.mails.filter(
+      (mail) =>
+        mail.from.toLowerCase().includes(searchBy) ||
+        mail.subject.toLowerCase().includes(searchBy) ||
+        mail.body.toLowerCase().includes(searchBy) ||
+        mail.fromMail.toLowerCase().includes(searchBy)
+    );
+    return Promise.resolve(mailToShow);
   }
-  return Promise.resolve(user.mails)
+  return Promise.resolve(user.mails);
 }
 
 function _createUsers() {
@@ -93,10 +100,27 @@ function _createUser(username, emailAddress) {
     id: utilService.makeId(),
     username,
     emailAddress,
-    mails: [_createMail('AdirOn', 'Welcome!', 'welcome to our app', 'adircohen@gmail.com'),
-            _createMail('Ron Bochris', 'Heyy', 'Ma kore havrim?', 'onchetrit@gmail.com'),
-            _createMail('Avishai etah', 'Sprint 4', 'can i be with u guys?', 'adircohen@gmail.com'),
-            _createMail('Daniel Radia', 'ahiiiiiii', 'ata lo mavin', 'adircohen@gmail.com')],
+    mails: [
+      _createMail(
+        'AdirOn',
+        'Welcome!',
+        'welcome to our app',
+        'adircohen@gmail.com'
+      ),
+      _createMail(
+        'Ron Bochris',
+        'Heyy',
+        'Ma kore havrim?',
+        'onchetrit@gmail.com'
+      ),
+      _createMail('Avishai etah', 'Cool', 'awesomeeee', 'adircohen@gmail.com'),
+      _createMail(
+        'Daniel Radia',
+        'ahiiiiiii',
+        'ata lo mavin',
+        'adircohen@gmail.com'
+      ),
+    ],
     bgc: utilService.getRandomColor(),
     keeps: gNotes,
   };
@@ -157,7 +181,7 @@ function findUserByMail(emailAddress) {
 function composeMail(user, mail) {
   const sendToUser = findUserByMail(mail.sendTo);
   const from = user.username;
-  const fromMail = user.emailAddress
+  const fromMail = user.emailAddress;
   const subject = mail.subject;
   const body = mail.body;
   const mailToSend = _createMail(from, subject, body, fromMail);
