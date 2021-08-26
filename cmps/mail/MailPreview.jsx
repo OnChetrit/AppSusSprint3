@@ -1,7 +1,13 @@
 import { mailService } from '../../services/mail.service.js';
 import { userService } from '../../services/user.service.js';
 
-export function MailPreview({ mail, user, onIsStared, onRemoveMail , onSetSpam}) {
+export function MailPreview({
+  mail,
+  user,
+  onIsStared,
+  onRemoveMail,
+  onSetSpam,
+}) {
   const bodyToPreview =
     mail.body.length > 100 ? mail.body.substr(0, 100) + '...' : mail.body;
   return (
@@ -17,16 +23,19 @@ export function MailPreview({ mail, user, onIsStared, onRemoveMail , onSetSpam})
           }}
         ></i>
         <h4>{mail.from}</h4>
-        <h3>{mail.subject}-</h3>
+        <h5>{mail.subject}-</h5>
         <p>{bodyToPreview}</p>
       </div>
       <div className="flex">
         <h5>{mailService.getEmailTimeSent(mail.sentAt)}</h5>
-        <button 
-        className="btn spam-mail" 
-        onClick={() => {
-          onSetSpam(user, mail)
-        }}>Spam</button>
+        <button
+          className="btn spam-mail"
+          onClick={() => {
+            onSetSpam(user, mail);
+          }}
+        >
+          Spam
+        </button>
         <button
           className="btn remove-mail"
           onClick={() => {

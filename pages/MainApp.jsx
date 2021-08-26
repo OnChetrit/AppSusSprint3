@@ -5,7 +5,11 @@ import { Mail } from './Mail.jsx';
 export class MainApp extends React.Component {
   state = {
     users: null,
+    isAddUser: false,
   };
+
+  toggleIsUser;
+
   componentDidMount() {
     this.loadUsers();
   }
@@ -16,13 +20,26 @@ export class MainApp extends React.Component {
     });
   };
 
+  onToggleAddUser = () => {
+    this.toggleIsUser = !this.state.isAddUser;
+    this.setState({ isAddUser: this.toggleIsUser });
+  };
+  // this.setState((prevState) => ({
+  //   keep: { ...prevState.keep, inputType: value },
+  // }));
+
   render() {
-    const { users } = this.state;
+    const { users, isAddUser } = this.state;
     if (!users) return <div>Loading...</div>;
     return (
-      <section className="main-app">
+      <section className="main-app flex justify-center al-content-center">
         <header>Logo</header>
-        <UserList users={users} onGetUser={this.onGetUser} />
+        <UserList
+          users={users}
+          onGetUser={this.onGetUser}
+          isAddUser={isAddUser}
+          onToggleAddUser={this.onToggleAddUser}
+        />
       </section>
     );
   }

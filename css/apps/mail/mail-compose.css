@@ -1,10 +1,16 @@
 .compose-mail textarea {
   resize: none;
+  width: 100%;
+  height: 380px;
+  border: none;
+  outline: none;
+  padding: 10px;
+  font-size: 1rem;
 }
 .compose-btn {
   width: 144px;
   height: 48px;
-  font-size: .875rem;
+  font-size: 0.875rem;
   align-items: center;
   background-color: #fff;
   background-image: none;
@@ -16,7 +22,7 @@
   box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
   margin-left: 10px;
   background-image: url(https://www.gstatic.com/images/icons/material/colored_icons/1x/create_32dp.png);
-  background-position:10%;
+  background-position: 10%;
   background-repeat: no-repeat;
   background-size: 32px;
   content: '';
@@ -24,4 +30,55 @@
   height: 48px;
   min-width: 56px;
   border: none;
+}
+
+.compose-mail {
+  position: absolute;
+  bottom: 0;
+  right: 50px;
+  width: 600px;
+  height: 550px;
+  background-color: #ffffff;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0px 8px 10px 1px rgb(0 0 0 / 14%),
+    0px 3px 14px 2px rgb(0 0 0 / 12%), 0px 5px 5px -3px rgb(0 0 0 / 20%);
+}
+
+.compose-mail h4 {
+  border-radius: 10px 10px 0 0;
+  margin: 0;
+  padding: 15px;
+  color: #ffffff;
+  background-color: #3c4043;
+}
+
+.compose-mail .close-compose {
+  position: absolute;
+  top: 15px;
+  right: 10px;
+  width: 20px;
+}
+.compose-mail .inputs input {
+  padding: 10px;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid gray;
+  outline: none;
+  font-size: 1rem;
+}
+
+.close-compose img {
+  width: 100%;
+}
+
+.compose-mail button {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  border: none;
+  height: 35px;
+  width: 70px;
+  color: #ffffff;
+  border-radius: 5px;
+  background-color: #1a73e8;
 }

@@ -231,7 +231,6 @@ function removeMail(user, mailId) {
 
 function filterByStars(mails) {
   const mailsToDisplay = mails.filter((mail) => mail.isStared === true);
-  console.log('mails', mailsToDisplay);
   return mailsToDisplay;
 }
 

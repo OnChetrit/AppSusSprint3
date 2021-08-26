@@ -1,16 +1,22 @@
 export class MailFilter extends React.Component {
-  state = { filterBy: null };
+  state = { filterBy: 'inbox' };
 
   onSetFilter = (filterBy) => {
-    this.setState({ filterBy}, () => {this.props.onSetFilterBy(filterBy)})
-  }
+    this.setState({ filterBy }, () => {
+      this.props.onSetFilterBy(filterBy);
+    });
+  };
+  checkIsActive = (folderName) => {
+    return folderName === this.state.filterBy ? 'marked' : '';
+    // return folderName === this.state.filterBy && !criteria.isStarred ? 'marked' : '';
+  };
 
   render() {
     const { onToggleCompose } = this.props;
     return (
       <div className="side-nav">
         <button
-        className="btn compose-btn"
+          className="btn compose-btn"
           onClick={() => {
             onToggleCompose();
           }}
@@ -18,11 +24,38 @@ export class MailFilter extends React.Component {
           Compose
         </button>
         <div className="filters-container">
-
-        <div className="filter" onClick={() => {this.onSetFilter('inbox')}}>Inbox</div>
-        <div className="filter" onClick={() => {this.onSetFilter('stars')}}>Stars</div>
-        <div className="filter" onClick={() => {this.onSetFilter('spam')}}>Spam</div>
-        <div className="filter" onClick={() => {this.onSetFilter('sent')}}>Sent</div>
+          <div
+            onClick={() => {
+              this.onSetFilter('inbox');
+            }}
+            className={`filter ${this.checkIsActive('inbox')} `}
+          >
+            Inbox
+          </div>
+          <div
+            onClick={() => {
+              this.onSetFilter('stars');
+            }}
+            className={`filter ${this.checkIsActive('stars')} `}
+          >
+            Stars
+          </div>
+          <div
+            onClick={() => {
+              this.onSetFilter('spam');
+            }}
+            className={`filter ${this.checkIsActive('spam')} `}
+          >
+            Spam
+          </div>
+          <div
+            onClick={() => {
+              this.onSetFilter('sent');
+            }}
+            className={`filter ${this.checkIsActive('sent')} `}
+          >
+            Sent
+          </div>
         </div>
       </div>
     );

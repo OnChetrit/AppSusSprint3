@@ -21,7 +21,24 @@
   align-items: center;
 }
 
-.filter:not:first-child {
+.filters-container > * {
+  padding: 10px;
+  margin-inline-end: 10px;
+  cursor: pointer;
+  border-radius: 0 16px 16px 0;
+}
+
+.filters-container > *:hover {
+  background-color: #f1f3f4;
+}
+
+.filters-container .marked {
+  background-color: #fce8e6;
+  color: #d93025;
+  font-weight: bold;
+}
+
+/* .filter:not:first-child {
   margin-top: 10px;
 }
 .filter {
@@ -32,11 +49,11 @@
   background-color: #fce8e6;
   color: #d93025;
   font-weight: 600;
-}
+} */
 
 .filters-container {
-  border: 1px solid gray;
+  /* border: 1px solid gray; */
   width: 150px;
-  height: 300px;
+  height: 70px;
   margin-top: 10px;
 }

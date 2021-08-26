@@ -18,7 +18,7 @@ export class CreatUser extends React.Component {
   onAddUser = (ev) => {
     ev.preventDefault();
     userService.addUser(this.state.user);
-    this.props.history.push('/')
+    this.props.history.push(`/user/${user.id}/mail`);
   };
 
   render() {

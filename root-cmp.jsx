@@ -17,7 +17,7 @@ export function App() {
           {/* <Route path="/about" component={About} /> */}
           <Route path="/user/:userId/keep" component={Keep} />
           <Route path="/user/:userId/mail" component={Mail} />
-          <Route path="/user/create" component={CreatUser} />
+          {/* <Route path="/user/create" component={CreatUser} /> */}
           <Route path="/" component={MainApp} />
           {/* <Route path="/" activeClassName="my-active" component={Home} /> */}
         </Switch>

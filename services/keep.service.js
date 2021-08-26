@@ -1,4 +1,5 @@
 import { storageService } from './storage.service.js';
+import { utilService } from './util.service.js';
 
 export const keepService = {
   addKeep,
@@ -16,7 +17,7 @@ function _createKeep(type, info) {
 function addKeep(user, keep) {
   const newKeep = _createKeep(user, keep);
   user.keeps.unshift(newKeep);
-  storageService.saveToStorage(USER_KEY, gUsers);
+  // storageService.saveToStorage(USER_KEY, gUsers);
   return Promise.resolve();
 }
 

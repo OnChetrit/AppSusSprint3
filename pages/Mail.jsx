@@ -11,7 +11,7 @@ export class Mail extends React.Component {
     isCompose: false,
     searchBy: null,
     mails: null,
-    filterBy: null
+    filterBy: null,
   };
 
   toggleMsg;
@@ -36,9 +36,8 @@ export class Mail extends React.Component {
   };
   loadMails = (user, searchBy, filterBy) => {
     if (!user) return;
-    userService.queryMails(user, searchBy, filterBy)
-          .then((mails) => {
-            this.setState({ mails });
+    userService.queryMails(user, searchBy, filterBy).then((mails) => {
+      this.setState({ mails });
     });
   };
   onComposeMail = (mail) => {
@@ -59,16 +58,20 @@ export class Mail extends React.Component {
   };
 
   onSetSearch = (searchBy) => {
-        this.setState({ searchBy }, () => this.loadMails(this.state.user, searchBy, this.filterBy));
-    };
+    this.setState({ searchBy }, () =>
+      this.loadMails(this.state.user, searchBy, this.filterBy)
+    );
+  };
 
   onSetFilterBy = (filterBy) => {
-      this.setState({ filterBy }, () => this.loadMails(this.state.user, this.searchBy, filterBy))
-  }
+    this.setState({ filterBy }, () =>
+      this.loadMails(this.state.user, this.searchBy, filterBy)
+    );
+  };
   onSetSpam = (user, mail) => {
-    userService.setSpam(user,mail)
-    this.loadMails(user, this.state.searchBy, this.state.filterBy)
-  }
+    userService.setSpam(user, mail);
+    this.loadMails(user, this.state.searchBy, this.state.filterBy);
+  };
   render() {
     const { user, isCompose, mails } = this.state;
     if (!user) return <div className="">Loading...</div>;
@@ -78,7 +81,11 @@ export class Mail extends React.Component {
           <AppHeader user={user} />
         </header>
         <main className="flex">
-          <MailFilter user={user} onToggleCompose={this.onToggleCompose} onSetFilterBy={this.onSetFilterBy}/>
+          <MailFilter
+            user={user}
+            onSetFilterBy={this.onSetFilterBy}
+            onToggleCompose={this.onToggleCompose}
+          />
           {user && (
             <MailList
               onSetSearch={this.onSetSearch}
@@ -89,7 +96,12 @@ export class Mail extends React.Component {
               onSetSpam={this.onSetSpam}
             />
           )}
-          {isCompose && <ComposeMail onComposeMail={this.onComposeMail} />}
+          {isCompose && (
+            <ComposeMail
+              onComposeMail={this.onComposeMail}
+              onToggleCompose={this.onToggleCompose}
+            />
+          )}
         </main>
       </div>
     );
