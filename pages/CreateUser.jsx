@@ -15,16 +15,24 @@ export class CreatUser extends React.Component {
     }));
   };
 
+  goBack = (ev) => {
+    ev.preventDefault();
+    this.props.history.push('/');
+  };
+
   onAddUser = (ev) => {
     ev.preventDefault();
     userService.addUser(this.state.user);
-    this.props.history.push(`/user/${user.id}/mail`);
+    this.props.history.push('/');
   };
 
   render() {
     return (
-      <div>
-        <form className="add-user" onSubmit={this.onAddUser}>
+      <div className="add-user-container flex justify-center al-items-center">
+        <form
+          className="add-user flex direction-col justify-center"
+          onSubmit={this.onAddUser}
+        >
           <label htmlFor="username"></label>
           <input
             type="text"
@@ -46,6 +54,7 @@ export class CreatUser extends React.Component {
             placeholder="ex@email.com"
           />
 
+          <button onClick={this.goBack}>Go Back</button>
           <button>Register</button>
         </form>
       </div>

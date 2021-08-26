@@ -32,8 +32,7 @@ export class MainApp extends React.Component {
     const { users, isAddUser } = this.state;
     if (!users) return <div>Loading...</div>;
     return (
-      <section className="main-app flex justify-center al-content-center">
-        <header>Logo</header>
+      <section className="main-app flex justify-center al-items-center">
         <UserList
           users={users}
           onGetUser={this.onGetUser}

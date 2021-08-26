@@ -1,7 +1,6 @@
 import { AppHeader } from '../cmps/AppHeader.jsx';
 import { KeepFilter } from '../cmps/keep/KeepFilter.jsx';
 import { KeepList } from '../cmps/keep/KeepList.jsx';
-import { keepService } from '../services/keep.service.js';
 import { userService } from '../services/user.service.js';
 
 export class Keep extends React.Component {
@@ -28,7 +27,7 @@ export class Keep extends React.Component {
   };
 
   onAdd = (keep) => {
-    keepService.addKeep(this.state.user, keep).then(() => {
+    userService.addKeep(this.state.user, keep).then(() => {
       this.loadUser();
     });
   };

@@ -13,7 +13,8 @@ export const userService = {
   removeMail,
   queryMails,
   composeMail,
-  restoreMail
+  restoreMail,
+  addKeep,
 };
 
 const gMonths = [
@@ -128,7 +129,7 @@ function _createUser(username, emailAddress) {
       _createMail(
         'Reddit',
         'How much of your day do you spend googling?',
-        'I think I spend at minimum 30 minutes per day googling – sometimes as much as a couple of hours. A lot of the time it\'s for things I\'ve already googled in the past ,Do you ever get to a point where you don\'t have to google much anymore? Like, you just have most things memorized?',
+        "I think I spend at minimum 30 minutes per day googling – sometimes as much as a couple of hours. A lot of the time it's for things I've already googled in the past ,Do you ever get to a point where you don't have to google much anymore? Like, you just have most things memorized?",
         'noreply@redditmail.com'
       ),
       _createMail(
@@ -138,14 +139,15 @@ function _createUser(username, emailAddress) {
         'memberservices@amd-member.com'
       ),
       _createMail(
-        'LinkedIn Job Alerts', 
-        '1 new job for \'fullStack developer',
+        'LinkedIn Job Alerts',
+        "1 new job for 'fullStack developer",
         'new jobs in Central, Israel match your preferences',
-        'jobalerts-noreply@linkedin.com‏'),
+        'jobalerts-noreply@linkedin.com‏'
+      ),
       _createMail(
         'Discord ',
         'Verify Discord Login from New Location',
-        'It looks like someone tried to log into your Discord account from a new location. If this is you, follow the link below to authorize logging in from this location on your account. If this isn\'t you, we suggest changing your password as soon as possible.',
+        "It looks like someone tried to log into your Discord account from a new location. If this is you, follow the link below to authorize logging in from this location on your account. If this isn't you, we suggest changing your password as soon as possible.",
         'noreply@discord.com'
       ),
       _createMail(
@@ -213,7 +215,7 @@ function composeMail(user, mail) {
   const subject = mail.subject;
   const body = mail.body;
   const mailToSend = _createMail(from, subject, body, fromMail);
-  if(!sendToUser) {
+  if (!sendToUser) {
     user.sentEmails.unshift(mailToSend);
   } else {
     sendToUser.mails.unshift(mailToSend);
@@ -245,26 +247,25 @@ function getEmailTimeSent(timestamp) {
 
 function removeMail(mailId, mails, user) {
   const mailIdx = getMailIdxById(mails, mailId);
-  const mail = mails[mailIdx]
-  if(mail.isTrash) {
-    user.trashEmails.splice(mailIdx, 1)
-  } else { 
+  const mail = mails[mailIdx];
+  if (mail.isTrash) {
+    user.trashEmails.splice(mailIdx, 1);
+  } else {
     console.log(user.trashEmails);
-    user.mails.splice(mailIdx,1)
-    user.trashEmails.unshift(mail)
-    mail.isTrash = true
+    user.mails.splice(mailIdx, 1);
+    user.trashEmails.unshift(mail);
+    mail.isTrash = true;
   }
   storageService.saveToStorage(USER_KEY, gUsers);
 }
 
 function restoreMail(mailId, mails, user) {
   const mailIdx = getMailIdxById(mails, mailId);
-  const mail = mails[mailIdx]
-  mail.isTrash = false
-  user.mails.unshift(mail)
-  user.trashEmails.splice(mailIdx,1)
+  const mail = mails[mailIdx];
+  mail.isTrash = false;
+  user.mails.unshift(mail);
+  user.trashEmails.splice(mailIdx, 1);
   storageService.saveToStorage(USER_KEY, gUsers);
-
 }
 
 function filterByStars(mails) {
@@ -287,4 +288,28 @@ function setArchive(user, mail) {
     mail.isArchive = true;
   }
   storageService.saveToStorage(USER_KEY, gUsers);
+}
+
+/////////////////////////////////////////////////////
+function _createKeep(type, info) {
+  return {
+    id: utilService.makeId(),
+    type,
+    isPinned: false,
+    info,
+  };
+}
+
+function addKeep(user, keep) {
+  const newKeep = _createKeep(user, keep);
+  user.keeps.unshift(newKeep);
+  // storageService.saveToStorage(USER_KEY, gUsers);
+  return Promise.resolve();
+}
+
+function getKeepIdxById(user, keepId) {
+  const keepIdx = user.keeps.findIndex((keep) => {
+    return keepId === keep.id;
+  });
+  return keepIdx;
 }
