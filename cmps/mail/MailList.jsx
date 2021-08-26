@@ -7,7 +7,8 @@ export function MailList({
   onIsStared,
   onRemoveMail,
   onSetSearch,
-  onSetSpam
+  onSetArchive,
+  onRestoreMail
 }) {
   if (!mails) return <div>There's No Mails</div>;
   return (
@@ -17,10 +18,12 @@ export function MailList({
         <MailPreview
           key={mail.id}
           mail={mail}
+          mails={mails}
           user={user}
           onIsStared={onIsStared}
           onRemoveMail={onRemoveMail}
-          onSetSpam = {onSetSpam}
+          onSetArchive = {onSetArchive}
+          onRestoreMail={onRestoreMail}
         />
       ))}
     </div>

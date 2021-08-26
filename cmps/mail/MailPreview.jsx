@@ -3,10 +3,12 @@ import { userService } from '../../services/user.service.js';
 
 export function MailPreview({
   mail,
+  mails,
   user,
   onIsStared,
   onRemoveMail,
-  onSetSpam,
+  onSetArchive,
+  onRestoreMail,
 }) {
   const bodyToPreview =
     mail.body.length > 100 ? mail.body.substr(0, 100) + '...' : mail.body;
@@ -31,18 +33,26 @@ export function MailPreview({
         <button
           className="btn spam-mail"
           onClick={() => {
-            onSetSpam(user, mail);
+            onSetArchive(user, mail);
           }}
         >
-          Spam
+          Archive
         </button>
         <button
           className="btn remove-mail"
           onClick={() => {
-            onRemoveMail(user, mail.id);
+            onRemoveMail(mail.id, mails, user);
           }}
         >
           X
+        </button>
+        <button
+          className="btn restore-mail"
+          onClick={() => {
+            onRestoreMail(mail.id, mails, user);
+          }}
+        >
+          R
         </button>
       </div>
     </div>

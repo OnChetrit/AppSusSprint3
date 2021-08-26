@@ -8,7 +8,6 @@ export class MailFilter extends React.Component {
   };
   checkIsActive = (folderName) => {
     return folderName === this.state.filterBy ? 'marked' : '';
-    // return folderName === this.state.filterBy && !criteria.isStarred ? 'marked' : '';
   };
 
   render() {
@@ -42,11 +41,11 @@ export class MailFilter extends React.Component {
           </div>
           <div
             onClick={() => {
-              this.onSetFilter('spam');
+              this.onSetFilter('archive');
             }}
-            className={`filter ${this.checkIsActive('spam')} `}
+            className={`filter ${this.checkIsActive('archive')} `}
           >
-            Spam
+            Archive
           </div>
           <div
             onClick={() => {
@@ -55,6 +54,14 @@ export class MailFilter extends React.Component {
             className={`filter ${this.checkIsActive('sent')} `}
           >
             Sent
+          </div>
+          <div
+            onClick={() => {
+              this.onSetFilter('trash');
+            }}
+            className={`filter ${this.checkIsActive('trash')} `}
+          >
+            Trash
           </div>
         </div>
       </div>
