@@ -3,7 +3,6 @@ import { KeepTodo } from '../keep/dynamicCmps/KeepTodo.jsx';
 import { KeepImg } from '../keep/dynamicCmps/KeepImg.jsx';
 
 export function KeepPreview({ keep }) {
-  console.log(`keep`, keep);
   const DynamicKeep = (props) => {
     switch (props.keep.type) {
       case 'txt':

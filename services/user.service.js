@@ -10,6 +10,7 @@ export const userService = {
   getEmailTimeSent,
   removeMail,
   queryMails,
+  addKeep,
 };
 const gMonths = [
   'Jan',
@@ -56,8 +57,8 @@ const gNotes = [
     info: {
       title: 'To Do List',
       todos: [
-        { txt: ' - Driving liscence', doneAt: null },
-        { txt: ' - Coding power', doneAt: 187111111 },
+        { id: utilService.makeId(), txt: ' - Driving liscence', doneAt: null },
+        { id: utilService.makeId(), txt: ' - Coding power', doneAt: 187111111 },
       ],
     },
   },
@@ -139,17 +140,6 @@ function _createMail(from, subject, body, fromMail) {
   };
 }
 
-function _createKeep(type) {
-  return {
-    id: utilService.makeId(),
-    type,
-    isPinned: false,
-    info: {
-      txt,
-    },
-  };
-}
-
 function getUserById(userId) {
   const user = gUsers.find((user) => {
     return userId === user.id;
@@ -199,20 +189,20 @@ function addUser(userToAdd) {
 
 function getEmailTimeSent(timestamp) {
   const nowTime = Date.now();
-  const pathDay = new Date(timestamp - nowTime).getHours()
+  const pathDay = new Date(timestamp - nowTime).getHours();
   const date = new Date(timestamp);
   const month = gMonths[date.getMonth()];
   const day = date.getUTCDate();
   const hours = date.getHours();
   const minutes = '0' + date.getMinutes();
-  const timeSent = (hours+pathDay) > 24 ? `${day} ${month}` : `${hours}:${minutes.substr(-2)}`;
+  const timeSent =
+    hours + pathDay > 24 ? `${day} ${month}` : `${hours}:${minutes.substr(-2)}`;
   return timeSent;
 }
 
 function removeMail(user, mailId) {
   const mailIdx = getMailIdxById(user.mails, mailId);
   const mails = user.mails;
-  console.log(mails[mailIdx]);
   mails.splice(mailIdx, 1);
   storageService.saveToStorage(USER_KEY, gUsers);
 }

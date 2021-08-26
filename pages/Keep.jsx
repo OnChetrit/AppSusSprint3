@@ -1,6 +1,7 @@
 import { AppHeader } from '../cmps/AppHeader.jsx';
 import { KeepFilter } from '../cmps/keep/KeepFilter.jsx';
 import { KeepList } from '../cmps/keep/KeepList.jsx';
+import { keepService } from '../services/keep.service.js';
 import { userService } from '../services/user.service.js';
 
 export class Keep extends React.Component {
@@ -26,6 +27,12 @@ export class Keep extends React.Component {
     });
   };
 
+  onAdd = (keep) => {
+    keepService.addKeep(this.state.user, keep).then(() => {
+      this.loadUser();
+    });
+  };
+
   render() {
     const { user } = this.state;
     if (!user) return <div className="">Loading...</div>;
@@ -36,7 +43,9 @@ export class Keep extends React.Component {
         </header>
         <main className="flex">
           <KeepFilter />
-          {user && <KeepList keeps={user.keeps} user={user} />}
+          {user && (
+            <KeepList onAdd={this.onAdd} keeps={user.keeps} user={user} />
+          )}
         </main>
       </div>
     );

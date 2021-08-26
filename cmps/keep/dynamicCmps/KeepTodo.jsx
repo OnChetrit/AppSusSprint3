@@ -3,7 +3,7 @@ export function KeepTodo({ keep }) {
     <div className="keep">
       <h4>{keep.info.title}</h4>
       {keep.info.todos.map((todo) => {
-        return <p>{todo.txt}</p>;
+        return <p key={todo.txt}>{todo.txt}</p>;
       })}
     </div>
   );

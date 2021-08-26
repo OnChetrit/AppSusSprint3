@@ -1,12 +1,11 @@
 import { KeepAdd } from './KeepAdd.jsx';
 import { KeepPreview } from './KeepPreview.jsx';
 
-export function KeepList({ keeps }) {
+export function KeepList({ keeps, onAdd }) {
   if (!keeps) return <div>Load</div>;
-  console.log(`keeps`, keeps);
   return (
     <div className="keep-container">
-      <KeepAdd />
+      <KeepAdd onAdd={onAdd} />
       <div className="keep-list flex">
         {keeps.map((keep) => (
           <KeepPreview key={keep.id} keep={keep} />
