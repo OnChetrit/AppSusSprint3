@@ -1,6 +1,7 @@
 .keep-list {
   gap: 10px;
   margin: 0 auto;
-  justify-content: center;
+  /* justify-content: center; */
   position: relative;
+  column-count: 3;
 }

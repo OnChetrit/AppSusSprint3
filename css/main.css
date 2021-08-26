@@ -1,6 +1,7 @@
 @import './parts/base.css';
 @import './parts/fonts.css';
 @import './parts/helpers.css';
+@import './parts/user-msg.css';
 
 @import './apps/keep/keep.css';
 @import './apps/keep/keep-list.css';

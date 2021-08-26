@@ -14,7 +14,8 @@ export const userService = {
   queryMails,
   composeMail,
   restoreMail,
-  addKeep,
+  createKeep,
+  // addKeep,
   setRead,
 };
 
@@ -32,7 +33,8 @@ const gMonths = [
   'Nov',
   'Dec',
 ];
-const gNotes = [
+
+const gKeeps = [
   {
     id: utilService.makeId(),
     type: 'txt',
@@ -47,8 +49,8 @@ const gNotes = [
     type: 'img',
     isPinned: false,
     info: {
-      title: 'Image title',
-      txt: 'image description',
+      // title: 'Image title',
+      title: 'image description',
       url: 'https://picsum.photos/200/200',
     },
     style: {
@@ -166,7 +168,7 @@ function _createUser(username, emailAddress) {
     sentEmails: [],
     trashEmails: [],
     bgc: utilService.getRandomColor(),
-    keeps: gNotes,
+    keeps: gKeeps,
   };
 }
 
@@ -313,20 +315,60 @@ function setRead(mail) {
 
 
 /////////////////////////////////////////////////////
-function _createKeep(type, info) {
-  return {
-    id: utilService.makeId(),
-    type,
-    isPinned: false,
-    info,
-  };
-}
 
-function addKeep(user, keep) {
-  const newKeep = _createKeep(user, keep);
+function createKeep(user, type, title, val) {
+  let newKeep = {};
+
+  switch (type) {
+    case 'txt':
+      newKeep = {
+        id: utilService.makeId(),
+        type,
+        isPinned: false,
+        info: {
+          title: title,
+          txt: val,
+        },
+      };
+
+      break;
+
+    case 'img':
+      newKeep = {
+        id: utilService.makeId(),
+        type,
+        isPinned: false,
+        info: {
+          title,
+          url: val,
+        },
+      };
+      break;
+
+    case 'todo':
+      newKeep = {
+        id: utilService.makeId(),
+        type,
+        isPinned: false,
+        info: {
+          title,
+          todos: [
+            {
+              id: utilService.makeId(),
+              todo: val,
+              isDone: false,
+            },
+          ],
+        },
+      };
+
+      break;
+    default:
+      break;
+  }
   user.keeps.unshift(newKeep);
-  // storageService.saveToStorage(USER_KEY, gUsers);
-  return Promise.resolve();
+  storageService.saveToStorage(USER_KEY, gUsers);
+  return Promise.resolve(newKeep);
 }
 
 function getKeepIdxById(user, keepId) {
