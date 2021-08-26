@@ -6,6 +6,22 @@ export class ComposeMail extends React.Component {
       body: '',
     },
   };
+
+  componentDidMount() {
+    const replyMail = this.props.replyMail
+    const forwardMail = this.props.forwardMail
+    if (replyMail) {
+      const sendTo = replyMail.fromMail
+      const subject = replyMail.subject
+      const body = replyMail.body
+      this.setState({mail: {...this.state.mail, sendTo:sendTo, subject:subject, body:body}})
+    } else if(forwardMail) {
+      const subject = forwardMail.subject
+      const body = forwardMail.body
+      this.setState({mail: {...this.state.mail, subject:subject, body:body}})
+    }
+  }
+
   handleChange = ({ target }) => {
     const field = target.name;
     const value = target.value;
@@ -21,7 +37,8 @@ export class ComposeMail extends React.Component {
   };
 
   render() {
-    const { onToggleCompose } = this.props;
+    const { onToggleCompose} = this.props;
+    const {sendTo, subject, body} = this.state.mail;
     return (
       <div>
         <form className="compose-mail" onSubmit={this.onSaveMail}>
@@ -37,6 +54,7 @@ export class ComposeMail extends React.Component {
               required
               id="sendTo"
               required
+              value={sendTo}
               onChange={this.handleChange}
               placeholder="To"
             />
@@ -47,6 +65,7 @@ export class ComposeMail extends React.Component {
               name="subject"
               id="subject"
               required
+              value={subject}
               onChange={this.handleChange}
               placeholder="Subject"
             />
@@ -56,6 +75,7 @@ export class ComposeMail extends React.Component {
               name="body"
               id="body"
               required
+              value={body}
               onChange={this.handleChange}
               placeholder="Your message"
               row="4"

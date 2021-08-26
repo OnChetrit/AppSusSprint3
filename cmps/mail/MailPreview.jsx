@@ -16,25 +16,23 @@ export function MailPreview({
   return (
     <div
       key={mail.id}
-      className="mail-card flex btn space-between"
+      className={`mail-card flex btn  ${mail.isRead ? 'read' : ''}`}
     >
+      <i
+        className={mail.isStared ? 'fa fa-star star gold' : 'fa fa-star-o star'}
+        aria-hidden="true"
+        onClick={() => {
+          onIsStared(user.id, mail.id);
+        }}
+      ></i>
       <div className="flex al-items-center" onClick={() => {
         onOpenMail(mail);
       }}>
-        <i
-          className={
-            mail.isStared ? 'fa fa-star star gold' : 'fa fa-star-o star'
-          }
-          aria-hidden="true"
-          onClick={() => {
-            onIsStared(user.id, mail.id);
-          }}
-        ></i>
         <h4>{mail.from}</h4>
-        <h5>{mail.subject}-</h5>
+        <h4 className="subject">{mail.subject} - </h4>
         <p>{bodyToPreview}</p>
       </div>
-      <div className="flex">
+      <div className="flex btn-mail">
         <h5>{mailService.getEmailTimeSent(mail.sentAt)}</h5>
         <button
           className="btn spam-mail"
@@ -63,10 +61,10 @@ export function MailPreview({
         <button
           className="btn read-mail"
           onClick={() => {
-          onSetRead(event,mail)
+          onSetRead(mail)
           }}
         >
-          Read
+          <span>{mail.isRead? 'UnRead' : 'Read'}</span> 
         </button>
       </div>
     </div>

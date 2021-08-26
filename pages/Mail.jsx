@@ -15,6 +15,8 @@ export class Mail extends React.Component {
     filterBy: null,
     isMailOpen: false,
     mail: null,
+    replyMail: null,
+    forwardMail:null
   };
   toggleMsg;
 
@@ -40,6 +42,10 @@ export class Mail extends React.Component {
       this.setState({ mails });
     });
   };
+
+  loadMail = (mail) => {
+    this.setState({mail})
+  }
   onComposeMail = (mail) => {
     userService.composeMail(this.state.user, mail);
   };
@@ -65,8 +71,11 @@ export class Mail extends React.Component {
     );
   };
   onSetFilterBy = (filterBy) => {
-    this.setState({ filterBy }, () =>
+    this.setState({ filterBy }, () =>{
+      this.setState({mail: null});
       this.loadMails(this.state.user, this.searchBy, filterBy)
+
+    }
     );
   };
   onSetArchive = (user, mail) => {
@@ -78,15 +87,24 @@ export class Mail extends React.Component {
     this.setState({mail})
   };
 
-  onSetRead = (ev,mail) => {
-    console.log(ev);
-    ev.stopImmediatePropagation();
+  onSetRead = (mail) => {
+    console.log(mail);
     userService.setRead(mail).then(() => {
       this.loadMails(this.state.user);
     });
   };
+
+  onReplyMail = (replyMail) => {
+    this.onToggleCompose()
+    this.setState({replyMail})
+  }
+
+  onForwardMail = (forwardMail) => {
+    this.onToggleCompose()
+    this.setState({forwardMail})
+  }
   render() {
-    const { user, isCompose, mails, isMailOpen, onOpenMail ,mail} = this.state;
+    const { user, isCompose, mails ,mail, replyMail, forwardMail} = this.state;
     if (!user) return <div className="">Loading...</div>;
     return (
       <div className="mail-app flex direction-col">
@@ -122,11 +140,15 @@ export class Mail extends React.Component {
               onRemoveMail={this.onRemoveMail}
               onSetArchive={this.onSetArchive}
               onRestoreMail={this.onRestoreMail}
+              onReplyMail={this.onReplyMail}
+              onForwardMail={this.onForwardMail}
             />
           )}
 
           {isCompose && (
             <ComposeMail
+              replyMail={replyMail}
+              forwardMail={forwardMail}
               onComposeMail={this.onComposeMail}
               onToggleCompose={this.onToggleCompose}
             />

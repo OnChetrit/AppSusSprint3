@@ -1,6 +1,7 @@
 .mail-card {
   border: 1px solid #eceff1;
   align-items: center;
+  justify-content: end;
 }
 .mail-card:hover {
   box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0,

@@ -293,7 +293,8 @@ function setArchive(user, mail) {
   const mailIdx = getMailIdxById(mails, mailId);
   if (mail.isArchive) {
     const archiveMailIdx = getMailIdxById(user.archive, mailId);
-    mails.unshift(user.Archive[archiveMailIdx]);
+    console.log(mail);
+    mails.unshift(user.archive[archiveMailIdx]);
     user.archive.splice(archiveMailIdx, 1);
     mail.isArchive = false;
   } else {
@@ -303,6 +304,13 @@ function setArchive(user, mail) {
   }
   storageService.saveToStorage(USER_KEY, gUsers);
 }
+
+function setRead(mail) {
+  mail.isRead ? mail.isRead = false : mail.isRead = true;
+  storageService.saveToStorage(USER_KEY, gUsers);
+  return Promise.resolve();
+}
+
 
 /////////////////////////////////////////////////////
 function _createKeep(type, info) {
@@ -328,8 +336,3 @@ function getKeepIdxById(user, keepId) {
   return keepIdx;
 }
 
-function setRead(mail) {
-  mail.isRead = true;
-  storageService.saveToStorage(USER_KEY, gUsers);
-  return Promise.resolve();
-}
