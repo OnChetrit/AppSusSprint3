@@ -53,20 +53,25 @@ export class Mail extends React.Component {
     this.toggleMsg = !this.state.isCompose;
     this.setState({ isCompose: this.toggleMsg });
   };
-  onRemoveMail = (user, mailId) => {
-    userService.removeMail(user, mailId);
+  onRemoveMail = (mailId, mails, user) => {
+    userService.removeMail(mailId, mails, user);
     this.loadUser();
+  };
+
+  onRestoreMail = (mailId, mails, user) => {
+    userService.restoreMail(mailId, mails, user)
+    this.loadUser();
+
   };
 
   onSetSearch = (searchBy) => {
         this.setState({ searchBy }, () => this.loadMails(this.state.user, searchBy, this.filterBy));
     };
-
   onSetFilterBy = (filterBy) => {
       this.setState({ filterBy }, () => this.loadMails(this.state.user, this.searchBy, filterBy))
   }
-  onSetSpam = (user, mail) => {
-    userService.setSpam(user,mail)
+  onSetArchive = (user, mail) => {
+    userService.setArchive(user,mail)
     this.loadMails(user, this.state.searchBy, this.state.filterBy)
   }
   render() {
@@ -86,7 +91,8 @@ export class Mail extends React.Component {
               user={user}
               onIsStared={this.onIsStared}
               onRemoveMail={this.onRemoveMail}
-              onSetSpam={this.onSetSpam}
+              onSetArchive={this.onSetArchive}
+              onRestoreMail={this.onRestoreMail}
             />
           )}
           {isCompose && <ComposeMail onComposeMail={this.onComposeMail} />}

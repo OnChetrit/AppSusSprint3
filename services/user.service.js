@@ -8,11 +8,12 @@ export const userService = {
   findUserByMail,
   queryMails,
   setStar,
-  setSpam,
+  setArchive,
   getEmailTimeSent,
   removeMail,
   queryMails,
   composeMail,
+  restoreMail
 };
 
 const gMonths = [
@@ -79,8 +80,12 @@ function queryMails(user, searchBy, filterBy) {
       const mailsAfterFilter = filterByStars(user.mails);
       return Promise.resolve(mailsAfterFilter);
     }
-    if (filterBy === 'spam') {
-      const mailsAfterFilter = user.spam;
+    if (filterBy === 'archive') {
+      const mailsAfterFilter = user.archive;
+      return Promise.resolve(mailsAfterFilter);
+    }
+    if (filterBy === 'trash') {
+      const mailsAfterFilter = user.trashEmails;
       return Promise.resolve(mailsAfterFilter);
     }
     if (filterBy === 'inbox') {
@@ -121,27 +126,38 @@ function _createUser(username, emailAddress) {
     emailAddress,
     mails: [
       _createMail(
-        'AdirOn',
-        'Welcome!',
-        'welcome to our app',
-        'adircohen@gmail.com'
+        'Reddit',
+        'How much of your day do you spend googling?',
+        'I think I spend at minimum 30 minutes per day googling – sometimes as much as a couple of hours. A lot of the time it\'s for things I\'ve already googled in the past ,Do you ever get to a point where you don\'t have to google much anymore? Like, you just have most things memorized?',
+        'noreply@redditmail.com'
       ),
       _createMail(
-        'Ron Bochris',
-        'Heyy',
-        'Ma kore havrim?',
-        'onchetrit@gmail.com'
+        'AMD',
+        'AMD Radeon™ Software Adrenalin',
+        'This release adds support for Aliens™: Fireteam Elite and Myst, This release contains stability improvements for end user reported issues',
+        'memberservices@amd-member.com'
       ),
-      _createMail('Avishai etah', 'Cool', 'awesomeeee', 'adircohen@gmail.com'),
       _createMail(
-        'Daniel Radia',
-        'ahiiiiiii',
-        'ata lo mavin',
-        'adircohen@gmail.com'
+        'LinkedIn Job Alerts', 
+        '1 new job for \'fullStack developer',
+        'new jobs in Central, Israel match your preferences',
+        'jobalerts-noreply@linkedin.com‏'),
+      _createMail(
+        'Discord ',
+        'Verify Discord Login from New Location',
+        'It looks like someone tried to log into your Discord account from a new location. If this is you, follow the link below to authorize logging in from this location on your account. If this isn\'t you, we suggest changing your password as soon as possible.',
+        'noreply@discord.com'
+      ),
+      _createMail(
+        'Apple',
+        'Add an email account to your iOS device',
+        'There are two ways you can set up an email account in the Mail app on your iPhone, iPad, or iPod touch — automatically or manually. Learn which option is best for you.',
+        'no_reply@email.apple.com‏'
       ),
     ],
-    spam: [],
+    archive: [],
     sentEmails: [],
+    trashEmails: [],
     bgc: utilService.getRandomColor(),
     keeps: gNotes,
   };
@@ -156,7 +172,8 @@ function _createMail(from, subject, body, fromMail) {
     fromMail,
     isRead: false,
     isStared: false,
-    isSpam: false,
+    isArchive: false,
+    isTrash: false,
     sentAt: Date.now(),
   };
 }
@@ -196,8 +213,12 @@ function composeMail(user, mail) {
   const subject = mail.subject;
   const body = mail.body;
   const mailToSend = _createMail(from, subject, body, fromMail);
-  sendToUser.mails.unshift(mailToSend);
-  user.sentEmails.unshift(mailToSend);
+  if(!sendToUser) {
+    user.sentEmails.unshift(mailToSend);
+  } else {
+    sendToUser.mails.unshift(mailToSend);
+    user.sentEmails.unshift(mailToSend);
+  }
   storageService.saveToStorage(USER_KEY, gUsers);
 }
 
@@ -222,32 +243,48 @@ function getEmailTimeSent(timestamp) {
   return timeSent;
 }
 
-function removeMail(user, mailId) {
-  const mailIdx = getMailIdxById(user.mails, mailId);
-  const mails = user.mails;
-  mails.splice(mailIdx, 1);
+function removeMail(mailId, mails, user) {
+  const mailIdx = getMailIdxById(mails, mailId);
+  const mail = mails[mailIdx]
+  if(mail.isTrash) {
+    user.trashEmails.splice(mailIdx, 1)
+  } else { 
+    console.log(user.trashEmails);
+    user.mails.splice(mailIdx,1)
+    user.trashEmails.unshift(mail)
+    mail.isTrash = true
+  }
   storageService.saveToStorage(USER_KEY, gUsers);
+}
+
+function restoreMail(mailId, mails, user) {
+  const mailIdx = getMailIdxById(mails, mailId);
+  const mail = mails[mailIdx]
+  mail.isTrash = false
+  user.mails.unshift(mail)
+  user.trashEmails.splice(mailIdx,1)
+  storageService.saveToStorage(USER_KEY, gUsers);
+
 }
 
 function filterByStars(mails) {
   const mailsToDisplay = mails.filter((mail) => mail.isStared === true);
-  console.log('mails', mailsToDisplay);
   return mailsToDisplay;
 }
 
-function setSpam(user, mail) {
+function setArchive(user, mail) {
   const mails = user.mails;
   const mailId = mail.id;
   const mailIdx = getMailIdxById(mails, mailId);
-  if (mail.isSpam) {
-    const spamMailIdx = getMailIdxById(user.spam, mailId);
-    mails.unshift(user.spam[spamMailIdx]);
-    user.spam.splice(spamMailIdx, 1);
-    mail.isSpam = false;
+  if (mail.isArchive) {
+    const archiveMailIdx = getMailIdxById(user.archive, mailId);
+    mails.unshift(user.Archive[archiveMailIdx]);
+    user.archive.splice(archiveMailIdx, 1);
+    mail.isArchive = false;
   } else {
-    user.spam.push(mails[mailIdx]);
+    user.archive.push(mails[mailIdx]);
     mails.splice(mailIdx, 1);
-    mail.isSpam = true;
+    mail.isArchive = true;
   }
   storageService.saveToStorage(USER_KEY, gUsers);
 }

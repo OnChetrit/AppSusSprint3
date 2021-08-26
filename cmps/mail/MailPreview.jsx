@@ -1,7 +1,7 @@
 import { mailService } from '../../services/mail.service.js';
 import { userService } from '../../services/user.service.js';
 
-export function MailPreview({ mail, user, onIsStared, onRemoveMail , onSetSpam}) {
+export function MailPreview({ mail,mails, user, onIsStared, onRemoveMail , onSetArchive, onRestoreMail}) {
   const bodyToPreview =
     mail.body.length > 100 ? mail.body.substr(0, 100) + '...' : mail.body;
   return (
@@ -25,15 +25,23 @@ export function MailPreview({ mail, user, onIsStared, onRemoveMail , onSetSpam})
         <button 
         className="btn spam-mail" 
         onClick={() => {
-          onSetSpam(user, mail)
-        }}>Spam</button>
+          onSetArchive(user, mail)
+        }}>Archive</button>
         <button
           className="btn remove-mail"
           onClick={() => {
-            onRemoveMail(user, mail.id);
+            onRemoveMail(mail.id, mails,user);
           }}
         >
           X
+        </button>
+        <button
+          className="btn restore-mail"
+          onClick={() => {
+            onRestoreMail(mail.id, mails,user);
+          }}
+        >
+          R
         </button>
       </div>
     </div>
