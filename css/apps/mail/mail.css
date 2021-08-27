@@ -29,17 +29,30 @@
   padding: 10px;
   margin-inline-end: 10px;
   cursor: pointer;
+  color: black;
   border-radius: 0 16px 16px 0;
 }
 
 .filters-container > *:hover {
   background-color: #f1f3f4;
+  font-weight: bold;
 }
 
-.filters-container .marked {
+
+.filters-container .marked-red {
   background-color: #fce8e6;
   color: #d93025;
-  font-weight: bold;
+  
+}
+
+.filters-container .marked-gray {
+  background-color: #e8eaed;
+  color: black;
+}
+
+.marked-gray:active,
+.marked-red:active {
+  font-weight: bold;  
 }
 
 /* .filter:not:first-child {
@@ -48,18 +61,14 @@
 .filter {
   border-bottom: 1px solid gray;
   padding: 10px;
-}
-.filter:active {
-  background-color: #fce8e6;
-  color: #d93025;
-  font-weight: 600;
-} */
+}*/
 
 .filters-container {
   /* border: 1px solid gray; */
-  width: 150px;
-  height: 70px;
+  width: 200px;
+  height: 32px;
   margin-top: 10px;
+  padding: 0 20px 0 12px;
 }
 
 /* mail details */
