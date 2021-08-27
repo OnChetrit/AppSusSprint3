@@ -19,6 +19,7 @@ export class Mail extends React.Component {
     replyMail: null,
     forwardMail: null,
     isTrash: false,
+    sortedBy: null,
   };
 
   toggleMsg;
@@ -39,13 +40,12 @@ export class Mail extends React.Component {
       this.setState({ user });
     });
   };
-  loadMails = (user, searchBy, filterBy) => {
+  loadMails = (user, searchBy, filterBy, sortedBy) => {
     if (!user) return;
-    userService.queryMails(user, searchBy, filterBy).then((mails) => {
+    userService.queryMails(user, searchBy, filterBy, sortedBy).then((mails) => {
       this.setState({ mails });
     });
   };
-
   loadMail = (mail) => {
     this.setState({ mail });
   };
@@ -71,42 +71,59 @@ export class Mail extends React.Component {
     this.loadUser();
   };
   onSetSearch = (searchBy) => {
-    this.setState({ searchBy }, () =>
+    this.setState({ searchBy }, () => {    
+      this.setState({ mail: null })
       this.loadMails(this.state.user, searchBy, this.filterBy)
-    );
+    }
+  );
   };
   onSetFilterBy = (filterBy) => {
     this.setState({ filterBy }, () => {
       this.setState({ mail: null });
-      this.loadMails(this.state.user, this.searchBy, filterBy);
+      this.loadMails(this.state.user, this.state.searchBy, filterBy);
     });
   };
+  onSetSortedBy = (sortedBy) => {
+    console.log('hi', sortedBy);
+    this.setState({ sortedBy }, () => {
+      this.setState({ mail: null });
+      this.loadMails(this.state.user, this.state.searchBy, this.state.filterBy,sortedBy);
+    });
+  }
   onSetArchive = (user, mail) => {
     userService.setArchive(user, mail);
     this.loadMails(user, this.state.searchBy, this.state.filterBy);
   };
-
   onOpenMail = (mail) => {
     this.setState({ mail });
   };
-
   onSetRead = (mail) => {
     console.log(mail);
     userService.setRead(mail).then(() => {
       this.loadMails(this.state.user);
     });
   };
-
   onReplyMail = (replyMail) => {
     this.onToggleCompose();
     this.setState({ replyMail });
   };
-
   onForwardMail = (forwardMail) => {
     console.log(forwardMail);
     this.onToggleCompose();
     this.setState({ forwardMail });
   };
+  onDraftMail = (mailToDraft) => {
+    userService.setDraft(this.state.user,mailToDraft)
+  }
+  onSelectMail = (mail) => {
+    userService.setSelectedMail(mail)
+    this.loadMails(this.state.user, this.state.searchBy, this.state.filterBy, this.state.sortedBy)
+  }
+  onRemoveSelected = () => {
+    userService.removeSelectedMail(this.state.mails, this.state.user)
+    this.loadMails(this.state.user, this.state.searchBy, this.state.filterBy, this.state.sortedBy)
+
+  }
   render() {
     const { user, isCompose, mails, mail, replyMail, forwardMail } = this.state;
     if (!user) return <div className="">Loading...</div>;
@@ -132,6 +149,9 @@ export class Mail extends React.Component {
               onRestoreMail={this.onRestoreMail}
               onOpenMail={this.onOpenMail}
               onSetRead={this.onSetRead}
+              onSetSortedBy={this.onSetSortedBy}
+              onSelectMail={this.onSelectMail}
+              onRemoveSelected={this.onRemoveSelected}
             />
           )}
           {mail && (
@@ -151,10 +171,12 @@ export class Mail extends React.Component {
 
           {isCompose && (
             <ComposeMail
+            mail={mail}
               replyMail={replyMail}
               forwardMail={forwardMail}
               onComposeMail={this.onComposeMail}
               onToggleCompose={this.onToggleCompose}
+              onDraftMail={this.onDraftMail}
             />
           )}
         </main>

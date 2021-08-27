@@ -73,6 +73,14 @@ export class MailFilter extends React.Component {
           </div>
           <div
             onClick={() => {
+              this.onSetFilter('draft');
+            }}
+            className={`filter ${this.checkIsActive('draft')} `}
+          >
+            Draft
+          </div>
+          <div
+            onClick={() => {
               this.onSetFilter('trash');
             }}
             className={`filter ${this.checkIsActive('trash')} `}

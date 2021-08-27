@@ -2,7 +2,6 @@ import { mailService } from '../../services/mail.service.js';
 import { userService } from '../../services/user.service.js';
 
 export function MailDetails({ user, mail, onReplyMail, onForwardMail }) {
-  console.log(`mail`, mail);
   if (!user) return <div>Load</div>;
   return (
     <div className="mail-details">
@@ -14,8 +13,9 @@ export function MailDetails({ user, mail, onReplyMail, onForwardMail }) {
           <section className="mail-details-from">
             <h4>{mail.from}</h4>
             <p>{`<${mail.fromMail}>`}</p>
-            <p>{userService.getEmailTimeSent(mail.sentAt)}</p>
+            <p>{userService.timeSendDetails(mail.sentAt)}</p>
           </section>
+            <p>to: {user.emailAddress}</p>
           <h2>{mail.subject}</h2>
           <p>{mail.body}</p>
         </div>

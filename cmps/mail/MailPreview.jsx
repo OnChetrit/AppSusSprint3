@@ -11,9 +11,10 @@ export function MailPreview({
   onRestoreMail,
   onOpenMail,
   onSetRead,
+  onSelectMail
 }) {
   const bodyToPreview =
-    mail.body.length > 100 ? mail.body.substr(0, 100) + '...' : mail.body;
+    mail.body.length > 80 ? mail.body.substr(0, 80) + '...' : mail.body;
   return (
     <div
       key={mail.id}
@@ -22,7 +23,7 @@ export function MailPreview({
       }}
       className={`mail-preview flex space-between btn  ${
         mail.isRead ? 'read' : ''
-      }`}
+      } ${mail.isSelected ? 'selected-mail' : ''}`}
     >
       <div className="left-side flex al-items-center">
         <div
@@ -44,7 +45,6 @@ export function MailPreview({
         <p>{bodyToPreview}</p>
         {/* <p>{mail.body}</p> */}
       </div>
-
       <div className="flex btn-mail">
         <button
           className="btn spam-mail"
@@ -89,6 +89,15 @@ export function MailPreview({
           <div className="icon-container ">
             <img src={`../img/mail/${mail.isRead ? 'unread' : 'read'}.png`} />
           </div>
+        </button>
+        <button
+          className={`btn`}
+          onClick={(ev) => {
+            ev.stopPropagation();
+            onSelectMail(mail, user);
+          }}
+        >
+          Slt
         </button>
       </div>
       <h6 className="show-time">{userService.getEmailTimeSent(mail.sentAt)}</h6>
