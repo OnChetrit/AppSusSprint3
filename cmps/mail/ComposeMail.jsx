@@ -10,13 +10,15 @@ export class ComposeMail extends React.Component {
   };
 
   componentDidMount() {
-    const beforeMessage = `\n\n\n\n\n\n=====================================================>\n${userService.timeSendDetails(this.props.mail.sentAt)}\n`
     const replyMail = this.props.replyMail;
     const forwardMail = this.props.forwardMail;
     if (replyMail) {
+      const beforeMessage = `\n\n\n\n\n\n=====================================================>\n${userService.timeSendDetails(
+        this.props.mail.sentAt
+      )}\n`;
       const sendTo = replyMail.fromMail;
       const subject = replyMail.subject;
-      const body = beforeMessage+'\n'+replyMail.body;
+      const body = beforeMessage + '\n' + replyMail.body;
       this.setState({
         mail: {
           ...this.state.mail,
@@ -26,10 +28,13 @@ export class ComposeMail extends React.Component {
         },
       });
     } else if (forwardMail) {
+      const beforeMessage = `\n\n\n\n\n\n=====================================================>\n${userService.timeSendDetails(
+        this.props.mail.sentAt
+      )}\n`;
       const subject = forwardMail.subject;
-      const body = beforeMessage+'\n'+forwardMail.body;
+      const body = beforeMessage + '\n' + forwardMail.body;
       this.setState({
-        mail: { ...this.state.mail, sendTo: '',subject: subject, body: body },
+        mail: { ...this.state.mail, sendTo: '', subject: subject, body: body },
       });
     }
   }
@@ -42,11 +47,10 @@ export class ComposeMail extends React.Component {
     }));
     // this.draftInterval = setInterval(() => {
     //   console.log('hi from interval');
-    //   this.props.onDraftMail(this.state.mail) 
+    //   this.props.onDraftMail(this.state.mail)
 
     // }, 5000);
   };
-  
 
   onSaveMail = (ev) => {
     ev.preventDefault();
@@ -64,7 +68,7 @@ export class ComposeMail extends React.Component {
   };
 
   render() {
-    const { onToggleCompose , onDraftMail} = this.props;
+    const { onToggleCompose, onDraftMail } = this.props;
     const { sendTo, subject, body } = this.state.mail;
     return (
       <div>

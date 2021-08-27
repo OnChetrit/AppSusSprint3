@@ -81,7 +81,7 @@ export class KeepAdd extends React.Component {
     //   }
     // };
     return (
-      <div className="add-keep">
+      <div className="add-keep flex justify-center">
         <button className="txt" onClick={() => this.onChangeInputType('txt')}>
           Add Keep
         </button>

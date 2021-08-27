@@ -14,14 +14,16 @@ export const userService = {
   queryMails,
   composeMail,
   restoreMail,
-  createKeep,
-  // addKeep,
   setRead,
   ValidateEmail,
-  setDraft,
   setSelectedMail,
   removeSelectedMail,
-  timeSendDetails
+  timeSendDetails,
+  removeKeep,
+  createKeep,
+  keepColorChange,
+  duplicateKeep,
+  setDraft,
 };
 
 const gMonths = [
@@ -38,13 +40,14 @@ const gMonths = [
   'Nov',
   'Dec',
 ];
-const gDay = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu','Fri', 'Sat'];
+const gDay = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
 const gKeeps = [
   {
     id: utilService.makeId(),
     type: 'txt',
     isPinned: true,
+    color: '#fdcfe8',
     info: {
       title: 'Title of text',
       txt: 'txt txt txt txt!',
@@ -54,6 +57,7 @@ const gKeeps = [
     id: utilService.makeId(),
     type: 'img',
     isPinned: false,
+    color: '#fdcfe8',
     info: {
       // title: 'Image title',
       title: 'image description',
@@ -67,6 +71,7 @@ const gKeeps = [
     id: utilService.makeId(),
     type: 'todo',
     isPinned: false,
+    color: '#fdcfe8',
     info: {
       title: 'To Do List',
       todos: [
@@ -86,16 +91,16 @@ function query() {
 
 function queryMails(user, searchBy, filterBy, sortedBy) {
   if (sortedBy) {
-    if(sortedBy === 'title') {
-      const mailsAfterSort = sortBy(sortedBy,user.mails)
+    if (sortedBy === 'title') {
+      const mailsAfterSort = sortBy(sortedBy, user.mails);
       return Promise.resolve(mailsAfterSort);
     }
-    if(sortedBy === 'subject') {
-      const mailsAfterSort = sortBy(sortedBy,user.mails)
+    if (sortedBy === 'subject') {
+      const mailsAfterSort = sortBy(sortedBy, user.mails);
       return Promise.resolve(mailsAfterSort);
     }
-    if(sortedBy === 'date') {
-      const mailsAfterSort = sortBy(sortedBy,user.mails)
+    if (sortedBy === 'date') {
+      const mailsAfterSort = sortBy(sortedBy, user.mails);
       return Promise.resolve(mailsAfterSort);
     }
   }
@@ -255,28 +260,28 @@ function composeMail(user, mail) {
 }
 
 function setDraft(user, mail) {
-  const draftMail = user.draftEmails
+  const draftMail = user.draftEmails;
   const from = user.username;
   const fromMail = user.emailAddress;
   const subject = mail.subject;
   const body = mail.body;
-  if (!from || !fromMail || !subject|| !body) return;
+  if (!from || !fromMail || !subject || !body) return;
   const mailToDraft = _createMail(from, subject, body, fromMail);
-  if(!draftMail) draftMail.unshift(mailToDraft)
-  else if(checkDraftMail(draftMail,mailToDraft)) {
-    const mailIdx = getMailIdxById(draftMail, mailToDraft.id)
-    draftMail.splice(mailIdx,1)
+  if (!draftMail) draftMail.unshift(mailToDraft);
+  else if (checkDraftMail(draftMail, mailToDraft)) {
+    const mailIdx = getMailIdxById(draftMail, mailToDraft.id);
+    draftMail.splice(mailIdx, 1);
     const newMailToDraft = _createMail(from, subject, body, fromMail);
-    draftMail.unshift(newMailToDraft)
+    draftMail.unshift(newMailToDraft);
   } else {
-    draftMail.unshift(mailToDraft)
+    draftMail.unshift(mailToDraft);
   }
 }
 
-function checkDraftMail(mails,draftMail) {
-  return mails.find(mail => {
-    mail.id === draftMail.id
-  })
+function checkDraftMail(mails, draftMail) {
+  return mails.find((mail) => {
+    mail.id === draftMail.id;
+  });
 }
 
 function addUser(userToAdd) {
@@ -338,21 +343,25 @@ function filterByRead(filterBy, mails) {
   return mailsToDisplay;
 }
 
-function sortBy(sortedBy,mails) {
-  if(sortedBy === 'title') {
-   return mails.sort((mailA, mailB) => {
-      return mailA.from.toLowerCase().localeCompare(mailB.from.toLowerCase())})
-  } 
-  if(sortedBy === 'subject') {
-   return mails.sort((mailA, mailB) => {
-      return mailA.subject.toLowerCase().localeCompare(mailB.subject.toLowerCase())})
-  } 
-  if(sortedBy === 'date') {
-   return mails.sort((mailA, mailB) => {
-      return mailA.sentAt - mailB.sentAt
-  } )}
+function sortBy(sortedBy, mails) {
+  if (sortedBy === 'title') {
+    return mails.sort((mailA, mailB) => {
+      return mailA.from.toLowerCase().localeCompare(mailB.from.toLowerCase());
+    });
+  }
+  if (sortedBy === 'subject') {
+    return mails.sort((mailA, mailB) => {
+      return mailA.subject
+        .toLowerCase()
+        .localeCompare(mailB.subject.toLowerCase());
+    });
+  }
+  if (sortedBy === 'date') {
+    return mails.sort((mailA, mailB) => {
+      return mailA.sentAt - mailB.sentAt;
+    });
+  }
 }
-
 
 function setArchive(user, mail) {
   const mails = user.mails;
@@ -378,38 +387,45 @@ function setRead(mail) {
   return Promise.resolve();
 }
 
+function ValidateEmail(mail) {
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+    return true;
+  }
+  return false;
+}
 function setSelectedMail(mail) {
   if (mail.isSelected) {
-    mail.isSelected = false
+    mail.isSelected = false;
   } else {
     mail.isSelected = true;
-  } 
-   storageService.saveToStorage(USER_KEY, gUsers);
   }
+  storageService.saveToStorage(USER_KEY, gUsers);
+}
 function removeSelectedMail(mails, user) {
-  const mailsToRemove =[]
+  const mailsToRemove = [];
   for (let i = 0; i < mails.length; i++) {
-    if(mails[i].isSelected) {
-      mailsToRemove.push(mails[i])
+    if (mails[i].isSelected) {
+      mailsToRemove.push(mails[i]);
     }
   }
-  mailsToRemove.forEach(mail => {
-    removeMail(mail.id,user.mails,user)
-  })
+  mailsToRemove.forEach((mail) => {
+    removeMail(mail.id, user.mails, user);
+  });
 }
 function timeSendDetails(timestamp) {
-  const fullTime = new Date(timestamp)
-  const month = gMonths[fullTime.getMonth()]
-  const year = fullTime.getFullYear()
+  const fullTime = new Date(timestamp);
+  const month = gMonths[fullTime.getMonth()];
+  const year = fullTime.getFullYear();
   const day = fullTime.getUTCDate();
-  const dayName = gDay[fullTime.getDay()]
+  const dayName = gDay[fullTime.getDay()];
   const hour = fullTime.getHours();
   const minutes = fullTime.getMinutes();
-  return `${day} ${month} ${year} ${dayName}, ${hour}:${minutes}`
+  return `${day} ${month} ${year} ${dayName}, ${hour}:${minutes}`;
 }
 
 /////////////////////////////////////////////////////
 
+// KEEPS
 function createKeep(user, type, title, val) {
   let newKeep = {};
 
@@ -419,6 +435,7 @@ function createKeep(user, type, title, val) {
         id: utilService.makeId(),
         type,
         isPinned: false,
+        color: '#fdcfe8',
         info: {
           title: title,
           txt: val,
@@ -431,6 +448,7 @@ function createKeep(user, type, title, val) {
       newKeep = {
         id: utilService.makeId(),
         type,
+        color: '#fdcfe8',
         isPinned: false,
         info: {
           title,
@@ -443,14 +461,15 @@ function createKeep(user, type, title, val) {
       newKeep = {
         id: utilService.makeId(),
         type,
+        color: '#fdcfe8',
         isPinned: false,
         info: {
           title,
           todos: [
             {
               id: utilService.makeId(),
-              todo: val,
-              isDone: false,
+              txt: val,
+              doneAt: null,
             },
           ],
         },
@@ -465,16 +484,31 @@ function createKeep(user, type, title, val) {
   return Promise.resolve(newKeep);
 }
 
-function getKeepIdxById(user, keepId) {
+function removeKeep(user, id) {
+  const idx = _getKeepIdxById(user, id);
+  user.keeps.splice(idx, 1);
+  storageService.saveToStorage(USER_KEY, gUsers);
+  return Promise.resolve();
+}
+
+function _getKeepIdxById(user, keepId) {
   const keepIdx = user.keeps.findIndex((keep) => {
     return keepId === keep.id;
   });
   return keepIdx;
 }
 
-function ValidateEmail(mail) {
-  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
-    return true;
-  }
-  return false;
+function duplicateKeep(user, keep) {
+  const keepJson = JSON.parse(JSON.stringify(keep));
+  keepJson.id = utilService.makeId();
+  user.keeps.unshift(keepJson);
+  storageService.saveToStorage(USER_KEY, gUsers);
+  return Promise.resolve();
+}
+
+function keepColorChange(user, id, color) {
+  const idx = _getKeepIdxById(user, id);
+  user.keeps[idx].color = color;
+  storageService.saveToStorage(USER_KEY, gUsers);
+  return Promise.resolve();
 }

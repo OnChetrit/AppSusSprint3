@@ -21,7 +21,7 @@ export function MailDetails({ user, mail, onReplyMail, onForwardMail }) {
         </div>
       </div>
       <button
-        className="replay-btn"
+        className="replay-btn btn"
         onClick={() => {
           onReplyMail(mail);
         }}
@@ -29,7 +29,7 @@ export function MailDetails({ user, mail, onReplyMail, onForwardMail }) {
         Reply
       </button>
       <button
-        className="replay-btn"
+        className="replay-btn btn"
         onClick={() => {
           onForwardMail(mail);
         }}

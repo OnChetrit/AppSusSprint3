@@ -1,12 +1,12 @@
 import { AppHeader } from '../cmps/AppHeader.jsx';
 import { KeepFilter } from '../cmps/keep/KeepFilter.jsx';
 import { KeepList } from '../cmps/keep/KeepList.jsx';
+import { eventBusService } from '../services/event-bus-service.js';
 import { userService } from '../services/user.service.js';
 
 export class Keep extends React.Component {
   state = {
     user: null,
-    keeps: null,
   };
 
   componentDidMount() {
@@ -24,6 +24,28 @@ export class Keep extends React.Component {
     userService.getUserById(id).then((user) => {
       if (!user) this.props.history.push('/');
       this.setState({ user });
+    });
+  };
+
+  onKeepColorChange = (id, color) => {
+    const { user } = this.state;
+    userService.keepColorChange(user, id, color).then(() => {
+      this.loadUser();
+    });
+  };
+
+  onRemoveKeep = (id) => {
+    const { user } = this.state;
+    userService.removeKeep(user, id).then(() => {
+      this.loadUser();
+    });
+    eventBusService.emit('user-msg', { txt: 'Keep deleted!', type: 'danger' });
+  };
+
+  onDuplicateKeep = (keep) => {
+    const { user } = this.state;
+    userService.duplicateKeep(user, keep).then(() => {
+      this.loadUser();
     });
   };
 
@@ -45,7 +67,14 @@ export class Keep extends React.Component {
         <main className="flex">
           <KeepFilter />
           {user && (
-            <KeepList onAdd={this.onAdd} keeps={user.keeps} user={user} />
+            <KeepList
+              onAdd={this.onAdd}
+              onKeepColorChange={this.onKeepColorChange}
+              onRemoveKeep={this.onRemoveKeep}
+              onDuplicateKeep={this.onDuplicateKeep}
+              keeps={user.keeps}
+              user={user}
+            />
           )}
         </main>
       </div>

@@ -2,9 +2,13 @@ import { KeepTxt } from '../keep/dynamicCmps/KeepTxt.jsx';
 import { KeepTodo } from '../keep/dynamicCmps/KeepTodo.jsx';
 import { KeepImg } from '../keep/dynamicCmps/KeepImg.jsx';
 
-export function KeepPreview({ keep }) {
+export function KeepPreview({
+  keep,
+  onRemoveKeep,
+  onKeepColorChange,
+  onDuplicateKeep,
+}) {
   const DynamicKeep = (props) => {
-    console.log(`keep`, keep);
     switch (props.keep.type) {
       case 'txt':
         return <KeepTxt {...props} />;
@@ -14,5 +18,12 @@ export function KeepPreview({ keep }) {
         return <KeepImg {...props} />;
     }
   };
-  return <DynamicKeep keep={keep} />;
+  return (
+    <DynamicKeep
+      keep={keep}
+      onDuplicateKeep={onDuplicateKeep}
+      onRemoveKeep={onRemoveKeep}
+      onKeepColorChange={onKeepColorChange}
+    />
+  );
 }

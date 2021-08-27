@@ -4,6 +4,8 @@
 @import './parts/user-msg.css';
 
 @import './apps/keep/keep.css';
+@import './apps/keep/keep-add.css';
+@import './apps/keep/keep-actions.css';
 @import './apps/keep/keep-list.css';
 @import './apps/keep/keep-preview.css';
 
@@ -12,6 +14,8 @@
 @import './apps/mail/mail-preview.css';
 @import './apps/mail/mail-compose.css';
 @import './apps/mail/mail-search.css';
+@import './apps/mail/mail-details.css';
+@import './apps/mail/mail-filter.css';
 @import './cmps/user-list.css';
 @import './cmps/app-header.css';
 

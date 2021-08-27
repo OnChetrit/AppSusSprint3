@@ -1,0 +1,59 @@
+.color-select {
+  display: flex;
+  position: absolute;
+  bottom: 5px;
+  /* width: 150px; */
+  right: 4px;
+  gap: 10px;
+  border-radius: 20px;
+  transition: 0.3s;
+  padding: 3px 10px 3px 10px;
+  z-index: 1;
+  /* display: none; */
+}
+
+.pallete img:hover .color-select {
+  display: flex;
+}
+
+.color {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1px solid black;
+}
+
+.red {
+  background-color: #db4b4b;
+}
+
+.green {
+  background-color: #5cc077;
+}
+
+.lightBlue {
+  background-color: #62a8e4;
+}
+
+.lightyellow {
+  background-color: #fff3bf;
+}
+
+.lightgreen {
+  background-color: #ffa24a;
+}
+
+.pink {
+  background-color: #ff65a3;
+}
+
+.actions button {
+  background-color: transparent;
+  border: none;
+  margin-bottom: 5px;
+  width: 30px;
+}
+
+/* .trash {
+  width: 30px;
+} */
