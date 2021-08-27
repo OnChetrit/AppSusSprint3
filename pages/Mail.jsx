@@ -186,6 +186,17 @@ export class Mail extends React.Component {
       this.state.sortedBy
     );
   };
+  isSelected = false;
+  onSelectAll = () => {
+    this.isSelected = !this.isSelected
+    userService.selectAll(this.state.mails, this.isSelected)
+    this.loadMails(
+      this.state.user,
+      this.state.searchBy,
+      this.state.filterBy,
+      this.state.sortedBy
+    );
+  }
 
   render() {
     const {
@@ -195,7 +206,6 @@ export class Mail extends React.Component {
       mail,
       replyMail,
       forwardMail,
-      draftInterval,
       unreadMails,
     } = this.state;
     if (!user) return <div className="">Loading...</div>;
@@ -228,6 +238,7 @@ export class Mail extends React.Component {
               onSelectedArchive={this.onSelectedArchive}
               onSetSelectedRead={this.onSetSelectedRead}
               onRestoreSelected={this.onRestoreSelected}
+              onSelectAll={this.onSelectAll}
             />
           )}
           {mail && (

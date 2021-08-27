@@ -31,7 +31,8 @@ export const userService = {
   getMailById,
   updateDraftMail,
   isDraftMailExist,
-  getUnReadMails
+  getUnReadMails,
+  selectAll
 };
 
 const gMonths = [
@@ -282,7 +283,6 @@ function getUnReadMails(mails) {
   mails.forEach((mail) => {
     if(!mail.isRead) {
       counter++
-      console.log(counter);
     }
   })
   return Promise.resolve(counter);
@@ -476,6 +476,13 @@ function moveSelectedToArchive(mails, user) {
 const mailToMove = getSelectedMails(mails)
   mailToMove.forEach(mail => {
     setArchive(user,mail)
+  })
+}
+
+function selectAll(mails, bool) {
+  mails.forEach(mail => {
+    if(bool) mail.isSelected = true
+    else mail.isSelected = false
   })
 }
 
