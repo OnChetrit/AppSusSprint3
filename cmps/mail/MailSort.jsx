@@ -11,6 +11,17 @@ export class MailSort extends React.Component {
     this.props.onRemoveSelected();
    }
 
+   onSetSelectedToArchive = () => {
+    this.props.onSelectedArchive();
+   }
+
+   onSetSelectedRead = () => {
+     this.props.onSetSelectedRead()
+    }
+    onSetRestoreSelected = () => {   
+      this.props.onRestoreSelected();
+   }
+
 
   render() {
     return (
@@ -34,6 +45,15 @@ export class MailSort extends React.Component {
             </button>
             <button onClick={ () => this.onSetRemoveSelected()}
             className={`sort`}>Remove Selected
+            </button>
+            <button onClick={ () => this.onSetRestoreSelected()}
+            className={`sort`}>Restore Selected
+            </button>
+            <button onClick={ () => this.onSetSelectedToArchive()}
+            className={`sort`}>Selected to archive
+            </button>
+            <button onClick={ () => this.onSetSelectedRead()}
+            className={`sort`}>Selected to read/unread
             </button>
         </div>
       </div>

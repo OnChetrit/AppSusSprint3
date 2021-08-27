@@ -42,11 +42,6 @@
   color: black;
 }
 
-.marked-gray:active,
-.marked-red:active {
-  font-weight: bold;
-}
-
 /* .filter:not:first-child {
   margin-top: 10px;
 }
