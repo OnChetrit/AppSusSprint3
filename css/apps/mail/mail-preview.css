@@ -139,3 +139,7 @@
 .btn.hide {
   display: none;
 }
+
+.unread-preview {
+  margin-left: 20px;
+}

@@ -44,7 +44,7 @@ export class MailFilter extends React.Component {
                 filterBy === 'inbox' ? 'inbox-active' : 'inbox-filter'
               }.png`}
             />
-            Inbox {unreadMails ? unreadMails : ''} 
+            Inbox <span className="unread-preview">{unreadMails ? unreadMails : ''}</span>
           </div>
           <div
             onClick={() => {

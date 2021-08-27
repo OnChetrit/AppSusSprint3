@@ -2,7 +2,9 @@ import { mailService } from '../../services/mail.service.js';
 import { userService } from '../../services/user.service.js';
 
 export function MailDetails({ user, mail, onReplyMail, onForwardMail }) {
+
   if (!user) return <div>Load</div>;
+  mail.isRead = true;
   return (
     <div className="mail-details">
       <div className="mail-details-card">
