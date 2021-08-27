@@ -21,12 +21,18 @@ export class MailSort extends React.Component {
     onSetRestoreSelected = () => {   
       this.props.onRestoreSelected();
    }
+   onSelectAll = () => {
+     this.props.onSelectAll();
+   }
 
 
   render() {
     return (
       <div className="mail-sort">
         <div className="sort-container">
+          <button onClick={ () => this.onSelectAll()}
+            className={`sort`}>Select All
+            </button>
             <button onClick={() => {
               this.onSetSort('title');
             }}

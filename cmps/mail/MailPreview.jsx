@@ -12,6 +12,7 @@ export function MailPreview({
   onOpenMail,
   onSetRead,
   onSelectMail,
+  onSetMailAsKeep
 }) {
   const bodyToPreview =
     mail.body.length > 80 ? mail.body.substr(0, 80) + '...' : mail.body;
@@ -75,6 +76,17 @@ export function MailPreview({
           onClick={(ev) => {
             ev.stopPropagation();
             onRemoveMail(mail.id, mails, user);
+          }}
+        >
+          <div className="icon-container">
+            <img src="../img/mail/trash-filter.png" />
+          </div>
+        </button>
+        <button
+          className={`btn`}
+          onClick={(ev) => {
+            ev.stopPropagation();
+            onSetMailAsKeep(mail, user);
           }}
         >
           <div className="icon-container">

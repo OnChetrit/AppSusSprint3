@@ -17,7 +17,9 @@ export function MailList({
   onRemoveSelected,
   onSelectedArchive,
   onSetSelectedRead,
-  onRestoreSelected
+  onRestoreSelected,
+  onSelectAll,
+  onSetMailAsKeep
 }) {
   if (!mails) return <div>There's No Mails</div>;
   return (
@@ -29,6 +31,7 @@ export function MailList({
       onSelectedArchive={onSelectedArchive}
       onSetSelectedRead={onSetSelectedRead}
       onRestoreSelected={onRestoreSelected}
+      onSelectAll={onSelectAll}
       />
       {mails.map((mail) => (
         <MailPreview
@@ -43,6 +46,7 @@ export function MailList({
           onOpenMail={onOpenMail}
           onSetRead={onSetRead}
           onSelectMail={onSelectMail}
+          onSetMailAsKeep={onSetMailAsKeep}
         />
       ))}
     </div>

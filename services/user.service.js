@@ -36,6 +36,8 @@ export const userService = {
   queryKeeps,
   togglePin,
   sendMail,
+  selectAll,
+  setMailAsKeep,
 };
 
 const gMonths = [
@@ -204,6 +206,60 @@ function _createUser(username, emailAddress) {
         'There are two ways you can set up an email account in the Mail app on your iPhone, iPad, or iPod touch — automatically or manually. Learn which option is best for you.',
         'no_reply@email.apple.com‏'
       ),
+      _createMail(
+        'Reddit',
+        'How much of your day do you spend googling?',
+        "I think I spend at minimum 30 minutes per day googling – sometimes as much as a couple of hours. A lot of the time it's for things I've already googled in the past ,Do you ever get to a point where you don't have to google much",
+        'noreply@redditmail.com'
+      ),
+      _createMail(
+        'Discord ',
+        'Verify Discord Login from New Location',
+        "It looks like someone tried to log into your Discord account from a new location. If this is you, follow the link below to authorize logging in from this location on your account. If this isn't you",
+        'noreply@discord.com'
+      ),
+      _createMail(
+        'LinkedIn Job Alerts',
+        "1 new job for 'fullStack developer",
+        'new jobs in Central, Israel match your preferences',
+        'jobalerts-noreply@linkedin.com‏'
+      ),
+      _createMail(
+        'Reddit',
+        'How much of your day do you spend googling?',
+        "I think I spend at minimum 30 minutes per day googling – sometimes as much as a couple of hours. A lot of the time it's for things I've already googled in the past ,Do you ever get to a point where you don't have to google much",
+        'noreply@redditmail.com'
+      ),
+      _createMail(
+        'LinkedIn Job Alerts',
+        "1 new job for 'fullStack developer",
+        'new jobs in Central, Israel match your preferences',
+        'jobalerts-noreply@linkedin.com‏'
+      ),
+      _createMail(
+        'Discord ',
+        'Verify Discord Login from New Location',
+        "It looks like someone tried to log into your Discord account from a new location. If this is you, follow the link below to authorize logging in from this location on your account. If this isn't you",
+        'noreply@discord.com'
+      ),
+      _createMail(
+        'Quora Digest',
+        'Are HTML, CSS, JavaScript, and Node.js with a little SQL',
+        'Not quite. That combination of technology is enough to write full stack code, but it doesn’t address everything. There’s far more to being a full stack developer First, you need to be familiar with infrastructure. After all, if you have no place to run the code, then knowing how to write it is pointless. For example, you may know SQL but if you can’t setup the database, then you have no place to run your code. Sure, you could use a cloud service, but that may not be what every job calls for (and you still need to understand how to design a database). The good news is infrastructure can often be learned as you go, and most employers have already done the hard part. It’s important to be aware of your own limitations and have a plan for removing such knowledge gaps',
+        'english-digest-noreply@quora.com'
+      ),
+      _createMail(
+        'Call of Duty',
+        'Call of Duty®: Vanguard: Pre-Order is LIVE. 💥‏‏',
+        '© 2021 Activision Publishing, Inc. ACTIVISION, CALL OF DUTY, MODERN WARFARE, WARZONE, CALL OF DUTY WARZONE, CALL OF DUTY®: VANGUARD, and CALL OF DUTY®: BLACK OPS COLD WAR are trademarks of Activision Publishing, Inc. All other trademarks and trade names are the properties of their respective owners.',
+        'callofduty@marketing.activision.com'
+      ),
+      _createMail(
+        'GeeksforGeeks',
+        "It's our birthday, did you know?😳",
+        'You see a chappal ad right after it breaks & you talk to your friend about getting a new pair, this app’s for you. HalloApp, a new social media net work claims to have no bots, ads,trolls, likes, followers or photo filters.Say ‘Hallo’ to a good sort of social medium, right?',
+        'no-reply@geeksforgeeks.org'
+      ),
     ],
     archive: [],
     sentEmails: [],
@@ -286,7 +342,6 @@ function getUnReadMails(mails) {
   mails.forEach((mail) => {
     if (!mail.isRead) {
       counter++;
-      console.log(counter);
     }
   });
   return Promise.resolve(counter);
@@ -481,6 +536,22 @@ function moveSelectedToArchive(mails, user) {
   mailToMove.forEach((mail) => {
     setArchive(user, mail);
   });
+}
+
+function selectAll(mails, bool) {
+  mails.forEach((mail) => {
+    if (bool) mail.isSelected = true;
+    else mail.isSelected = false;
+  });
+}
+
+function setMailAsKeep(mail, user) {
+  const type = 'txt';
+  const title = mail.subject;
+  const val = mail.body;
+  const keep = createKeep(user, type, title, val);
+  user.keeps.unshift(keep);
+  storageService.saveToStorage(USER_KEY, gUsers);
 }
 
 ///////////////////////////////// KEEPS /////////////////////////////////
