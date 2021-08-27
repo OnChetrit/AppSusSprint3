@@ -1,4 +1,5 @@
 import { mailService } from '../../services/mail.service.js';
+import { userService } from '../../services/user.service.js';
 
 export function MailPreview({
   mail,
@@ -16,57 +17,75 @@ export function MailPreview({
   return (
     <div
       key={mail.id}
-      className={`mail-card flex btn  ${mail.isRead ? 'read' : ''}`}
-    >
-      <i
-        className={mail.isStared ? 'fa fa-star star gold' : 'fa fa-star-o star'}
-        aria-hidden="true"
-        onClick={() => {
-          onIsStared(user.id, mail.id);
-        }}
-      ></i>
-      <div className="flex al-items-center" onClick={() => {
+      onClick={() => {
         onOpenMail(mail);
-      }}>
+      }}
+      className={`mail-preview flex space-between btn  ${
+        mail.isRead ? 'read' : ''
+      }`}
+    >
+      <div className="left-side flex al-items-center">
+        <div
+          className="star-icon"
+          onClick={(ev) => {
+            ev.stopPropagation();
+            onIsStared(user.id, mail.id);
+          }}
+        >
+          <i
+            className={
+              mail.isStared ? 'fa fa-star star gold' : 'fa fa-star-o star'
+            }
+            aria-hidden="true"
+          ></i>
+        </div>
         <h4>{mail.from}</h4>
-        <h4 className="subject">{mail.subject} - </h4>
+        <h5 className="subject">{mail.subject} - </h5>
         <p>{bodyToPreview}</p>
+        {/* <p>{mail.body}</p> */}
       </div>
+
       <div className="flex btn-mail">
-        <h5>{mailService.getEmailTimeSent(mail.sentAt)}</h5>
         <button
           className="btn spam-mail"
-          onClick={() => {
+          onClick={(ev) => {
+            ev.stopPropagation();
             onSetArchive(user, mail);
           }}
         >
-          Archive
+          <img src="../img/mail/archive.png" />
         </button>
         <button
-          className="btn remove-mail"
-          onClick={() => {
-            onRemoveMail(mail.id, mails, user);
+          className="btn"
+          onClick={(ev) => {
+            ev.stopPropagation();
+            onRemoveMail(event, mail.id, mails, user);
           }}
         >
-          X
+          <img src="../img/mail/trash.png" />
         </button>
         <button
-          className="btn restore-mail"
-          onClick={() => {
+          className="btn"
+          onClick={(ev) => {
+            ev.stopPropagation();
             onRestoreMail(mail.id, mails, user);
           }}
         >
           R
         </button>
         <button
-          className="btn read-mail"
-          onClick={() => {
-          onSetRead(mail)
+          className="btn"
+          onClick={(ev) => {
+            ev.stopPropagation();
+            onSetRead(mail);
           }}
         >
-          <span>{mail.isRead? 'UnRead' : 'Read'}</span> 
+          <img src={`../img/mail/${mail.isRead ? 'unread' : 'read'}.png`} />
+
+          {/* <span>{mail.isRead ? 'UnRead' : 'Read'}</span> */}
         </button>
       </div>
+      <h6 className="show-time">{userService.getEmailTimeSent(mail.sentAt)}</h6>
     </div>
   );
 }

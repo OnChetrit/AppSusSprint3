@@ -10,7 +10,7 @@ export function UserList({ users }) {
         <UserPreview key={user.id} user={user} />
       ))}
       <Link to={`/user/create`} className="reset-link">
-        <button>Create Acount</button>{' '}
+        <button className="btn">Add acount</button>{' '}
       </Link>
     </div>
   );

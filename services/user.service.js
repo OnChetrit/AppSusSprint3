@@ -17,6 +17,7 @@ export const userService = {
   createKeep,
   // addKeep,
   setRead,
+  ValidateEmail,
 };
 
 const gMonths = [
@@ -183,7 +184,7 @@ function _createMail(from, subject, body, fromMail) {
     isStared: false,
     isArchive: false,
     isTrash: false,
-    sentAt: Date.now(),
+    sentAt: Date.now() - 100000,
   };
 }
 
@@ -308,11 +309,10 @@ function setArchive(user, mail) {
 }
 
 function setRead(mail) {
-  mail.isRead ? mail.isRead = false : mail.isRead = true;
+  mail.isRead ? (mail.isRead = false) : (mail.isRead = true);
   storageService.saveToStorage(USER_KEY, gUsers);
   return Promise.resolve();
 }
-
 
 /////////////////////////////////////////////////////
 
@@ -378,3 +378,9 @@ function getKeepIdxById(user, keepId) {
   return keepIdx;
 }
 
+function ValidateEmail(mail) {
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+    return true;
+  }
+  return false;
+}

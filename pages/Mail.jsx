@@ -17,8 +17,10 @@ export class Mail extends React.Component {
     isMailOpen: false,
     mail: null,
     replyMail: null,
-    forwardMail:null
+    forwardMail: null,
+    isTrash: false,
   };
+
   toggleMsg;
 
   componentDidMount() {
@@ -45,8 +47,8 @@ export class Mail extends React.Component {
   };
 
   loadMail = (mail) => {
-    this.setState({mail})
-  }
+    this.setState({ mail });
+  };
   onComposeMail = (mail) => {
     userService.composeMail(this.state.user, mail);
     eventBusService.emit('user-msg', { txt: 'Mail Sent!', type: 'success' });
@@ -74,12 +76,10 @@ export class Mail extends React.Component {
     );
   };
   onSetFilterBy = (filterBy) => {
-    this.setState({ filterBy }, () =>{
-      this.setState({mail: null});
-      this.loadMails(this.state.user, this.searchBy, filterBy)
-
-    }
-    );
+    this.setState({ filterBy }, () => {
+      this.setState({ mail: null });
+      this.loadMails(this.state.user, this.searchBy, filterBy);
+    });
   };
   onSetArchive = (user, mail) => {
     userService.setArchive(user, mail);
@@ -90,25 +90,24 @@ export class Mail extends React.Component {
     this.setState({ mail });
   };
 
-
-  onSetRead = (ev, mail) => {
+  onSetRead = (mail) => {
     userService.setRead(mail).then(() => {
       this.loadMails(this.state.user);
     });
   };
 
   onReplyMail = (replyMail) => {
-    this.onToggleCompose()
-    this.setState({replyMail})
-  }
+    this.onToggleCompose();
+    this.setState({ replyMail });
+  };
 
   onForwardMail = (forwardMail) => {
     console.log(forwardMail);
-    this.onToggleCompose()
-    this.setState({forwardMail})
-  }
+    this.onToggleCompose();
+    this.setState({ forwardMail });
+  };
   render() {
-    const { user, isCompose, mails ,mail, replyMail, forwardMail} = this.state;
+    const { user, isCompose, mails, mail, replyMail, forwardMail } = this.state;
     if (!user) return <div className="">Loading...</div>;
     return (
       <div className="mail-app flex direction-col">

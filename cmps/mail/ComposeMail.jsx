@@ -1,3 +1,5 @@
+import { userService } from '../../services/user.service.js';
+
 export class ComposeMail extends React.Component {
   state = {
     mail: {
@@ -8,17 +10,26 @@ export class ComposeMail extends React.Component {
   };
 
   componentDidMount() {
-    const replyMail = this.props.replyMail
-    const forwardMail = this.props.forwardMail
+    const replyMail = this.props.replyMail;
+    const forwardMail = this.props.forwardMail;
     if (replyMail) {
-      const sendTo = replyMail.fromMail
-      const subject = replyMail.subject
-      const body = replyMail.body
-      this.setState({mail: {...this.state.mail, sendTo:sendTo, subject:subject, body:body}})
-    } else if(forwardMail) {
-      const subject = forwardMail.subject
-      const body = forwardMail.body
-      this.setState({mail: {...this.state.mail, subject:subject, body:body}})
+      const sendTo = replyMail.fromMail;
+      const subject = replyMail.subject;
+      const body = replyMail.body;
+      this.setState({
+        mail: {
+          ...this.state.mail,
+          sendTo: sendTo,
+          subject: subject,
+          body: body,
+        },
+      });
+    } else if (forwardMail) {
+      const subject = forwardMail.subject;
+      const body = forwardMail.body;
+      this.setState({
+        mail: { ...this.state.mail, subject: subject, body: body },
+      });
     }
   }
 
@@ -32,13 +43,21 @@ export class ComposeMail extends React.Component {
 
   onSaveMail = (ev) => {
     ev.preventDefault();
-    this.props.onToggleCompose();
-    this.props.onComposeMail(this.state.mail);
+    if (userService.ValidateEmail(this.state.mail.sendTo)) {
+      this.props.onToggleCompose();
+      this.props.onComposeMail(this.state.mail);
+    } else {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'You Have Enter Wrong Email Address!',
+      });
+    }
   };
 
   render() {
-    const { onToggleCompose} = this.props;
-    const {sendTo, subject, body} = this.state.mail;
+    const { onToggleCompose } = this.props;
+    const { sendTo, subject, body } = this.state.mail;
     return (
       <div>
         <form className="compose-mail" onSubmit={this.onSaveMail}>

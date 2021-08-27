@@ -1,55 +1,97 @@
-.mail-card {
+.mail-preview {
+  position: relative;
   border: 1px solid #eceff1;
   align-items: center;
-  justify-content: end;
+  justify-content: flex-start;
+  height: 50px;
 }
-.mail-card:hover {
+.mail-preview:hover {
   box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0,
     0 1px 5px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
 }
 
-.mail-card h4 {
-  width: 200px;
-  text-overflow: ellipsis;
-}
-.mail-card h5 {
+.show-time {
   margin-inline-end: 20px;
+  font-size: 14px;
+  display: block;
+  flex-basis: 50px;
 }
-.mail-card p {
+.mail-preview h4 {
+  white-space: nowrap;
+  overflow: hidden;
   text-overflow: ellipsis;
+  flex-basis: 100px;
+}
+.mail-preview h5 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex-basis: 200px;
+  font-size: 1rem;
+}
+.mail-preview p {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}
+.mail-preview h6 {
+  flex-basis: 50px;
 }
 
-.star {
-  margin-left: 20px;
-}
-/* .mail-card p {
-  width: 400px;
-} */
-.remove-mail {
+.btn-mail {
+  position: absolute;
+  height: 100%;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
   display: none;
+  /* background-color: rgb(143, 88, 88); */
 }
 
-.mail-card:hover .remove-mail {
+.btn-mail button {
+  background: #ffffff;
+  border: none;
+  border-radius: 50%;
+}
+
+.btn-mail button img {
+  background: transparent;
+  width: 30px;
+}
+
+.mail-preview:hover .btn-mail {
   display: block;
 }
 
 .star {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 30px;
-  width: 30px;
   background-color: rgba(161, 158, 158, 0);
   border-radius: 50%;
+  display: inline-block;
 }
 
-.star:hover {
-  background-color: rgba(161, 158, 158, 0.699);
-}
 .gold {
   color: gold;
 }
 
 .read {
   background-color: #f5f7f7;
+}
+
+.mail-preview:hover .show-time {
+  display: none;
+}
+
+.star-icon {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-mail button:hover,
+.star-icon:hover {
+  background-color: rgba(161, 158, 158, 0.699);
 }

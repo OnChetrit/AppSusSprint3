@@ -28,7 +28,8 @@ export class CreatUser extends React.Component {
 
   render() {
     return (
-      <div className="add-user-container flex justify-center al-items-center">
+      <div className="add-user-container flex justify-center al-items-center direction-col">
+        <img src="../img/add-user.png" />
         <form
           className="add-user flex direction-col justify-center"
           onSubmit={this.onAddUser}
@@ -53,9 +54,10 @@ export class CreatUser extends React.Component {
             onChange={this.handleChange}
             placeholder="ex@email.com"
           />
-
-          <button onClick={this.goBack}>Go Back</button>
-          <button>Register</button>
+          <div className="actions">
+            <button onClick={this.goBack}>Go Back</button>
+            <button>Register</button>
+          </div>
         </form>
       </div>
     );

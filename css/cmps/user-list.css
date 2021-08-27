@@ -1,6 +1,6 @@
 .add-user-container,
 .main-app {
-  background-image: url(/img/background1.jpg);
+  background-image: url(/img/background6.jpg);
   background-repeat: no-repeat;
   background-size: cover;
 }
@@ -17,12 +17,30 @@
 .add-user,
 .user-list {
   width: 350px;
-  height: 350px;
+  /* height: 350px; */
   border-radius: 15px;
   background-color: #f7f7f7;
   box-shadow: 0px 8px 10px 1px rgb(0 0 0 / 14%),
     0px 3px 14px 2px rgb(0 0 0 / 12%), 0px 5px 5px -3px rgb(0 0 0 / 20%);
   /* margin: 0 auto; */
+}
+
+.user-list a:last-child {
+  text-align: center;
+  cursor: default;
+}
+
+.add-user button,
+.user-list a button {
+  background: transparent;
+  border: none;
+  padding: 15px 25px;
+  margin: 20px 10px;
+  color: var(--main-color);
+  font-weight: bold;
+  border-radius: 5px;
+  /* border: 1px solid gray; */
+  box-shadow: 0 2px 5px 3px rgb(109, 109, 109);
 }
 
 .user-card {
@@ -55,4 +73,15 @@
   border-radius: 50%;
   background-color: var(--main-color);
   color: #fff;
+}
+
+.add-user-container {
+  background-color: #fff;
+}
+
+.add-user-container img {
+  width: 60px;
+}
+
+.add-user input {
 }
