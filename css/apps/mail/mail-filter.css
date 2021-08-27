@@ -56,3 +56,11 @@
 .replay-btn:hover {
   background-color: rgba(32, 33, 36, 0.059);
 }
+
+.filter {
+  gap: 10px;
+}
+
+.filter img {
+  width: 20px;
+}

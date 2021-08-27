@@ -11,7 +11,7 @@ export function MailPreview({
   onRestoreMail,
   onOpenMail,
   onSetRead,
-  onSelectMail
+  onSelectMail,
 }) {
   const bodyToPreview =
     mail.body.length > 80 ? mail.body.substr(0, 80) + '...' : mail.body;
@@ -26,6 +26,17 @@ export function MailPreview({
       } ${mail.isSelected ? 'selected-mail' : ''}`}
     >
       <div className="left-side flex al-items-center">
+        <button
+          className={`btn selecting`}
+          onClick={(ev) => {
+            ev.stopPropagation();
+            onSelectMail(mail, user);
+          }}
+        >
+          <img
+            src={`../img/mail/${mail.isSelected ? 'unselect' : 'select'}.png`}
+          />
+        </button>
         <div
           className="star-icon"
           onClick={(ev) => {
@@ -43,9 +54,11 @@ export function MailPreview({
         <h4>{mail.from}</h4>
         <h5 className="subject">{mail.subject} - </h5>
         <p>{bodyToPreview}</p>
-        {/* <p>{mail.body}</p> */}
+        {/* <div className="mail-body">
+          <p>{mail.body}</p>
+        </div> */}
       </div>
-      <div className="flex btn-mail">
+      <div className="flex btn-mail al-content-center">
         <button
           className="btn spam-mail"
           onClick={(ev) => {
@@ -54,22 +67,22 @@ export function MailPreview({
           }}
         >
           <div className="icon-container">
-            <img src="../img/mail/archive.png" />
+            <img src="../img/mail/archive-filter.png" />
           </div>
         </button>
         <button
-          className="btn"
+          className={`btn ${mail.isArchive ? 'hide' : ''}`}
           onClick={(ev) => {
             ev.stopPropagation();
             onRemoveMail(mail.id, mails, user);
           }}
         >
           <div className="icon-container">
-            <img src="../img/trash.png" />
+            <img src="../img/mail/trash-filter.png" />
           </div>
         </button>
         <button
-          className={`btn ${mail.isTrash ? 'hide' : ''}`}
+          className={`btn ${mail.isTrash ? '' : 'hide'}`}
           onClick={(ev) => {
             ev.stopPropagation();
             onRestoreMail(mail.id, mails, user);
@@ -82,6 +95,7 @@ export function MailPreview({
         <button
           className="btn"
           onClick={(ev) => {
+            if (mail.isTrash) return;
             ev.stopPropagation();
             onSetRead(mail);
           }}
@@ -89,15 +103,6 @@ export function MailPreview({
           <div className="icon-container ">
             <img src={`../img/mail/${mail.isRead ? 'unread' : 'read'}.png`} />
           </div>
-        </button>
-        <button
-          className={`btn`}
-          onClick={(ev) => {
-            ev.stopPropagation();
-            onSelectMail(mail, user);
-          }}
-        >
-          Slt
         </button>
       </div>
       <h6 className="show-time">{userService.getEmailTimeSent(mail.sentAt)}</h6>

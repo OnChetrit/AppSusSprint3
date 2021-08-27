@@ -12,6 +12,7 @@ export class MailFilter extends React.Component {
 
   render() {
     const { onToggleCompose } = this.props;
+    const { filterBy } = this.state;
     return (
       <div className="side-nav flex direction-col">
         <button
@@ -27,64 +28,76 @@ export class MailFilter extends React.Component {
             onClick={() => {
               this.onSetFilter('inbox');
             }}
-            className={`filter ${this.checkIsActive('inbox')} `}
+            className={`flex filter ${this.checkIsActive('inbox')} `}
           >
+            <img
+              src={`../img/mail/${
+                filterBy === 'inbox' ? 'inbox-active' : 'inbox-filter'
+              }.png`}
+            />
             Inbox
           </div>
           <div
             onClick={() => {
               this.onSetFilter('stars');
             }}
-            className={`filter ${this.checkIsActive('stars')} `}
+            className={`flex filter ${this.checkIsActive('stars')} `}
           >
+            <img src="../img/mail/star-filter.png" />
             Stars
           </div>
           <div
             onClick={() => {
               this.onSetFilter('archive');
             }}
-            className={`filter ${this.checkIsActive('archive')} `}
+            className={`flex filter ${this.checkIsActive('archive')} `}
           >
+            <img src="../img/mail/archive-filter.png" />
             Archive
           </div>
           <div
             onClick={() => {
               this.onSetFilter('read');
             }}
-            className={`filter ${this.checkIsActive('read')} `}
+            className={`flex filter ${this.checkIsActive('read')} `}
           >
+            <img src="../img/mail/unread.png" />
             Read
           </div>
           <div
             onClick={() => {
               this.onSetFilter('unread');
             }}
-            className={`filter ${this.checkIsActive('unread')} `}
+            className={`flex filter ${this.checkIsActive('unread')} `}
           >
+            <img src="../img/mail/read.png" />
             UnRead
           </div>
           <div
             onClick={() => {
               this.onSetFilter('sent');
             }}
-            className={`filter ${this.checkIsActive('sent')} `}
+            className={`flex filter ${this.checkIsActive('sent')} `}
           >
+            <img src="../img/mail/send-filter.png" />
             Sent
           </div>
           <div
             onClick={() => {
               this.onSetFilter('draft');
             }}
-            className={`filter ${this.checkIsActive('draft')} `}
+            className={`flex filter ${this.checkIsActive('draft')} `}
           >
+            <img src="../img/mail/draft-filter.png" />
             Draft
           </div>
           <div
             onClick={() => {
               this.onSetFilter('trash');
             }}
-            className={`filter ${this.checkIsActive('trash')} `}
+            className={`flex filter ${this.checkIsActive('trash')} `}
           >
+            <img src="../img/mail/trash-filter.png" />
             Trash
           </div>
         </div>

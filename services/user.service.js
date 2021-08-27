@@ -162,7 +162,7 @@ function _createUser(username, emailAddress) {
       _createMail(
         'Reddit',
         'How much of your day do you spend googling?',
-        "I think I spend at minimum 30 minutes per day googling – sometimes as much as a couple of hours. A lot of the time it's for things I've already googled in the past ,Do you ever get to a point where you don't have to google much anymore? Like, you just have most things memorized?",
+        "I think I spend at minimum 30 minutes per day googling – sometimes as much as a couple of hours. A lot of the time it's for things I've already googled in the past ,Do you ever get to a point where you don't have to google much",
         'noreply@redditmail.com'
       ),
       _createMail(
@@ -180,7 +180,7 @@ function _createUser(username, emailAddress) {
       _createMail(
         'Discord ',
         'Verify Discord Login from New Location',
-        "It looks like someone tried to log into your Discord account from a new location. If this is you, follow the link below to authorize logging in from this location on your account. If this isn't you, we suggest changing your password as soon as possible.",
+        "It looks like someone tried to log into your Discord account from a new location. If this is you, follow the link below to authorize logging in from this location on your account. If this isn't you",
         'noreply@discord.com'
       ),
       _createMail(
@@ -221,6 +221,7 @@ function getUserById(userId) {
   });
   return Promise.resolve(user);
 }
+
 function getMailIdxById(userMails, mailId) {
   const mailIdx = userMails.findIndex((mail) => {
     return mailId === mail.id;
@@ -393,6 +394,7 @@ function ValidateEmail(mail) {
   }
   return false;
 }
+
 function setSelectedMail(mail) {
   if (mail.isSelected) {
     mail.isSelected = false;
@@ -401,6 +403,7 @@ function setSelectedMail(mail) {
   }
   storageService.saveToStorage(USER_KEY, gUsers);
 }
+
 function removeSelectedMail(mails, user) {
   const mailsToRemove = [];
   for (let i = 0; i < mails.length; i++) {
@@ -412,6 +415,7 @@ function removeSelectedMail(mails, user) {
     removeMail(mail.id, user.mails, user);
   });
 }
+
 function timeSendDetails(timestamp) {
   const fullTime = new Date(timestamp);
   const month = gMonths[fullTime.getMonth()];
@@ -423,9 +427,7 @@ function timeSendDetails(timestamp) {
   return `${day} ${month} ${year} ${dayName}, ${hour}:${minutes}`;
 }
 
-/////////////////////////////////////////////////////
-
-// KEEPS
+///////////////////////////////// KEEPS /////////////////////////////////
 function createKeep(user, type, title, val) {
   let newKeep = {};
 
@@ -491,13 +493,6 @@ function removeKeep(user, id) {
   return Promise.resolve();
 }
 
-function _getKeepIdxById(user, keepId) {
-  const keepIdx = user.keeps.findIndex((keep) => {
-    return keepId === keep.id;
-  });
-  return keepIdx;
-}
-
 function duplicateKeep(user, keep) {
   const keepJson = JSON.parse(JSON.stringify(keep));
   keepJson.id = utilService.makeId();
@@ -511,4 +506,11 @@ function keepColorChange(user, id, color) {
   user.keeps[idx].color = color;
   storageService.saveToStorage(USER_KEY, gUsers);
   return Promise.resolve();
+}
+
+function _getKeepIdxById(user, keepId) {
+  const keepIdx = user.keeps.findIndex((keep) => {
+    return keepId === keep.id;
+  });
+  return keepIdx;
 }
