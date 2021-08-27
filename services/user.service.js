@@ -18,6 +18,10 @@ export const userService = {
   // addKeep,
   setRead,
   ValidateEmail,
+  setDraft,
+  setSelectedMail,
+  removeSelectedMail,
+  timeSendDetails
 };
 
 const gMonths = [
@@ -34,6 +38,7 @@ const gMonths = [
   'Nov',
   'Dec',
 ];
+const gDay = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu','Fri', 'Sat'];
 
 const gKeeps = [
   {
@@ -79,7 +84,22 @@ function query() {
   return Promise.resolve(gUsers);
 }
 
-function queryMails(user, searchBy, filterBy) {
+function queryMails(user, searchBy, filterBy, sortedBy) {
+  if (sortedBy) {
+    if(sortedBy === 'title') {
+      const mailsAfterSort = sortBy(sortedBy,user.mails)
+      return Promise.resolve(mailsAfterSort);
+    }
+    if(sortedBy === 'subject') {
+      const mailsAfterSort = sortBy(sortedBy,user.mails)
+      return Promise.resolve(mailsAfterSort);
+    }
+    if(sortedBy === 'date') {
+      const mailsAfterSort = sortBy(sortedBy,user.mails)
+      return Promise.resolve(mailsAfterSort);
+    }
+  }
+
   if (filterBy) {
     if (filterBy === 'stars') {
       const mailsAfterFilter = filterByStars(user.mails);
@@ -168,6 +188,7 @@ function _createUser(username, emailAddress) {
     archive: [],
     sentEmails: [],
     trashEmails: [],
+    draftEmails: [],
     bgc: utilService.getRandomColor(),
     keeps: gKeeps,
   };
@@ -184,7 +205,8 @@ function _createMail(from, subject, body, fromMail) {
     isStared: false,
     isArchive: false,
     isTrash: false,
-    sentAt: Date.now() - 100000,
+    isSelected: false,
+    sentAt: Date.now(),
   };
 }
 
@@ -232,6 +254,31 @@ function composeMail(user, mail) {
   storageService.saveToStorage(USER_KEY, gUsers);
 }
 
+function setDraft(user, mail) {
+  const draftMail = user.draftEmails
+  const from = user.username;
+  const fromMail = user.emailAddress;
+  const subject = mail.subject;
+  const body = mail.body;
+  if (!from || !fromMail || !subject|| !body) return;
+  const mailToDraft = _createMail(from, subject, body, fromMail);
+  if(!draftMail) draftMail.unshift(mailToDraft)
+  else if(checkDraftMail(draftMail,mailToDraft)) {
+    const mailIdx = getMailIdxById(draftMail, mailToDraft.id)
+    draftMail.splice(mailIdx,1)
+    const newMailToDraft = _createMail(from, subject, body, fromMail);
+    draftMail.unshift(newMailToDraft)
+  } else {
+    draftMail.unshift(mailToDraft)
+  }
+}
+
+function checkDraftMail(mails,draftMail) {
+  return mails.find(mail => {
+    mail.id === draftMail.id
+  })
+}
+
 function addUser(userToAdd) {
   const username = userToAdd.username;
   const emailAddress = userToAdd.emailAddress;
@@ -262,6 +309,7 @@ function removeMail(mailId, mails, user) {
   } else {
     user.mails.splice(mailIdx, 1);
     user.trashEmails.unshift(mail);
+    mail.isSelected = false;
     mail.isTrash = true;
   }
   storageService.saveToStorage(USER_KEY, gUsers);
@@ -290,6 +338,22 @@ function filterByRead(filterBy, mails) {
   return mailsToDisplay;
 }
 
+function sortBy(sortedBy,mails) {
+  if(sortedBy === 'title') {
+   return mails.sort((mailA, mailB) => {
+      return mailA.from.toLowerCase().localeCompare(mailB.from.toLowerCase())})
+  } 
+  if(sortedBy === 'subject') {
+   return mails.sort((mailA, mailB) => {
+      return mailA.subject.toLowerCase().localeCompare(mailB.subject.toLowerCase())})
+  } 
+  if(sortedBy === 'date') {
+   return mails.sort((mailA, mailB) => {
+      return mailA.sentAt - mailB.sentAt
+  } )}
+}
+
+
 function setArchive(user, mail) {
   const mails = user.mails;
   const mailId = mail.id;
@@ -312,6 +376,36 @@ function setRead(mail) {
   mail.isRead ? (mail.isRead = false) : (mail.isRead = true);
   storageService.saveToStorage(USER_KEY, gUsers);
   return Promise.resolve();
+}
+
+function setSelectedMail(mail) {
+  if (mail.isSelected) {
+    mail.isSelected = false
+  } else {
+    mail.isSelected = true;
+  } 
+   storageService.saveToStorage(USER_KEY, gUsers);
+  }
+function removeSelectedMail(mails, user) {
+  const mailsToRemove =[]
+  for (let i = 0; i < mails.length; i++) {
+    if(mails[i].isSelected) {
+      mailsToRemove.push(mails[i])
+    }
+  }
+  mailsToRemove.forEach(mail => {
+    removeMail(mail.id,user.mails,user)
+  })
+}
+function timeSendDetails(timestamp) {
+  const fullTime = new Date(timestamp)
+  const month = gMonths[fullTime.getMonth()]
+  const year = fullTime.getFullYear()
+  const day = fullTime.getUTCDate();
+  const dayName = gDay[fullTime.getDay()]
+  const hour = fullTime.getHours();
+  const minutes = fullTime.getMinutes();
+  return `${day} ${month} ${year} ${dayName}, ${hour}:${minutes}`
 }
 
 /////////////////////////////////////////////////////

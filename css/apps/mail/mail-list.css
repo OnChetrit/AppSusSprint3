@@ -95,3 +95,8 @@
 .star-icon:hover {
   background-color: rgba(161, 158, 158, 0.699);
 }
+
+
+.selected-mail {
+  background-color: rgb(153, 54, 54);
+}

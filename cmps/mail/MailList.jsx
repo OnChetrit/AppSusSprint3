@@ -1,5 +1,6 @@
 import { MailPreview } from './MailPreview.jsx';
 import { MailSearch } from './MailSearch.jsx';
+import { MailSort } from './MailSort.jsx';
 
 export function MailList({
   mails,
@@ -11,11 +12,15 @@ export function MailList({
   onRestoreMail,
   onOpenMail,
   onSetRead,
+  onSetSortedBy,
+  onSelectMail,
+  onRemoveSelected
 }) {
   if (!mails) return <div>There's No Mails</div>;
   return (
     <div className="mail-list">
       <MailSearch onSetSearch={onSetSearch} />
+      <MailSort onSetSortedBy={onSetSortedBy} onRemoveSelected={onRemoveSelected}/>
       {mails.map((mail) => (
         <MailPreview
           key={mail.id}
@@ -28,6 +33,7 @@ export function MailList({
           onRestoreMail={onRestoreMail}
           onOpenMail={onOpenMail}
           onSetRead={onSetRead}
+          onSelectMail={onSelectMail}
         />
       ))}
     </div>

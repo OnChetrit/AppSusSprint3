@@ -10,12 +10,13 @@ export class ComposeMail extends React.Component {
   };
 
   componentDidMount() {
+    const beforeMessage = `\n\n\n\n\n\n=====================================================>\n${userService.timeSendDetails(this.props.mail.sentAt)}\n`
     const replyMail = this.props.replyMail;
     const forwardMail = this.props.forwardMail;
     if (replyMail) {
       const sendTo = replyMail.fromMail;
       const subject = replyMail.subject;
-      const body = replyMail.body;
+      const body = beforeMessage+'\n'+replyMail.body;
       this.setState({
         mail: {
           ...this.state.mail,
@@ -26,23 +27,30 @@ export class ComposeMail extends React.Component {
       });
     } else if (forwardMail) {
       const subject = forwardMail.subject;
-      const body = forwardMail.body;
+      const body = beforeMessage+'\n'+forwardMail.body;
       this.setState({
-        mail: { ...this.state.mail, subject: subject, body: body },
+        mail: { ...this.state.mail, sendTo: '',subject: subject, body: body },
       });
     }
   }
-
+  // draftInterval;
   handleChange = ({ target }) => {
     const field = target.name;
     const value = target.value;
     this.setState((prevState) => ({
       mail: { ...prevState.mail, [field]: value },
     }));
+    // this.draftInterval = setInterval(() => {
+    //   console.log('hi from interval');
+    //   this.props.onDraftMail(this.state.mail) 
+
+    // }, 5000);
   };
+  
 
   onSaveMail = (ev) => {
     ev.preventDefault();
+    // clearInterval(this.draftInterval)
     if (userService.ValidateEmail(this.state.mail.sendTo)) {
       this.props.onToggleCompose();
       this.props.onComposeMail(this.state.mail);
@@ -56,7 +64,7 @@ export class ComposeMail extends React.Component {
   };
 
   render() {
-    const { onToggleCompose } = this.props;
+    const { onToggleCompose , onDraftMail} = this.props;
     const { sendTo, subject, body } = this.state.mail;
     return (
       <div>
