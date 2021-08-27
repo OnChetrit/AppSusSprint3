@@ -1,10 +1,13 @@
 .keep {
   width: 250px;
-  background-color: #fdcfe8;
+  position: relative;
+  background-color: #ffffff;
   border-radius: 10px;
   margin-bottom: 10px;
   /* align-self: flex-start; */
   break-inside: avoid;
+  border: 1px solid #767676;
+  transition: background-color 0.3s;
 }
 
 .keep img {

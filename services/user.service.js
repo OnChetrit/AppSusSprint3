@@ -14,10 +14,12 @@ export const userService = {
   queryMails,
   composeMail,
   restoreMail,
-  createKeep,
-  // addKeep,
   setRead,
   ValidateEmail,
+  removeKeep,
+  createKeep,
+  keepColorChange,
+  duplicateKeep,
 };
 
 const gMonths = [
@@ -40,6 +42,7 @@ const gKeeps = [
     id: utilService.makeId(),
     type: 'txt',
     isPinned: true,
+    color: '#fdcfe8',
     info: {
       title: 'Title of text',
       txt: 'txt txt txt txt!',
@@ -49,6 +52,7 @@ const gKeeps = [
     id: utilService.makeId(),
     type: 'img',
     isPinned: false,
+    color: '#fdcfe8',
     info: {
       // title: 'Image title',
       title: 'image description',
@@ -62,6 +66,7 @@ const gKeeps = [
     id: utilService.makeId(),
     type: 'todo',
     isPinned: false,
+    color: '#fdcfe8',
     info: {
       title: 'To Do List',
       todos: [
@@ -314,8 +319,16 @@ function setRead(mail) {
   return Promise.resolve();
 }
 
+function ValidateEmail(mail) {
+  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
+    return true;
+  }
+  return false;
+}
+
 /////////////////////////////////////////////////////
 
+// KEEPS
 function createKeep(user, type, title, val) {
   let newKeep = {};
 
@@ -325,6 +338,7 @@ function createKeep(user, type, title, val) {
         id: utilService.makeId(),
         type,
         isPinned: false,
+        color: '#fdcfe8',
         info: {
           title: title,
           txt: val,
@@ -337,6 +351,7 @@ function createKeep(user, type, title, val) {
       newKeep = {
         id: utilService.makeId(),
         type,
+        color: '#fdcfe8',
         isPinned: false,
         info: {
           title,
@@ -349,14 +364,15 @@ function createKeep(user, type, title, val) {
       newKeep = {
         id: utilService.makeId(),
         type,
+        color: '#fdcfe8',
         isPinned: false,
         info: {
           title,
           todos: [
             {
               id: utilService.makeId(),
-              todo: val,
-              isDone: false,
+              txt: val,
+              doneAt: null,
             },
           ],
         },
@@ -371,16 +387,31 @@ function createKeep(user, type, title, val) {
   return Promise.resolve(newKeep);
 }
 
-function getKeepIdxById(user, keepId) {
+function removeKeep(user, id) {
+  const idx = _getKeepIdxById(user, id);
+  user.keeps.splice(idx, 1);
+  storageService.saveToStorage(USER_KEY, gUsers);
+  return Promise.resolve();
+}
+
+function _getKeepIdxById(user, keepId) {
   const keepIdx = user.keeps.findIndex((keep) => {
     return keepId === keep.id;
   });
   return keepIdx;
 }
 
-function ValidateEmail(mail) {
-  if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(mail)) {
-    return true;
-  }
-  return false;
+function duplicateKeep(user, keep) {
+  const keepJson = JSON.parse(JSON.stringify(keep));
+  keepJson.id = utilService.makeId();
+  user.keeps.unshift(keepJson);
+  storageService.saveToStorage(USER_KEY, gUsers);
+  return Promise.resolve();
+}
+
+function keepColorChange(user, id, color) {
+  const idx = _getKeepIdxById(user, id);
+  user.keeps[idx].color = color;
+  storageService.saveToStorage(USER_KEY, gUsers);
+  return Promise.resolve();
 }

@@ -53,7 +53,9 @@ export function MailPreview({
             onSetArchive(user, mail);
           }}
         >
-          <img src="../img/mail/archive.png" />
+          <div className="icon-container">
+            <img src="../img/mail/archive.png" />
+          </div>
         </button>
         <button
           className="btn"
@@ -62,16 +64,20 @@ export function MailPreview({
             onRemoveMail(mail.id, mails, user);
           }}
         >
-          <img src="../img/mail/trash.png" />
+          <div className="icon-container">
+            <img src="../img/trash.png" />
+          </div>
         </button>
         <button
-          className="btn"
+          className={`btn ${mail.isTrash ? 'hide' : ''}`}
           onClick={(ev) => {
             ev.stopPropagation();
             onRestoreMail(mail.id, mails, user);
           }}
         >
-          R
+          <div className="icon-container">
+            <img src="../img/mail/restore.png" />
+          </div>
         </button>
         <button
           className="btn"
@@ -80,9 +86,9 @@ export function MailPreview({
             onSetRead(mail);
           }}
         >
-          <img src={`../img/mail/${mail.isRead ? 'unread' : 'read'}.png`} />
-
-          {/* <span>{mail.isRead ? 'UnRead' : 'Read'}</span> */}
+          <div className="icon-container ">
+            <img src={`../img/mail/${mail.isRead ? 'unread' : 'read'}.png`} />
+          </div>
         </button>
       </div>
       <h6 className="show-time">{userService.getEmailTimeSent(mail.sentAt)}</h6>

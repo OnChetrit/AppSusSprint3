@@ -13,7 +13,7 @@ export class MailFilter extends React.Component {
   render() {
     const { onToggleCompose } = this.props;
     return (
-      <div className="side-nav">
+      <div className="side-nav flex direction-col">
         <button
           className="btn compose-btn"
           onClick={() => {

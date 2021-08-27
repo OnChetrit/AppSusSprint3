@@ -1,3 +1,6 @@
+import { KeepActions } from '../KeepActions.jsx';
+import { ToDosPreview } from '../ToDosPreview.jsx';
+
 export class KeepTodo extends React.Component {
   state = { todo: '' };
 
@@ -6,14 +9,28 @@ export class KeepTodo extends React.Component {
   }
 
   render() {
-    const { keep } = this.props;
+    const { keep, onRemoveKeep, onKeepColorChange, onDuplicateKeep } =
+      this.props;
     if (!keep) return <div className=""></div>;
     return (
-      <div className="keep">
+      <div className="keep" style={{ backgroundColor: keep.color }}>
         <h4>{keep.info.title}</h4>
-        {keep.info.todos.map((todo, idx) => {
-          return <p key={idx}>{todo.txt}</p>;
-        })}
+        <div className="note-content">
+          {keep.info.todos.map((todo, idx) => {
+            return (
+              <ToDosPreview key={idx} todo={todo} onRemoveKeep={onRemoveKeep} />
+            );
+          })}
+        </div>
+        <KeepActions
+          // onNoteColorChange={this.props.onNoteColorChange}
+          // onPinned={this.props.onPinned}
+          // onCopyToClipboard={this.props.onCopyToClipboard}
+          onKeepColorChange={onKeepColorChange}
+          onDuplicateKeep={onDuplicateKeep}
+          onRemoveKeep={onRemoveKeep}
+          keep={keep}
+        />
       </div>
     );
   }
