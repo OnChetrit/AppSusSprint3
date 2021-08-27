@@ -8,8 +8,10 @@ export class ComposeMail extends React.Component {
       body: '',
     },
   };
+  draftMailId = -1; 
 
   componentDidMount() {
+    // this.draftInterval = setInterval(this.setDraft, 5000)
     const replyMail = this.props.replyMail;
     const forwardMail = this.props.forwardMail;
     if (replyMail) {
@@ -38,23 +40,45 @@ export class ComposeMail extends React.Component {
       });
     }
   }
-  // draftInterval;
+
+  // componentWillUnmount() {
+  //   clearInterval(this.draftInterval)
+  // }
+
+  setDraft = () => {
+  const mail = this.state.mail
+  const user = this.props.user
+  const draftMail = user.draftEmails;
+  
+  const from = user.username;
+  const fromMail = user.emailAddress;
+  const subject = mail.subject;
+  const body = mail.body;
+  
+  let mailToDraft = null;
+  if(this.draftMailId === -1){
+    mailToDraft =  userService.createDraftMail(from, subject, body, fromMail);
+    this.draftMailId = mailToDraft.id;
+  }
+
+  if(userService.isDraftMailExist(this.draftMailId,mailToDraft,draftMail)){
+    userService.updateDraftMail(this.draftMailId,draftMail);
+    return;
+  }
+    draftMail.unshift(mailToDraft);
+  }
+  
+
   handleChange = ({ target }) => {
     const field = target.name;
     const value = target.value;
     this.setState((prevState) => ({
       mail: { ...prevState.mail, [field]: value },
     }));
-    // this.draftInterval = setInterval(() => {
-    //   console.log('hi from interval');
-    //   this.props.onDraftMail(this.state.mail)
-
-    // }, 5000);
   };
 
   onSaveMail = (ev) => {
     ev.preventDefault();
-    // clearInterval(this.draftInterval)
     if (userService.ValidateEmail(this.state.mail.sendTo)) {
       this.props.onToggleCompose();
       this.props.onComposeMail(this.state.mail);

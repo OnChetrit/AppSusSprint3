@@ -1,5 +1,8 @@
 export class MailFilter extends React.Component {
-  state = { filterBy: 'inbox' };
+  state = { 
+    filterBy: 'inbox',
+  };
+
 
   onSetFilter = (filterBy) => {
     this.setState({ filterBy }, () => {
@@ -17,7 +20,7 @@ export class MailFilter extends React.Component {
   };
 
   render() {
-    const { onToggleCompose } = this.props;
+    const { onToggleCompose , unreadMails} = this.props;
     const { filterBy } = this.state;
     return (
       <div className="side-nav flex direction-col">
@@ -41,7 +44,7 @@ export class MailFilter extends React.Component {
                 filterBy === 'inbox' ? 'inbox-active' : 'inbox-filter'
               }.png`}
             />
-            Inbox
+            Inbox {unreadMails ? unreadMails : ''} 
           </div>
           <div
             onClick={() => {

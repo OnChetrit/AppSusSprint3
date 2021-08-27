@@ -14,13 +14,22 @@ export function MailList({
   onSetRead,
   onSetSortedBy,
   onSelectMail,
-  onRemoveSelected
+  onRemoveSelected,
+  onSelectedArchive,
+  onSetSelectedRead,
+  onRestoreSelected
 }) {
   if (!mails) return <div>There's No Mails</div>;
   return (
     <div className="mail-list">
       <MailSearch onSetSearch={onSetSearch} />
-      <MailSort onSetSortedBy={onSetSortedBy} onRemoveSelected={onRemoveSelected}/>
+      <MailSort 
+      onSetSortedBy={onSetSortedBy} 
+      onRemoveSelected={onRemoveSelected} 
+      onSelectedArchive={onSelectedArchive}
+      onSetSelectedRead={onSetSelectedRead}
+      onRestoreSelected={onRestoreSelected}
+      />
       {mails.map((mail) => (
         <MailPreview
           key={mail.id}

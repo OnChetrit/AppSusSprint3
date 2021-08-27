@@ -20,10 +20,12 @@ export class Mail extends React.Component {
     forwardMail: null,
     isTrash: false,
     sortedBy: null,
+    draftMail: null,
+    draftInterval: null,
+    unreadMails:null
   };
 
   toggleMsg;
-
   componentDidMount() {
     this.loadUser();
   }
@@ -43,7 +45,10 @@ export class Mail extends React.Component {
   loadMails = (user, searchBy, filterBy, sortedBy) => {
     if (!user) return;
     userService.queryMails(user, searchBy, filterBy, sortedBy).then((mails) => {
-      this.setState({ mails });
+      this.setState({ mails});
+      userService.getUnReadMails(mails).then((unreadMails) =>{
+        this.setState({unreadMails})
+      })
     });
   };
   loadMail = (mail) => {
@@ -73,14 +78,14 @@ export class Mail extends React.Component {
   onSetSearch = (searchBy) => {
     this.setState({ searchBy }, () => {    
       this.setState({ mail: null })
-      this.loadMails(this.state.user, searchBy, this.filterBy)
+      this.loadMails(this.state.user, searchBy, this.filterBy,this.state.sortedBy)
     }
   );
   };
   onSetFilterBy = (filterBy) => {
     this.setState({ filterBy }, () => {
       this.setState({ mail: null });
-      this.loadMails(this.state.user, this.state.searchBy, filterBy);
+      this.loadMails(this.state.user, this.state.searchBy, filterBy,this.state.sortedBy);
     });
   };
   onSetSortedBy = (sortedBy) => {
@@ -122,10 +127,22 @@ export class Mail extends React.Component {
   onRemoveSelected = () => {
     userService.removeSelectedMail(this.state.mails, this.state.user)
     this.loadMails(this.state.user, this.state.searchBy, this.state.filterBy, this.state.sortedBy)
-
   }
+  onSelectedArchive = () => {
+    userService.moveSelectedToArchive(this.state.mails, this.state.user)
+    this.loadMails(this.state.user, this.state.searchBy, this.state.filterBy, this.state.sortedBy)
+  }
+  onSetSelectedRead = () => {
+     userService.selectedRead(this.state.mails, this.state.user)
+    this.loadMails(this.state.user, this.state.searchBy, this.state.filterBy, this.state.sortedBy)
+  }
+  onRestoreSelected = () => {
+    userService.restoreSelectedMail(this.state.mails, this.state.user)
+    this.loadMails(this.state.user, this.state.searchBy, this.state.filterBy, this.state.sortedBy)
+  }
+
   render() {
-    const { user, isCompose, mails, mail, replyMail, forwardMail } = this.state;
+    const { user, isCompose, mails, mail, replyMail, forwardMail ,draftInterval ,unreadMails} = this.state;
     if (!user) return <div className="">Loading...</div>;
     return (
       <div className="mail-app flex direction-col">
@@ -135,6 +152,7 @@ export class Mail extends React.Component {
         <main className="flex">
           <MailFilter
             user={user}
+            unreadMails={unreadMails}
             onSetFilterBy={this.onSetFilterBy}
             onToggleCompose={this.onToggleCompose}
           />
@@ -152,6 +170,9 @@ export class Mail extends React.Component {
               onSetSortedBy={this.onSetSortedBy}
               onSelectMail={this.onSelectMail}
               onRemoveSelected={this.onRemoveSelected}
+              onSelectedArchive={this.onSelectedArchive}
+              onSetSelectedRead={this.onSetSelectedRead}
+              onRestoreSelected={this.onRestoreSelected}
             />
           )}
           {mail && (
@@ -172,6 +193,7 @@ export class Mail extends React.Component {
           {isCompose && (
             <ComposeMail
             mail={mail}
+            user={user}
               replyMail={replyMail}
               forwardMail={forwardMail}
               onComposeMail={this.onComposeMail}

@@ -4,7 +4,6 @@
   align-items: center;
   justify-content: flex-start;
   height: 50px;
-  width: calc(100vw - 150px);
 }
 .mail-preview:hover {
   box-shadow: inset 1px 0 0 #dadce0, inset -1px 0 0 #dadce0,
