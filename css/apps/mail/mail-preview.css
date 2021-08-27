@@ -21,9 +21,11 @@
   overflow: hidden;
   text-overflow: ellipsis;
   flex-basis: 100px;
+  margin: 0;
 }
 .mail-preview h5 {
   white-space: nowrap;
+  margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
   flex-basis: 200px;
