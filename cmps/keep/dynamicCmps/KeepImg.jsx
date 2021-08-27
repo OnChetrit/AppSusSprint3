@@ -7,8 +7,8 @@ export function KeepImg({
   onDuplicateKeep,
 }) {
   return (
-    <div className="keep" style={{ backgroundColor: keep.color }}>
-      <img src={keep.info.url} />
+    <div className="keep btn" style={{ backgroundColor: keep.color }}>
+      <img className="radius-img" src={keep.info.url} />
       <h4>{keep.info.title}</h4>
       <p>{keep.info.txt}</p>
       <KeepActions

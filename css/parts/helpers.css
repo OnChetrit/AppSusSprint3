@@ -29,3 +29,8 @@
   color: inherit;
   width: 100%;
 }
+
+.reset-btn {
+  border: none;
+  background: transparent;
+}

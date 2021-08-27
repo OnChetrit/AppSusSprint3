@@ -7,9 +7,13 @@
   break-inside: avoid;
   /* border: 1px solid #767676; */
   transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: inset 1px 1px 0 rgb(0 0 0 / 10%), inset 0 -1px 0 rgb(0 0 0 / 7%);
 }
 
-.keep img {
+/* .keep:hover {
+} */
+
+.radius-img {
   width: 100%;
   border-radius: 10px 10px 0 0;
 }

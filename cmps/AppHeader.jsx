@@ -5,7 +5,7 @@ class _AppHeader extends React.Component {
   render() {
     const { user } = this.props;
     return (
-      <nav className="flex align-center">
+      <nav className="flex al-items-center">
         {/* <NavLink activeClassName="my-active" exact to="/">
           Home
         </NavLink> */}

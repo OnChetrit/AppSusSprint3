@@ -11,7 +11,9 @@ export function KeepList({
   if (!keeps) return <div>Load</div>;
   return (
     <div className="keep-container">
-      <KeepAdd onAdd={onAdd} />
+      <div className="add-keep-container flex direction-col al-content-center">
+        <KeepAdd onAdd={onAdd} />
+      </div>
       <div className="keep-list">
         {keeps.map((keep) => (
           <KeepPreview

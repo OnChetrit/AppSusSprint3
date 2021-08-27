@@ -1,9 +1,13 @@
+.keep-container {
+  flex: 1;
+}
+
 .keep-list {
-  gap: 10px;
+  /* gap: 10px; */
   height: 100%;
   margin: 0 auto;
   /* justify-content: center; */
   position: relative;
-  column-count: 8;
-  flex: 1;
+  column-count: auto;
+  column-width: 300px;
 }

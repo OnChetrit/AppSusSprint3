@@ -32,11 +32,9 @@
   font-weight: bold;
 }
 
-
 .filters-container .marked-red {
   background-color: #fce8e6;
   color: #d93025;
-  
 }
 
 .filters-container .marked-gray {
@@ -46,7 +44,7 @@
 
 .marked-gray:active,
 .marked-red:active {
-  font-weight: bold;  
+  font-weight: bold;
 }
 
 /* .filter:not:first-child {
@@ -66,53 +64,6 @@
 }
 
 /* mail details */
-
-.mail-details {
-  width: 80%;
-  height: 80%;
-  background-color: #f3f2ef;
-  margin-top: 60px;
-  border-radius: 15px;
-  box-shadow: 0 1px 2px 0 rgb(60 64 67 / 30%), 0 1px 3px 1px rgb(60 64 67 / 15%);
-  border: none;
-}
-.mail-details-card h3 {
-  width: 50px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.mail-details-card .img-user {
-  margin-top: 13px;
-}
-.mail-details-card {
-  margin-left: 20px;
-  margin-top: 10px;
-  display: flex;
-  justify-content: flex-start;
-  /* align-items: center; */
-}
-.mail-details-content {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-left: 10px;
-  margin-top: 5px;
-}
-
-.mail-details-from {
-  display: flex;
-  align-items: center;
-}
-
-.mail-details-from p {
-  margin-left: 10px;
-}
-
-.mail-details-content p {
-  margin-right: 70px;
-}
 
 .btn-mail {
   margin-left: 300px;

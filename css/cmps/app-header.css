@@ -1,3 +1,19 @@
-header {
+header nav {
   height: 8vh;
+  gap: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: bold;
+  /* width: 100%; */
+}
+
+nav a:first-child {
+  margin-inline-start: 20px;
+}
+
+nav a:hover {
+  color: #4285f4;
 }

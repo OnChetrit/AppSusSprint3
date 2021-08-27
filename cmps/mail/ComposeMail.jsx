@@ -75,7 +75,7 @@ export class ComposeMail extends React.Component {
         <form className="compose-mail" onSubmit={this.onSaveMail}>
           <h4>New Message</h4>
           <div className="close-compose btn" onClick={onToggleCompose}>
-            <img src="../img/mail/close-grey.png"></img>
+            <img src="../img/close.png"></img>
           </div>
           <div className="inputs">
             <label htmlFor="sendTo"></label>

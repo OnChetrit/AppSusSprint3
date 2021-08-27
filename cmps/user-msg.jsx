@@ -11,7 +11,7 @@ export class UserMsg extends React.Component {
     this.removeEventBus = eventBusService.on('user-msg', (msg) => {
       this.setState({ msg }, () => {
         if (this.timeoutId) clearTimeout(this.timeoutId);
-        this.timeoutId = setTimeout(this.onCloseMsg, 2000);
+        this.timeoutId = setTimeout(this.onCloseMsg, 4000);
       });
     });
   }
@@ -29,9 +29,14 @@ export class UserMsg extends React.Component {
     const { msg } = this.state;
     if (!msg) return <React.Fragment></React.Fragment>;
     return (
-      <section className={`user-msg ${msg.type || ''}`}>
-        <h1>{msg.txt}</h1>
-        <button onClick={this.onCloseMsg}>X</button>
+      <section className={`user-msg flex al-items-center`}>
+        <h1 className="user-msg-title">
+          {msg.txt}
+          {msg.type}
+        </h1>
+        <button className="btn reset-btn" onClick={this.onCloseMsg}>
+          <img src="../img/close.png"></img>
+        </button>
       </section>
     );
   }

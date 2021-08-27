@@ -39,7 +39,7 @@ export class Keep extends React.Component {
     userService.removeKeep(user, id).then(() => {
       this.loadUser();
     });
-    eventBusService.emit('user-msg', { txt: 'Keep deleted!', type: 'danger' });
+    eventBusService.emit('user-msg', { txt: 'Keep remove!', type: '' });
   };
 
   onDuplicateKeep = (keep) => {
@@ -47,6 +47,7 @@ export class Keep extends React.Component {
     userService.duplicateKeep(user, keep).then(() => {
       this.loadUser();
     });
+    eventBusService.emit('user-msg', { txt: 'Keep duplicated!', type: '' });
   };
 
   onAdd = (type, title, txt) => {

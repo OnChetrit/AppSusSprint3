@@ -31,8 +31,7 @@ export class KeepAdd extends React.Component {
     this.onExpand(true);
   };
 
-  onAddKeep = (ev) => {
-    ev.preventDefault();
+  onAddKeep = () => {
     const { type, title, txt } = this.state;
     if (!type || !txt) return;
     console.log(`type,val`, type, title, txt);
@@ -67,30 +66,43 @@ export class KeepAdd extends React.Component {
 
   render() {
     const { isExpanded } = this.state;
-    // const { type } = keep;
-    // const DynamicInputs = (props) => {
-    //   switch (this.state.keep.type) {
-    //     case 'txt':
-    //       return <TxtInput {...props} />;
-    //     case 'img':
-    //       return <ImgInput {...props} />;
-    //     case 'todo':
-    //       return <TodoInput {...props} />;
-    //     default:
-    //       break;
-    //   }
-    // };
     return (
-      <div className="add-keep flex justify-center">
-        <button className="txt" onClick={() => this.onChangeInputType('txt')}>
-          Add Keep
-        </button>
-        <button className="todo" onClick={() => this.onChangeInputType('todo')}>
-          Add Todo
-        </button>
-        <button className="img" onClick={() => this.onChangeInputType('img')}>
-          Add Image
-        </button>
+      <div className="add-keep flex">
+        <div className="">
+          <button
+            className="txt btn reset-btn"
+            onClick={() => this.onChangeInputType('txt')}
+          >
+            <img src="../img/keep/text.svg" />
+          </button>
+          <button
+            className="todo btn reset-btn"
+            onClick={() => this.onChangeInputType('todo')}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z" />
+              <path d="m18 9-1.4-1.4-6.6 6.6-2.6-2.6L6 13l4 4z" />
+            </svg>
+          </button>
+          <button
+            className="img btn reset-btn"
+            onClick={() => this.onChangeInputType('img')}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5-7-3 3.72L9 13l-3 4h12l-4-5z" />
+            </svg>
+          </button>
+        </div>
         {isExpanded && (
           <div className="add-todo">
             <form onSubmit={this.onAddKeep}>
@@ -113,7 +125,7 @@ export class KeepAdd extends React.Component {
                 value={this.state.txt}
                 onChange={this.handleChange}
               />
-              <button className="add" onClick={() => this.onAddKeep(event)}>
+              <button className="add" onClick={() => this.onAddKeep()}>
                 Add
               </button>
               <button className="close" onClick={() => this.onExpand()}>
