@@ -7,7 +7,13 @@ export class MailFilter extends React.Component {
     });
   };
   checkIsActive = (folderName) => {
-    return folderName === this.state.filterBy ? 'marked' : '';
+    if (folderName === this.state.filterBy) {
+      if(folderName === 'inbox') {
+        return 'marked-red'
+      } else {
+        return 'marked-gray'
+      }
+    }
   };
 
   render() {
