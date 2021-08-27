@@ -32,7 +32,8 @@ export const userService = {
   updateDraftMail,
   isDraftMailExist,
   getUnReadMails,
-  selectAll
+  selectAll,
+  setMailAsKeep
 };
 
 const gMonths = [
@@ -540,8 +541,17 @@ function selectAll(mails, bool) {
   })
 }
 
+function setMailAsKeep(mail,user) {
+  const type = 'txt'
+  const title = mail.subject
+  const val = mail.body
+  const keep = createKeep(user, type, title,val)
+  user.keeps.unshift(keep)
+  storageService.saveToStorage(USER_KEY, gUsers);
+}
+
 ///////////////////////////////// KEEPS /////////////////////////////////
-function createKeep(user, type, title, val) {
+function createKeep(user,type, title, val) {
   let newKeep = {};
 
   switch (type) {

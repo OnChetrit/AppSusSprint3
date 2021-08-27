@@ -18,7 +18,8 @@ export function MailList({
   onSelectedArchive,
   onSetSelectedRead,
   onRestoreSelected,
-  onSelectAll
+  onSelectAll,
+  onSetMailAsKeep
 }) {
   if (!mails) return <div>There's No Mails</div>;
   return (
@@ -45,6 +46,7 @@ export function MailList({
           onOpenMail={onOpenMail}
           onSetRead={onSetRead}
           onSelectMail={onSelectMail}
+          onSetMailAsKeep={onSetMailAsKeep}
         />
       ))}
     </div>

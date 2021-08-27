@@ -21,7 +21,6 @@ export class Mail extends React.Component {
     isTrash: false,
     sortedBy: null,
     draftMail: null,
-    draftInterval: null,
     unreadMails: null,
   };
 
@@ -197,6 +196,9 @@ export class Mail extends React.Component {
       this.state.sortedBy
     );
   }
+  onSetMailAsKeep = (mail,user) => {
+    userService.setMailAsKeep(mail,user)
+  }
 
   render() {
     const {
@@ -239,6 +241,7 @@ export class Mail extends React.Component {
               onSetSelectedRead={this.onSetSelectedRead}
               onRestoreSelected={this.onRestoreSelected}
               onSelectAll={this.onSelectAll}
+              onSetMailAdKeep={this.onSetMailAsKeep}
             />
           )}
           {mail && (
