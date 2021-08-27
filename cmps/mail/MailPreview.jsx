@@ -59,7 +59,7 @@ export function MailPreview({
           className="btn"
           onClick={(ev) => {
             ev.stopPropagation();
-            onRemoveMail(event, mail.id, mails, user);
+            onRemoveMail(mail.id, mails, user);
           }}
         >
           <img src="../img/mail/trash.png" />
