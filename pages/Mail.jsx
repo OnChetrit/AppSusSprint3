@@ -91,6 +91,7 @@ export class Mail extends React.Component {
   };
 
   onSetRead = (mail) => {
+    console.log(mail);
     userService.setRead(mail).then(() => {
       this.loadMails(this.state.user);
     });

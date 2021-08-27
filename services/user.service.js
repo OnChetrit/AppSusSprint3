@@ -258,8 +258,8 @@ function removeMail(mailId, mails, user) {
   const mail = mails[mailIdx];
   if (mail.isTrash) {
     user.trashEmails.splice(mailIdx, 1);
+    mail.isTrash = false;
   } else {
-    console.log(user.trashEmails);
     user.mails.splice(mailIdx, 1);
     user.trashEmails.unshift(mail);
     mail.isTrash = true;
