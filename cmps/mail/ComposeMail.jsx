@@ -8,9 +8,17 @@ export class ComposeMail extends React.Component {
       body: '',
     },
   };
-  draftMailId = -1; 
+  draftMailId = -1;
 
   componentDidMount() {
+    const keepToMail = this.props.keepToMail;
+    if (keepToMail) {
+      const subject = keepToMail.subject;
+      const body = keepToMail.body;
+      this.setState({
+        mail: { ...this.setState.mail, subject: subject, body: body },
+      });
+    }
     // this.draftInterval = setInterval(this.setDraft, 5000)
     const replyMail = this.props.replyMail;
     const forwardMail = this.props.forwardMail;
@@ -46,28 +54,29 @@ export class ComposeMail extends React.Component {
   // }
 
   setDraft = () => {
-  const mail = this.state.mail
-  const user = this.props.user
-  const draftMail = user.draftEmails;
-  
-  const from = user.username;
-  const fromMail = user.emailAddress;
-  const subject = mail.subject;
-  const body = mail.body;
-  
-  let mailToDraft = null;
-  if(this.draftMailId === -1){
-    mailToDraft =  userService.createDraftMail(from, subject, body, fromMail);
-    this.draftMailId = mailToDraft.id;
-  }
+    const mail = this.state.mail;
+    const user = this.props.user;
+    const draftMail = user.draftEmails;
 
-  if(userService.isDraftMailExist(this.draftMailId,mailToDraft,draftMail)){
-    userService.updateDraftMail(this.draftMailId,draftMail);
-    return;
-  }
+    const from = user.username;
+    const fromMail = user.emailAddress;
+    const subject = mail.subject;
+    const body = mail.body;
+
+    let mailToDraft = null;
+    if (this.draftMailId === -1) {
+      mailToDraft = userService.createDraftMail(from, subject, body, fromMail);
+      this.draftMailId = mailToDraft.id;
+    }
+
+    if (
+      userService.isDraftMailExist(this.draftMailId, mailToDraft, draftMail)
+    ) {
+      userService.updateDraftMail(this.draftMailId, draftMail);
+      return;
+    }
     draftMail.unshift(mailToDraft);
-  }
-  
+  };
 
   handleChange = ({ target }) => {
     const field = target.name;

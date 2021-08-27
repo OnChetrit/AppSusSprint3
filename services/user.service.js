@@ -31,7 +31,11 @@ export const userService = {
   getMailById,
   updateDraftMail,
   isDraftMailExist,
-  getUnReadMails
+  getUnReadMails,
+  queryPin,
+  queryKeeps,
+  togglePin,
+  sendMail,
 };
 
 const gMonths = [
@@ -54,7 +58,7 @@ const gKeeps = [
   {
     id: utilService.makeId(),
     type: 'txt',
-    isPinned: true,
+    isPinned: false,
     color: '#fdcfe8',
     info: {
       title: 'Title of text',
@@ -64,7 +68,7 @@ const gKeeps = [
   {
     id: utilService.makeId(),
     type: 'img',
-    isPinned: false,
+    isPinned: true,
     color: '#fdcfe8',
     info: {
       // title: 'Image title',
@@ -278,34 +282,34 @@ function composeMail(user, mail) {
   storageService.saveToStorage(USER_KEY, gUsers);
 }
 function getUnReadMails(mails) {
-  let counter = 0
+  let counter = 0;
   mails.forEach((mail) => {
-    if(!mail.isRead) {
-      counter++
+    if (!mail.isRead) {
+      counter++;
       console.log(counter);
     }
-  })
+  });
   return Promise.resolve(counter);
 }
-function updateDraftMail(draftMailId,draftMail, mails) {
-  let mail = getMailById(mails,draftMailId)
-  mail.from = draftMail.from
-  mail.subject = draftMail.subject
-  mail.body = draftMail.body
-  mail.fromMail = draftMail.fromMail
+function updateDraftMail(draftMailId, draftMail, mails) {
+  let mail = getMailById(mails, draftMailId);
+  mail.from = draftMail.from;
+  mail.subject = draftMail.subject;
+  mail.body = draftMail.body;
+  mail.fromMail = draftMail.fromMail;
 }
 function createDraftMail(from, subject, body, fromMail) {
-  return _createMail(from, subject, body, fromMail)
+  return _createMail(from, subject, body, fromMail);
 }
-function isDraftMailExist(id,mails) {
-  if(!mails){
+function isDraftMailExist(id, mails) {
+  if (!mails) {
     return false;
   }
-const isExist =  mails.find((mail) => {
+  const isExist = mails.find((mail) => {
     mail.id === id;
   });
 
-  if(isExist === "undefine"){
+  if (isExist === 'undefine') {
     return false;
   }
   return true;
@@ -412,11 +416,11 @@ function setArchive(user, mail) {
 }
 function setRead(mail) {
   if (mail.isRead) {
-    mail.isRead = false
+    mail.isRead = false;
     mail.isSelected = false;
   } else {
     mail.isSelected = false;
-    mail.isRead = true
+    mail.isRead = true;
   }
   storageService.saveToStorage(USER_KEY, gUsers);
   return Promise.resolve();
@@ -442,25 +446,25 @@ function getSelectedMails(mails) {
       selectedMails.push(mails[i]);
     }
   }
-  return selectedMails
+  return selectedMails;
 }
 function removeSelectedMail(mails, user) {
-  const mailsToRemove = getSelectedMails(mails)
+  const mailsToRemove = getSelectedMails(mails);
   mailsToRemove.forEach((mail) => {
     removeMail(mail.id, user.mails, user);
   });
 }
 function restoreSelectedMail(mails, user) {
-  const mailsToRestore = getSelectedMails(mails)
+  const mailsToRestore = getSelectedMails(mails);
   mailsToRestore.forEach((mail) => {
     restoreMail(mail.id, user.trashEmails, user);
   });
 }
-function selectedRead(mails,user) {
-const mailsToReadUnRead = getSelectedMails(mails)
-  mailsToReadUnRead.forEach(mail => {
-    setRead(mail)
-  })
+function selectedRead(mails, user) {
+  const mailsToReadUnRead = getSelectedMails(mails);
+  mailsToReadUnRead.forEach((mail) => {
+    setRead(mail);
+  });
 }
 function timeSendDetails(timestamp) {
   const fullTime = new Date(timestamp);
@@ -473,13 +477,33 @@ function timeSendDetails(timestamp) {
   return `${day} ${month} ${year} ${dayName}, ${hour}:${minutes}`;
 }
 function moveSelectedToArchive(mails, user) {
-const mailToMove = getSelectedMails(mails)
-  mailToMove.forEach(mail => {
-    setArchive(user,mail)
-  })
+  const mailToMove = getSelectedMails(mails);
+  mailToMove.forEach((mail) => {
+    setArchive(user, mail);
+  });
 }
 
 ///////////////////////////////// KEEPS /////////////////////////////////
+
+function queryKeeps(user) {
+  return Promise.resolve(user.keeps);
+}
+function queryPin(keeps) {
+  const pinnedKeeps = [];
+  const unPinnedKeeps = [];
+
+  keeps.forEach((keep) => {
+    keep.isPinned === true ? pinnedKeeps.push(keep) : unPinnedKeeps.push(keep);
+  });
+  return Promise.resolve({ pin: pinnedKeeps, unpin: unPinnedKeeps });
+}
+// function queryUnPin(keeps) {
+//   keeps.forEach((keep) => {
+//     if (keep.isPinned === false) unPinnedKeeps.push(keep);
+//   });
+//   return Promise.resolve(unPinnedKeeps);
+// }
+
 function createKeep(user, type, title, val) {
   let newKeep = {};
 
@@ -533,9 +557,25 @@ function createKeep(user, type, title, val) {
     default:
       break;
   }
+
   user.keeps.unshift(newKeep);
   storageService.saveToStorage(USER_KEY, gUsers);
   return Promise.resolve(newKeep);
+}
+
+function sendMail(user, keep) {
+  console.log(`keep`, keep);
+  const subject = keep.info.title;
+  const body = keep.info.txt;
+  const from = user.username;
+  const fromMail = user.emailAddress;
+  const mail = _createMail(from, subject, body, fromMail);
+  return Promise.resolve(mail);
+}
+
+function togglePin(keep) {
+  keep.isPinned = !keep.isPinned;
+  storageService.saveToStorage(USER_KEY, gUsers);
 }
 
 function removeKeep(user, id) {

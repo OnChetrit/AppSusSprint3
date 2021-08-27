@@ -7,6 +7,8 @@ export function KeepPreview({
   onRemoveKeep,
   onKeepColorChange,
   onDuplicateKeep,
+  onPinKeep,
+  setSendMail,
 }) {
   const DynamicKeep = (props) => {
     switch (props.keep.type) {
@@ -24,6 +26,8 @@ export function KeepPreview({
       onDuplicateKeep={onDuplicateKeep}
       onRemoveKeep={onRemoveKeep}
       onKeepColorChange={onKeepColorChange}
+      setSendMail={setSendMail}
+      onPinKeep={onPinKeep}
     />
   );
 }

@@ -3,7 +3,7 @@ export class KeepFilter extends React.Component {
 
   render() {
     return (
-      <div className="side-nav flex direction-col ">
+      <div className=" flex direction-col ">
         <div className="filter">Text</div>
         <div className="filter">Images</div>
         <div className="filter">To Do Lists</div>

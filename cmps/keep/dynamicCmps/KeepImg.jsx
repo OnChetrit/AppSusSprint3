@@ -5,6 +5,8 @@ export function KeepImg({
   onRemoveKeep,
   onKeepColorChange,
   onDuplicateKeep,
+  onPinKeep,
+  setSendMail,
 }) {
   return (
     <div className="keep btn" style={{ backgroundColor: keep.color }}>
@@ -18,6 +20,8 @@ export function KeepImg({
         onKeepColorChange={onKeepColorChange}
         onDuplicateKeep={onDuplicateKeep}
         onRemoveKeep={onRemoveKeep}
+        setSendMail={setSendMail}
+        onPinKeep={onPinKeep}
         keep={keep}
       />
     </div>

@@ -9,8 +9,14 @@ export class KeepTodo extends React.Component {
   }
 
   render() {
-    const { keep, onRemoveKeep, onKeepColorChange, onDuplicateKeep } =
-      this.props;
+    const {
+      keep,
+      onRemoveKeep,
+      onKeepColorChange,
+      onDuplicateKeep,
+      onPinKeep,
+      setSendMail,
+    } = this.props;
     if (!keep) return <div className=""></div>;
     return (
       <div className="keep btn" style={{ backgroundColor: keep.color }}>
@@ -29,6 +35,8 @@ export class KeepTodo extends React.Component {
           onKeepColorChange={onKeepColorChange}
           onDuplicateKeep={onDuplicateKeep}
           onRemoveKeep={onRemoveKeep}
+          onPinKeep={onPinKeep}
+          setSendMail={setSendMail}
           keep={keep}
         />
       </div>

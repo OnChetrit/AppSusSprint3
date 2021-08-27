@@ -25,39 +25,39 @@ export function MailPreview({
         mail.isRead ? 'read' : ''
       } ${mail.isSelected ? 'selected-mail' : ''}`}
     >
-      <div className="left-side flex al-items-center">
-        <button
-          className={`btn selecting`}
-          onClick={(ev) => {
-            ev.stopPropagation();
-            onSelectMail(mail, user);
-          }}
-        >
-          <img
-            src={`../img/mail/${mail.isSelected ? 'unselect' : 'select'}.png`}
-          />
-        </button>
-        <div
-          className="star-icon"
-          onClick={(ev) => {
-            ev.stopPropagation();
-            onIsStared(user.id, mail.id);
-          }}
-        >
-          <i
-            className={
-              mail.isStared ? 'fa fa-star star gold' : 'fa fa-star-o star'
-            }
-            aria-hidden="true"
-          ></i>
-        </div>
-        <h4>{mail.from}</h4>
-        <h5 className="subject">{mail.subject} - </h5>
-        <p>{bodyToPreview}</p>
-        {/* <div className="mail-body">
+      {/* <div className="left-side flex al-items-center"> */}
+      <button
+        className={`btn selecting`}
+        onClick={(ev) => {
+          ev.stopPropagation();
+          onSelectMail(mail, user);
+        }}
+      >
+        <img
+          src={`../img/mail/${mail.isSelected ? 'unselect' : 'select'}.png`}
+        />
+      </button>
+      <div
+        className="star-icon"
+        onClick={(ev) => {
+          ev.stopPropagation();
+          onIsStared(user.id, mail.id);
+        }}
+      >
+        <i
+          className={
+            mail.isStared ? 'fa fa-star star gold' : 'fa fa-star-o star'
+          }
+          aria-hidden="true"
+        ></i>
+      </div>
+      <h4>{mail.from}</h4>
+      <h5 className="subject">{mail.subject} - </h5>
+      <p>{bodyToPreview}</p>
+      {/* <div className="mail-body">
           <p>{mail.body}</p>
         </div> */}
-      </div>
+      {/* </div> */}
       <div className="flex btn-mail al-content-center">
         <button
           className="btn spam-mail"

@@ -37,8 +37,13 @@
   flex: 1;
   min-width: 0;
 }
-.mail-preview h6 {
-  flex-basis: 50px;
+.mail-preview p {
+  color: #5f6368;
+  flex-basis: 0;
+  flex-grow: 1;
+  flex-shrink: 1;
+  text-align: left;
+  /* flex-basis: 50px; */
 }
 
 .btn-mail {

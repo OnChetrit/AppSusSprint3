@@ -5,6 +5,8 @@ export function KeepTxt({
   onRemoveKeep,
   onKeepColorChange,
   onDuplicateKeep,
+  onPinKeep,
+  setSendMail,
 }) {
   console.log(`keep`, keep);
   return (
@@ -18,6 +20,8 @@ export function KeepTxt({
         onKeepColorChange={onKeepColorChange}
         onDuplicateKeep={onDuplicateKeep}
         onRemoveKeep={onRemoveKeep}
+        onPinKeep={onPinKeep}
+        setSendMail={setSendMail}
         keep={keep}
       />
     </div>
