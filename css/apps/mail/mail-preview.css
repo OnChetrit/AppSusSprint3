@@ -43,7 +43,6 @@
   flex-grow: 1;
   flex-shrink: 1;
   text-align: left;
-  /* flex-basis: 50px; */
 }
 
 .btn-mail {

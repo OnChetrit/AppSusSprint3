@@ -1,46 +1,45 @@
 export function ColorSelect({ keepId, onKeepColorChange }) {
   function pickColor(color) {
     onKeepColorChange(keepId, color);
-    // toggleColorpicker();
   }
 
   return (
     <div className="color-select">
       <div
         onClick={() => {
-          pickColor('#db4b4b');
+          pickColor('#f28b82');
         }}
         className="color red btn"
       ></div>
       <div
         onClick={() => {
-          pickColor('#5cc077');
+          pickColor('#ccff90');
         }}
         className="color green btn"
       ></div>
       <div
         onClick={() => {
-          pickColor('#62a8e4');
+          pickColor('#a7ffeb');
         }}
-        className="color lightBlue btn"
+        className="color lightTurkiz btn"
       ></div>
       <div
         onClick={() => {
-          pickColor('#fff3bf');
+          pickColor('#fff475');
         }}
         className="color lightyellow btn"
       ></div>
       <div
         onClick={() => {
-          pickColor('#ffa24a');
+          pickColor('#aecbfa');
         }}
-        className="color lightgreen btn"
+        className="color lightBlue btn"
       ></div>
       <div
         onClick={() => {
-          pickColor('#ff65a3');
+          pickColor('#e8eaed');
         }}
-        className="color pink btn"
+        className="color grey btn"
       ></div>
     </div>
   );

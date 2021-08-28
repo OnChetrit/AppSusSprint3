@@ -7,7 +7,7 @@ export class ComposeMail extends React.Component {
       subject: '',
       body: '',
     },
-    draftId: null
+    draftId: null,
   };
 
   componentDidMount() {
@@ -19,7 +19,6 @@ export class ComposeMail extends React.Component {
         mail: { ...this.setState.mail, subject: subject, body: body },
       });
     }
-    // this.draftInterval = setInterval(this.setDraft, 5000)
     const replyMail = this.props.replyMail;
     const forwardMail = this.props.forwardMail;
     if (replyMail) {
@@ -48,11 +47,6 @@ export class ComposeMail extends React.Component {
       });
     }
   }
-
-  // componentWillUnmount() {
-  //   clearInterval(this.draftInterval)
-  // }
-
   setDraft = () => {
     const mail = this.state.mail;
     const user = this.props.user;

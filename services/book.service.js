@@ -457,7 +457,6 @@ function addReview(review, bookId) {
   const bookIdx = gBooks.findIndex((book) => book.id === bookId);
   gBooks[bookIdx].reviews.unshift(newReview);
   _saveBooksToStorage();
-  console.log(`gBooks`, gBooks);
   return Promise.resolve(gBooks[bookIdx]);
 }
 
@@ -522,13 +521,11 @@ function _saveBooksToStorage() {
 }
 
 function getBooksFromGoogle(title) {
-  console.log(title);
   return new Promise((resolve, reject) => {
     if (!title) return;
     const books = [];
     title = title.split(' ').join('%20');
     if (gSearch[title]) {
-      console.log('cache');
       resolve(gSearch[title].books);
     }
     axios

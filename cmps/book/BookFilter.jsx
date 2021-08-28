@@ -43,12 +43,8 @@ export class BookFilter extends React.Component {
             value={title}
             onChange={this.handleChange}
           />
-          {/* <label htmlFor="by-title">By title</label> */}
         </div>
         <div className="form-group">
-          {/* <label htmlFor="min-price" className="form-label">
-            Min price
-          </label> */}
           <input
             className="form-input"
             name="minPrice"
@@ -60,7 +56,6 @@ export class BookFilter extends React.Component {
           />
         </div>
         <div className="form-group">
-          {/* <label htmlFor="max-price">Max price</label> */}
           <input
             className="form-input"
             name="maxPrice"
@@ -71,7 +66,6 @@ export class BookFilter extends React.Component {
             onChange={this.handleChange}
           />
         </div>
-        {/* <button>Filter</button> */}
       </form>
     );
   }

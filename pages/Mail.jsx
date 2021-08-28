@@ -4,7 +4,6 @@ import { MailDetails } from '../cmps/mail/MailDetails.jsx';
 import { MailFilter } from '../cmps/mail/MailFilter.jsx';
 import { MailList } from '../cmps/mail/MailList.jsx';
 import { eventBusService } from '../services/event-bus-service.js';
-// import { mailService } from '../services/mail.service.js';
 import { userService } from '../services/user.service.js';
 
 export class Mail extends React.Component {
@@ -181,7 +180,7 @@ export class Mail extends React.Component {
       txt: 'Selected conversation deleted',
       type: '',
     });
-  }
+  };
 
   onSelectedArchive = () => {
     userService.moveSelectedToArchive(this.state.mails, this.state.user);
@@ -239,16 +238,16 @@ export class Mail extends React.Component {
       type: '',
     });
   };
-  onGoBack= () => {
-    userService.goBack(this.state.mail)
-    this.setState({mail:null})
+  onGoBack = () => {
+    userService.goBack(this.state.mail);
+    this.setState({ mail: null });
     this.loadMails(
       this.state.user,
       this.state.searchBy,
       this.state.filterBy,
       this.state.sortedBy
     );
-  }
+  };
 
   render() {
     const {

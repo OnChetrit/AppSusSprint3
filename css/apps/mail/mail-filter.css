@@ -21,27 +21,6 @@
   margin-top: 10px;
 }
 
-.mail-details-actions {
-}
-
-.replay-btn {
-  /* align-items: center;
-  justify-content: center;
-  position: relative;
-  z-index: 0;
-  -webkit-font-smoothing: antialiased;
-  font-size: 0.875rem;
-  letter-spacing: 0.25px;
-  box-sizing: border-box;
-  font-weight: 500;
-  height: 36px;
-  outline: none;
-  user-select: none;
-  margin-left: 20px;
-  margin-top: 20px;
-  text-decoration: none; */
-}
-
 .action-details-btn:hover {
   background-color: rgba(32, 33, 36, 0.059);
 }

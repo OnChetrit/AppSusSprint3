@@ -1,4 +1,3 @@
-import { mailService } from '../../services/mail.service.js';
 import { userService } from '../../services/user.service.js';
 
 export function MailPreview({
@@ -18,13 +17,13 @@ export function MailPreview({
     mail.body.length > 80 ? mail.body.substr(0, 80) + '...' : mail.body;
   return (
     <div
-    key={mail.id}
-    onClick={() => {
-      onOpenMail(mail);
-    }}
-    className={`mail-preview flex space-between btn  ${
-      mail.isRead ? 'read' : ''
-    } ${mail.isSelected ? 'selected-mail' : ''}`}
+      key={mail.id}
+      onClick={() => {
+        onOpenMail(mail);
+      }}
+      className={`mail-preview flex space-between btn  ${
+        mail.isRead ? 'read' : ''
+      } ${mail.isSelected ? 'selected-mail' : ''}`}
     >
       <button
         title="Select"
@@ -34,9 +33,7 @@ export function MailPreview({
           onSelectMail(mail, user);
         }}
       >
-        <img
-          src={`img/mail/${mail.isSelected ? 'unselect' : 'select'}.png`}
-        />
+        <img src={`img/mail/${mail.isSelected ? 'unselect' : 'select'}.png`} />
       </button>
       <div
         title={mail.isStared ? 'Starred' : 'Not starred'}

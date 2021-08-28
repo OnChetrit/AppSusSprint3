@@ -7,12 +7,6 @@ export class KeepAdd extends React.Component {
     todoInputsCount: 0,
   };
 
-  // inputRef = React.createRef();
-
-  // componentDidMount() {
-  //   this.inputRef.current.focus();
-  // }
-
   onExpand = (isExpanded) => {
     this.setState({ isExpanded });
   };
@@ -84,7 +78,6 @@ export class KeepAdd extends React.Component {
             <form onSubmit={this.onAddKeep} className="flex direction-col">
               <label htmlFor="title"></label>
               <input
-                // ref={this.inputRef}
                 type="text"
                 name="title"
                 id="title"

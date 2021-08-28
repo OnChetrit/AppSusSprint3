@@ -1,26 +1,28 @@
 export function ToDoPreview({ todo, onCheckTodo, onDeleteTodo }) {
   return (
-    <li className="">
-      <input
-        type="checkbox"
-        className="btn"
-        checked={todo.doneAt}
-        onClick={() => {
-          onCheckTodo(todo.id);
-        }}
-      />{' '}
-      <span
-        className={todo.doneAt ? 'checked btn' : 'btn'}
-        onClick={() => {
-          onCheckTodo(todo.id);
-        }}
-      >
-        {todo.txt}
-      </span>
+    <li className="flex space-between">
+      <div className="">
+        <input
+          type="checkbox"
+          className="btn"
+          checked={todo.doneAt}
+          onClick={() => {
+            onCheckTodo(todo.id);
+          }}
+        />{' '}
+        <span
+          className={todo.doneAt ? 'checked btn' : 'btn'}
+          onClick={() => {
+            onCheckTodo(todo.id);
+          }}
+        >
+          {todo.txt}
+        </span>
+      </div>
       <svg
         className="delete-todo btn"
         onClick={() => {
-          onDeleteTodo();
+          onDeleteTodo(todo.id);
         }}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"

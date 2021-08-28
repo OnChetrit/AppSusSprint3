@@ -80,7 +80,7 @@ const gKeeps = [
     id: utilService.makeId(),
     type: 'txt',
     isPinned: false,
-    color: '#fdcfe8',
+    color: '#f28b82',
     info: {
       title: 'Title of text',
       txt: 'txt txt txt txt!',
@@ -90,9 +90,8 @@ const gKeeps = [
     id: utilService.makeId(),
     type: 'img',
     isPinned: true,
-    color: '#fdcfe8',
+    color: '#d7aefb',
     info: {
-      // title: 'Image title',
       title: 'image description',
       url: 'https://picsum.photos/200/200',
     },
@@ -106,10 +105,81 @@ const gKeeps = [
     isPinned: false,
     color: '#fdcfe8',
     info: {
+      title: 'Buying list',
+      todos: [
+        { id: utilService.makeId(), txt: 'New PC', doneAt: null },
+        { id: utilService.makeId(), txt: 'Milkshake', doneAt: 187111111 },
+        { id: utilService.makeId(), txt: 'a lot of movies', doneAt: null },
+        { id: utilService.makeId(), txt: 'Blankets', doneAt: 187111111 },
+        { id: utilService.makeId(), txt: 'Shirts', doneAt: 187111111 },
+      ],
+    },
+  },
+  {
+    id: utilService.makeId(),
+    type: 'txt',
+    isPinned: true,
+    color: '#a7ffeb',
+    info: {
+      title: 'Call to Yaron Biton!',
+      txt: '',
+    },
+  },
+  {
+    id: utilService.makeId(),
+    type: 'todo',
+    isPinned: false,
+    color: '#fdcfe8',
+    info: {
+      title: 'Movies to watch',
+      todos: [
+        { id: utilService.makeId(), txt: 'The Maze Runner', doneAt: null },
+        { id: utilService.makeId(), txt: 'Luca', doneAt: 187111111 },
+        { id: utilService.makeId(), txt: 'Space Jam', doneAt: 187111111 },
+        { id: utilService.makeId(), txt: 'The Avenger', doneAt: 187111111 },
+        { id: utilService.makeId(), txt: 'Big Mama', doneAt: 187111111 },
+        { id: utilService.makeId(), txt: 'Space Jam', doneAt: 187111111 },
+        { id: utilService.makeId(), txt: 'Harry Potter', doneAt: 187111111 },
+      ],
+    },
+  },
+  {
+    id: utilService.makeId(),
+    type: 'img',
+    isPinned: true,
+    color: '#fdcfe8',
+    info: {
+      title: 'Liked Image',
+      url: 'https://picsum.photos/200/200',
+    },
+    style: {
+      backgroundColor: '#00d',
+    },
+  },
+  {
+    id: utilService.makeId(),
+    type: 'img',
+    isPinned: false,
+    color: '#aecbfa',
+    info: {
+      title: 'Save to wallpaper',
+      url: 'https://picsum.photos/200/200',
+    },
+    style: {
+      backgroundColor: '#00d',
+    },
+  },
+  {
+    id: utilService.makeId(),
+    type: 'todo',
+    isPinned: false,
+    color: '#e8eaed',
+    info: {
       title: 'To Do List',
       todos: [
         { id: utilService.makeId(), txt: 'Driving liscence', doneAt: null },
         { id: utilService.makeId(), txt: 'Coding power', doneAt: 187111111 },
+        { id: utilService.makeId(), txt: 'Slap your face', doneAt: 187111111 },
       ],
     },
   },
@@ -369,7 +439,6 @@ function composeMail(user, mail) {
 }
 
 function goBack(mail) {
-  console.log(mail);
   mail.isRead = true;
   storageService.saveToStorage(USER_KEY, gUsers);
 }
@@ -447,13 +516,9 @@ function removeMail(mailId, mails, user) {
 }
 
 function removeSelectedMailfromTrash(mails, user) {
-  console.log('all mail', mails);
   const selected = getSelectedMails(mails);
-  console.log('selecetd', selected);
   selected.forEach((mail) => {
-    console.log(mail);
     if (mail.isTrash && mail.isSelected) {
-      console.log('trash', user.trashEmails);
       const mailIdx = getMailIdxById(user.trashEmails, mail.id);
       user.trashEmails.splice(mailIdx, 1);
     }
@@ -630,12 +695,6 @@ function queryPin(keeps) {
   });
   return Promise.resolve({ pin: pinnedKeeps, unpin: unPinnedKeeps });
 }
-// function queryUnPin(keeps) {
-//   keeps.forEach((keep) => {
-//     if (keep.isPinned === false) unPinnedKeeps.push(keep);
-//   });
-//   return Promise.resolve(unPinnedKeeps);
-// }
 
 function createKeep(type, title, val) {
   let newKeep = {};
@@ -707,7 +766,6 @@ function deleteTodo(keep, todoId) {
 }
 
 function sendMail(user, keep) {
-  console.log(`keep`, keep);
   const type = keep.type;
 
   const body =
@@ -724,7 +782,6 @@ function sendMail(user, keep) {
 }
 
 function toggleTodo(keep, todoId) {
-  console.log(`keep`, keep);
   const currTodoIdx = keep.info.todos.findIndex((todo) => {
     return todo.id === todoId;
   });

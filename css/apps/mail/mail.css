@@ -32,7 +32,7 @@
 }
 .compose-btn:hover {
   box-shadow: 0 1px 3px 0 rgb(60 64 67 / 30%), 0 4px 8px 3px rgb(60 64 67 / 15%);
-    background-color: #fafafb;
+  background-color: #fafafb;
 }
 .filters-container .marked-red {
   background-color: #fce8e6;
@@ -44,25 +44,13 @@
   color: black;
 }
 
-/* .filter:not:first-child {
-  margin-top: 10px;
-}
-.filter {
-  border-bottom: 1px solid gray;
-  padding: 10px;
-}*/
-
 .filters-container {
-  /* border: 1px solid gray; */
   width: 200px;
   height: 32px;
   margin-top: 10px;
   padding: 0 20px 0 12px;
 }
 
-/* mail details */
-
 .btn-mail {
   margin-left: 300px;
 }
-
