@@ -45,10 +45,10 @@ export class KeepAdd extends React.Component {
   };
 
   render() {
-    const { isExpanded } = this.state;
+    const { isExpanded, type } = this.state;
     return (
-      <div className="add-keep flex">
-        <div className="">
+      <div className="add-keep flex direction-col">
+        <div className="flex space-evenly">
           <button
             className="txt btn reset-btn"
             onClick={() => this.onChangeInputType('txt')}
@@ -85,7 +85,7 @@ export class KeepAdd extends React.Component {
         </div>
         {isExpanded && (
           <div className="add-todo">
-            <form onSubmit={this.onAddKeep}>
+            <form onSubmit={this.onAddKeep} className="flex direction-col">
               <label htmlFor="title"></label>
               <input
                 // ref={this.inputRef}
@@ -101,16 +101,40 @@ export class KeepAdd extends React.Component {
                 type="text"
                 name="txt"
                 id="txt"
-                placeholder="txt"
+                placeholder={
+                  type === 'txt' ? `Text` : type === 'img' ? 'URL' : 'To Do'
+                }
                 value={this.state.txt}
                 onChange={this.handleChange}
               />
-              <button className="add" onClick={() => this.onAddKeep()}>
-                Add
-              </button>
-              <button className="close" onClick={() => this.onExpand()}>
-                close
-              </button>
+              {type === 'todo' && (
+                <div className="">
+                  <label htmlFor="todo"></label>
+                  <input
+                    type="text"
+                    name="todo"
+                    id="todo"
+                    placeholder="To Do"
+                    value={this.state.txt}
+                    onChange={this.handleChange}
+                  />
+                  <button>+</button>
+                </div>
+              )}
+              <div className="add-keep-actions flex space-evenly">
+                <button
+                  className="add btn reset-btn"
+                  onClick={() => this.onAddKeep()}
+                >
+                  Add
+                </button>
+                <button
+                  className="close btn reset-btn"
+                  onClick={() => this.onExpand()}
+                >
+                  close
+                </button>
+              </div>
             </form>
           </div>
         )}

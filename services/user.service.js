@@ -39,7 +39,9 @@ export const userService = {
   selectAll,
   setMailAsKeep,
   getSelectedMails,
-  removeSelectedMailfromTrash
+  removeSelectedMailfromTrash,
+  toggleTodo,
+  queryKeep,
 };
 
 const gMonths = [
@@ -91,8 +93,8 @@ const gKeeps = [
     info: {
       title: 'To Do List',
       todos: [
-        { id: utilService.makeId(), txt: ' - Driving liscence', doneAt: null },
-        { id: utilService.makeId(), txt: ' - Coding power', doneAt: 187111111 },
+        { id: utilService.makeId(), txt: 'Driving liscence', doneAt: null },
+        { id: utilService.makeId(), txt: 'Coding power', doneAt: 187111111 },
       ],
     },
   },
@@ -413,19 +415,18 @@ function removeMail(mailId, mails, user) {
 }
 
 function removeSelectedMailfromTrash(mails, user) {
-  console.log('all mail',mails);
-  const selected = getSelectedMails(mails)
-  console.log('selecetd',selected);
+  console.log('all mail', mails);
+  const selected = getSelectedMails(mails);
+  console.log('selecetd', selected);
   selected.forEach((mail) => {
     console.log(mail);
-    if(mail.isTrash && mail.isSelected) {
-      console.log('trash',user.trashEmails);
-      const mailIdx = getMailIdxById(user.trashEmails, mail.id)
-      user.trashEmails.splice(mailIdx, 1)
+    if (mail.isTrash && mail.isSelected) {
+      console.log('trash', user.trashEmails);
+      const mailIdx = getMailIdxById(user.trashEmails, mail.id);
+      user.trashEmails.splice(mailIdx, 1);
     }
   });
   storageService.saveToStorage(USER_KEY, gUsers);
-
 }
 
 function restoreMail(mailId, mails, user) {
@@ -555,7 +556,7 @@ function moveSelectedToArchive(mails, user) {
 }
 
 function selectAll(mails, user) {
-  const selectedMails = getSelectedMails(mails)
+  const selectedMails = getSelectedMails(mails);
   if (!selectedMails.length) {
     mails.forEach((mail) => {
       mail.isSelected = true;
@@ -566,7 +567,6 @@ function selectAll(mails, user) {
     });
   }
   storageService.saveToStorage(USER_KEY, gUsers);
-
 }
 
 function setMailAsKeep(mail, user) {
@@ -584,6 +584,11 @@ function setMailAsKeep(mail, user) {
 function queryKeeps(user) {
   return Promise.resolve(user.keeps);
 }
+
+function queryKeep(user, keepId) {
+  return Promise.resolve(_getKeepById(user, keepId));
+}
+
 function queryPin(keeps) {
   const pinnedKeeps = [];
   const unPinnedKeeps = [];
@@ -679,9 +684,21 @@ function sendMail(user, keep) {
   return Promise.resolve(mail);
 }
 
+function toggleTodo(keep, todoId) {
+  console.log(`keep`, keep);
+  const currTodoIdx = keep.info.todos.findIndex((todo) => {
+    return todo.id === todoId;
+  });
+
+  const currTodo = keep.info.todos[currTodoIdx];
+
+  currTodo.doneAt = currTodo.doneAt ? null : Date.now();
+  storageService.saveToStorage(USER_KEY, gUsers);
+}
+
 function getTodo(keep) {
   const todos = keep.info.todos;
-  if (!todo) return '';
+  if (!todos) return '';
   let strHtml = '';
   todos
     .map((todo) => {
@@ -723,4 +740,11 @@ function _getKeepIdxById(user, keepId) {
     return keepId === keep.id;
   });
   return keepIdx;
+}
+
+function _getKeepById(user, keepId) {
+  const keep = user.keeps.find((keep) => {
+    return keepId === keep.id;
+  });
+  return keep;
 }

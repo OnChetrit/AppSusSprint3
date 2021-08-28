@@ -5,7 +5,6 @@ import { UserMsg } from './cmps/user-msg.jsx';
 import { Mail } from './pages/Mail.jsx';
 import { Keep } from './pages/Keep.jsx';
 import { CreatUser } from './pages/CreateUser.jsx';
-// import { MailDetails } from './cmps/mail/MailDetails.jsx';
 import { BookApp } from './pages/BookApp.jsx';
 import { BookDetails } from './pages/BookDetails.jsx';
 
@@ -15,11 +14,8 @@ export function App() {
     <Router>
       <section className="app">
         <Switch>
-          {/* <Route path="/car/edit/:carId?" component={CarEdit} /> */}
-          {/* <Route path="/car/:carId" component={CarDetails} /> */}
           {/* <Route path="/about" component={About} /> */}
           <Route path="/user/:userId/keep" component={Keep} />
-          {/* <Route path="/user/:userId/mail/:mailId" component={MailDetails} /> */}
           <Route path="/book/:bookId" component={BookDetails} />
           <Route path="/user/:userId/mail" component={Mail} />
           <Route path="/book" component={BookApp} />

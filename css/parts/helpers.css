@@ -7,6 +7,9 @@
 .flex.space-between {
   justify-content: space-between;
 }
+.flex.space-evenly {
+  justify-content: space-evenly;
+}
 .flex.al-content-center {
   align-content: center;
 }
@@ -33,4 +36,10 @@
 .reset-btn {
   border: none;
   background: transparent;
+}
+
+.clean-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 16px;
 }

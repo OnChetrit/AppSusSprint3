@@ -1,39 +1,47 @@
 import { KeepActions } from '../KeepActions.jsx';
-import { ToDosPreview } from '../ToDosPreview.jsx';
+import { ToDoPreview } from '../ToDoPreview.jsx';
 
 export class KeepTodo extends React.Component {
-  state = { todo: '' };
+  state = { keep: '' };
 
   componentDidMount() {
-    this.setState({ todo: this.props.todo });
+    this.setState({ keep: this.props.keep });
   }
 
   render() {
     const {
-      keep,
-      onRemoveKeep,
       onKeepColorChange,
       onDuplicateKeep,
-      onPinKeep,
+      onRemoveKeep,
       setSendMail,
+      onCheckTodo,
+      onPinKeep,
+      keep,
     } = this.props;
+
+    const { todos, title } = keep.info;
     if (!keep) return <div className=""></div>;
     return (
       <div className="keep" style={{ backgroundColor: keep.color }}>
-        <h4>{keep.info.title}</h4>
-        <div className="note-content">
-          {keep.info.todos.map((todo, idx) => {
+        <h4>{title}</h4>
+        <ul className="todos-content clean-list">
+          {todos.map((todo, idx) => {
             return (
-              <ToDosPreview key={idx} todo={todo} onRemoveKeep={onRemoveKeep} />
+              <ToDoPreview
+                key={idx}
+                todo={todo}
+                onCheckTodo={onCheckTodo}
+                onRemoveKeep={onRemoveKeep}
+              />
             );
           })}
-        </div>
+        </ul>
         <KeepActions
           onKeepColorChange={onKeepColorChange}
           onDuplicateKeep={onDuplicateKeep}
           onRemoveKeep={onRemoveKeep}
-          onPinKeep={onPinKeep}
           setSendMail={setSendMail}
+          onPinKeep={onPinKeep}
           keep={keep}
         />
       </div>

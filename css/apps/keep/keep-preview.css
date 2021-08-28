@@ -27,3 +27,7 @@
   padding: 4px 16px 12px;
   margin: 0;
 }
+
+li span.checked {
+  text-decoration: line-through;
+}

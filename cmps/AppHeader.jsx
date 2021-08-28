@@ -9,10 +9,14 @@ class _AppHeader extends React.Component {
         {/* <NavLink activeClassName="my-active" exact to="/">
           Home
         </NavLink> */}
-        <NavLink to="/">LogOut</NavLink>
-        <NavLink to={`/book`}>Book</NavLink>
+        <NavLink to="/">
+          <div className="img-user" style={{ backgroundColor: user.bgc }}>
+            <h3>{user.username[0].toUpperCase()}</h3>
+          </div>
+        </NavLink>
+        <NavLink to={`/user/${user.id}/mail`}>Mail</NavLink>
         <NavLink to={`/user/${user.id}/keep`}>Keep</NavLink>
-        <NavLink to={`/user/${user.id}/mail`}>mail</NavLink>
+        <NavLink to={`/book`}>Book</NavLink>
         <NavLink to="/about">About</NavLink>
       </nav>
     );

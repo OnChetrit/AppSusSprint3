@@ -2,7 +2,6 @@ import { mailService } from '../../services/mail.service.js';
 import { userService } from '../../services/user.service.js';
 
 export function MailDetails({ user, mail, onReplyMail, onForwardMail }) {
-
   if (!user) return <div>Load</div>;
   mail.isRead = true;
   return (
@@ -17,7 +16,7 @@ export function MailDetails({ user, mail, onReplyMail, onForwardMail }) {
             <p>{`<${mail.fromMail}>`}</p>
             <p>{userService.timeSendDetails(mail.sentAt)}</p>
           </section>
-            <p>to: {user.emailAddress}</p>
+          <p>to: {user.emailAddress}</p>
           <h2>{mail.subject}</h2>
           <p>{mail.body}</p>
         </div>
@@ -28,6 +27,7 @@ export function MailDetails({ user, mail, onReplyMail, onForwardMail }) {
           onReplyMail(mail);
         }}
       >
+        <img src="./img/mail/reply.png" />
         Reply
       </button>
       <button
@@ -36,6 +36,7 @@ export function MailDetails({ user, mail, onReplyMail, onForwardMail }) {
           onForwardMail(mail);
         }}
       >
+        <img src="./img/mail/forward.png" />
         Forward
       </button>
     </div>
