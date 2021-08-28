@@ -1,6 +1,7 @@
 .add-user-container,
 .main-app {
   /* background-image: url(/img/background6.jpg); */
+  background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
 }

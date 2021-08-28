@@ -6,6 +6,9 @@ export class CreatUser extends React.Component {
       username: '',
       emailAddress: '',
     },
+    style: {
+      backgroundImage: 'url(/img/background6.jpg)',
+    },
   };
   handleChange = ({ target }) => {
     const field = target.name;
@@ -28,7 +31,10 @@ export class CreatUser extends React.Component {
 
   render() {
     return (
-      <div className="add-user-container flex justify-center al-items-center direction-col">
+      <div
+        className="add-user-container flex justify-center al-items-center direction-col"
+        style={this.state.style}
+      >
         <div className="form flex direction-col al-items-center">
           <img src="../img/add-user.png" />
           <form
