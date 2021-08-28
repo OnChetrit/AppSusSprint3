@@ -38,6 +38,8 @@ export const userService = {
   sendMail,
   selectAll,
   setMailAsKeep,
+  getSelectedMails,
+  removeSelectedMailfromTrash
 };
 
 const gMonths = [
@@ -375,7 +377,6 @@ function checkDraftMail(mails, draftMail) {
     mail.id === draftMail.id;
   });
 }
-
 function addUser(userToAdd) {
   const username = userToAdd.username;
   const emailAddress = userToAdd.emailAddress;
@@ -396,7 +397,6 @@ function getEmailTimeSent(timestamp) {
     hours + pathDay > 24 ? `${day} ${month}` : `${hours}:${minutes.substr(-2)}`;
   return timeSent;
 }
-
 function removeMail(mailId, mails, user) {
   const mailIdx = getMailIdxById(mails, mailId);
   const mail = mails[mailIdx];
@@ -411,6 +411,23 @@ function removeMail(mailId, mails, user) {
   }
   storageService.saveToStorage(USER_KEY, gUsers);
 }
+
+function removeSelectedMailfromTrash(mails, user) {
+  console.log('all mail',mails);
+  const selected = getSelectedMails(mails)
+  console.log('selecetd',selected);
+  selected.forEach((mail) => {
+    console.log(mail);
+    if(mail.isTrash && mail.isSelected) {
+      console.log('trash',user.trashEmails);
+      const mailIdx = getMailIdxById(user.trashEmails, mail.id)
+      user.trashEmails.splice(mailIdx, 1)
+    }
+  });
+  storageService.saveToStorage(USER_KEY, gUsers);
+
+}
+
 function restoreMail(mailId, mails, user) {
   const mailIdx = getMailIdxById(mails, mailId);
   const mail = mails[mailIdx];
@@ -537,11 +554,19 @@ function moveSelectedToArchive(mails, user) {
   });
 }
 
-function selectAll(mails, bool) {
-  mails.forEach((mail) => {
-    if (bool) mail.isSelected = true;
-    else mail.isSelected = false;
-  });
+function selectAll(mails, user) {
+  const selectedMails = getSelectedMails(mails)
+  if (!selectedMails.length) {
+    mails.forEach((mail) => {
+      mail.isSelected = true;
+    });
+  } else {
+    mails.forEach((mail) => {
+      mail.isSelected = false;
+    });
+  }
+  storageService.saveToStorage(USER_KEY, gUsers);
+
 }
 
 function setMailAsKeep(mail, user) {

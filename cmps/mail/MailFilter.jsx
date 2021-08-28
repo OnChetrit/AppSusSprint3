@@ -44,9 +44,9 @@ export class MailFilter extends React.Component {
               }.png`}
             />
             Inbox{' '}
-            <span className="unread-preview">
+            <p className="unread-preview">
               {unreadMails ? unreadMails : ''}
-            </span>
+            </p>
           </div>
           <div
             onClick={() => {

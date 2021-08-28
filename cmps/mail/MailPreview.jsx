@@ -26,7 +26,6 @@ export function MailPreview({
         mail.isRead ? 'read' : ''
       } ${mail.isSelected ? 'selected-mail' : ''}`}
     >
-      {/* <div className="left-side flex al-items-center"> */}
       <button
         title="Select"
         className={`btn selecting`}
@@ -57,10 +56,6 @@ export function MailPreview({
       <h4>{mail.from}</h4>
       <h5 className="subject">{mail.subject} - </h5>
       <p>{bodyToPreview}</p>
-      {/* <div className="mail-body">
-          <p>{mail.body}</p>
-        </div> */}
-      {/* </div> */}
       <div className="flex btn-mail al-content-center">
         <button
           title="Save as keep"

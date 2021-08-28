@@ -11,6 +11,7 @@
 @import './apps/keep/keep-preview.css';
 
 @import './apps/mail/mail.css';
+@import './apps/mail/mail-list.css';
 @import './apps/mail/mail-preview.css';
 @import './apps/mail/mail-compose.css';
 @import './apps/mail/mail-search.css';
