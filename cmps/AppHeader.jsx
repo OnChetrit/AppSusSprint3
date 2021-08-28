@@ -9,6 +9,7 @@ class _AppHeader extends React.Component {
       <nav className="app-header flex al-items-center">
         <img src={logo}/>
         <NavLink to="/">LogOut</NavLink>
+        <NavLink to={`/book`}>Book</NavLink>
         <NavLink to={`/user/${user.id}/keep`}>Keep</NavLink>
         <NavLink to={`/user/${user.id}/mail`}>mail</NavLink>
         <NavLink to="/about">About</NavLink>

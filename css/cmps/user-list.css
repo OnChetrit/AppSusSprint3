@@ -13,6 +13,7 @@
 
 /* .add-user, */
 .user-list {
+  position: relative;
   width: 350px;
   /* height: 350px; */
   padding: 15px 0;
@@ -49,6 +50,19 @@
   padding: 10px;
   width: 100px;
   margin-bottom: 10px;
+}
+
+.edit {
+  width: 20px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.edit:hover {
+  background-color: #e8eaed;
 }
 
 .user-card {

@@ -12,6 +12,9 @@ export function UserList({ users }) {
       ))}
       <Link to={`/user/create`} className="reset-link">
         <button className="btn">Add acount</button>{' '}
+        <button className="btn reset-btn">
+          <img className="edit" src="../img/edit.svg" />
+        </button>
       </Link>
     </div>
   );

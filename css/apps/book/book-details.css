@@ -1,0 +1,120 @@
+/* The card */
+.book-details {
+  position: relative;
+  height: 400px;
+  width: 800px;
+  margin: 50px auto;
+  background-color: #fff;
+  -webkit-box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 10px 10px 93px 0px rgba(0, 0, 0, 0.25);
+}
+
+/* Image on the left side */
+.thumbnail {
+  float: left;
+  position: relative;
+  left: 50px;
+  top: -50px;
+  /* height: 320px; */
+  width: 260px;
+  aspect-ratio: 3/4;
+  -webkit-box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 10px 10px 60px 0px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+/*object-fit: cover;*/
+/*object-position: center;*/
+
+.book-details .book-cover {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  /* height: auto; */
+  width: 100%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+/* Right side of the card */
+.book-info-large {
+  margin-inline-start: 350px;
+  margin-right: 20px;
+}
+.book-details h1 {
+  padding-top: 15px;
+  font-size: 1.8rem;
+  color: #4b4b4b;
+  margin: 0 0 20px 0;
+}
+.author {
+  background-color: #1875d0;
+  height: 30px;
+  min-width: 150px;
+  border-radius: 20px;
+}
+
+.book-details h2 {
+  padding-top: 4px;
+  margin-inline-start: 10px;
+  font-size: 1.1rem;
+  color: white;
+}
+
+.separator {
+  margin-top: 10px;
+  border: 1px solid #c3c3c3;
+}
+.book-details p {
+  text-align: justify;
+  font-size: 0.95rem;
+  color: #4b4b4b;
+}
+/* DATE of release*/
+.book-details h5 {
+  position: absolute;
+  left: 30px;
+  bottom: -180px;
+  font-size: 6rem;
+  color: #c3c3c3;
+}
+.book-details h4 {
+  margin: 0;
+}
+.book-details h6 {
+  position: absolute;
+  left: 250px;
+  bottom: -55px;
+  font-size: 1.6rem;
+  color: #c3c3c3;
+}
+
+.add-review-btn {
+  margin-top: 10px;
+  max-width: 100px;
+  background-color: green;
+  color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.return {
+  position: absolute;
+  right: 50px;
+  bottom: -40px;
+  background-color: white;
+  width: 80px;
+  height: 80px;
+  /* color: white; */
+  text-align: center;
+  border-radius: 50%;
+  -webkit-box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.25);
+  -moz-box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 10px 10px 50px 0px rgba(0, 0, 0, 0.25);
+}
+
+.return-img {
+  height: 100%;
+  /* position: absolute; */
+}

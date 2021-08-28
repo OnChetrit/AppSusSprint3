@@ -1,3 +1,4 @@
+@import './apps/book/book-main.css';
 @import './parts/base.css';
 @import './parts/fonts.css';
 @import './parts/helpers.css';
@@ -19,7 +20,9 @@
 @import './cmps/user-list.css';
 @import './cmps/app-header.css';
 
-@import './apps/book/book-preview.css';
+@import './apps/book/book-card.css';
+@import './apps/book/book-details.css';
+@import './apps/book/book-review.css';
 
 @import './cmps/app-home.css';
 @import './cmps/app-footer.css';
