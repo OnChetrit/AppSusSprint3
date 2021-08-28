@@ -10,6 +10,7 @@ class _AppHeader extends React.Component {
           Home
         </NavLink> */}
         <NavLink to="/">LogOut</NavLink>
+        <NavLink to={`/book`}>Book</NavLink>
         <NavLink to={`/user/${user.id}/keep`}>Keep</NavLink>
         <NavLink to={`/user/${user.id}/mail`}>mail</NavLink>
         <NavLink to="/about">About</NavLink>
