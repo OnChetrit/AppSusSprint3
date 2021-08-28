@@ -29,7 +29,7 @@ export function MailDetails({
 
           <div
             title={mail.isStared ? 'Starred' : 'Not starred'}
-            className="star-icon"
+            className="btn star-icon"
             title="Star"
             onClick={(ev) => {
               ev.stopPropagation();
@@ -86,9 +86,9 @@ export function MailDetails({
           </div>
         </div>
       </div>
-      <div className="replay-forward-btn">
+      <div className="mail-details-actions flex">
         <button
-          className="replay-btn btn"
+          className="action-details-btn btn flex al-items-center space-between"
           onClick={() => {
             onReplyMail(mail);
           }}
@@ -97,7 +97,7 @@ export function MailDetails({
           Reply
         </button>
         <button
-          className="replay-btn forward btn"
+          className="action-details-btn btn flex al-items-center space-between"
           onClick={() => {
             onForwardMail(mail);
           }}

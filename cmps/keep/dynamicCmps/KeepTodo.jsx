@@ -15,6 +15,7 @@ export class KeepTodo extends React.Component {
       onRemoveKeep,
       setSendMail,
       onCheckTodo,
+      onDeleteTodo,
       onPinKeep,
       keep,
     } = this.props;
@@ -31,6 +32,7 @@ export class KeepTodo extends React.Component {
                 key={idx}
                 todo={todo}
                 onCheckTodo={onCheckTodo}
+                onDeleteTodo={onDeleteTodo}
                 onRemoveKeep={onRemoveKeep}
               />
             );

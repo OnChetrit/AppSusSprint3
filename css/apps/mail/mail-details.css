@@ -31,7 +31,8 @@
   margin-left: 10px;
   margin-top: 5px;
 }
-.mail-details-content h2, .mail-details-body {
+.mail-details-content h2,
+.mail-details-body {
   margin-top: 20px;
 }
 
@@ -54,21 +55,19 @@
   width: 50px;
   background-color: rgba(255, 255, 255, 0);
   border: none;
-  padding:15px;
+  padding: 15px;
 }
 
 .mail-details-btn {
   display: flex;
-  justify-content:left;
-  align-items:center;
+  justify-content: left;
+  align-items: center;
   margin: 0;
   background-color: #e8eaed;
-  border-top-left-radius:15px;
-  border-top-right-radius:15px;
-  cursor: pointer;
+  border-radius: 15px 15px 0 0;
 }
 
-.remove-details-btn{
+.remove-details-btn {
   border: none;
-  
+  background: transparent;
 }

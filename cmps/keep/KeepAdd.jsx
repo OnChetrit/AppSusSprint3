@@ -3,12 +3,8 @@ export class KeepAdd extends React.Component {
     type: 'txt',
     title: '',
     txt: '',
-    // keep: {
-    //   type: 'txt',
-    //   info: { title: '', txt: '' },
-    //   style: { color: '#ffffff' },
-    // },
     isExpanded: false,
+    todoInputsCount: 0,
   };
 
   // inputRef = React.createRef();

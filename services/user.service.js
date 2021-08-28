@@ -43,6 +43,7 @@ export const userService = {
   removeSelectedMailfromTrash,
   toggleTodo,
   queryKeep,
+  deleteTodo,
   goBack,
 };
 
@@ -692,6 +693,13 @@ function AddKeep(user, type, title, txt) {
   const keep = createKeep(type, title, txt);
   user.keeps.unshift(keep);
   storageService.saveToStorage(USER_KEY, gUsers);
+}
+
+function deleteTodo(keep, todoId) {
+  const todoIdx = keep.info.todos.findIndex((todo) => todo.id === todoId);
+  keep.info.todos.splice(todoIdx, 1);
+  storageService.saveToStorage(USER_KEY, gUsers);
+  return Promise.resolve();
 }
 
 function sendMail(user, keep) {

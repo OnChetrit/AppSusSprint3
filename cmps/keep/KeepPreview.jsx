@@ -12,6 +12,13 @@ export class KeepPreview extends React.Component {
     this.loadKeep();
   };
 
+  onDeleteTodo = (todoId) => {
+    const { keep } = this.state;
+    userService.deleteTodo(keep, todoId).then(() => {
+      this.loadKeep();
+    });
+  };
+
   loadKeep = () => {
     userService.queryKeep(this.props.user, this.state.keep.id).then((keep) => {
       this.setState({ keep });
@@ -41,11 +48,11 @@ export class KeepPreview extends React.Component {
     return (
       <DynamicKeep
         onKeepColorChange={onKeepColorChange}
+        onDeleteTodo={this.onDeleteTodo}
         onDuplicateKeep={onDuplicateKeep}
+        onCheckTodo={this.onCheckTodo}
         onRemoveKeep={onRemoveKeep}
-        onCheckTodo={this.onCheckTodo}
         setSendMail={setSendMail}
-        onCheckTodo={this.onCheckTodo}
         onPinKeep={onPinKeep}
         keep={keep}
       />

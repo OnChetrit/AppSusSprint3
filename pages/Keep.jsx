@@ -97,6 +97,7 @@ export class Keep extends React.Component {
   };
 
   setSendMail = (keep) => {
+    // this.props.history.push(`/user/${this.state.user.id}/mail`);
     userService.sendMail(this.state.user, keep).then((keepToMail) => {
       this.setState({ keepToMail });
     });
