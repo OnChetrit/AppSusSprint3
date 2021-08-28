@@ -19,19 +19,23 @@ export function MailList({
   onSetSelectedRead,
   onRestoreSelected,
   onSelectAll,
-  onSetMailAsKeep
+  onSetMailAsKeep,
+  onRemoveSelectedFromTrash
 }) {
   if (!mails) return <div>There's No Mails</div>;
   return (
     <div className="mail-list">
       <MailSearch onSetSearch={onSetSearch} />
       <MailSort 
+      mails={mails}
+      user={user}
       onSetSortedBy={onSetSortedBy} 
       onRemoveSelected={onRemoveSelected} 
       onSelectedArchive={onSelectedArchive}
       onSetSelectedRead={onSetSelectedRead}
       onRestoreSelected={onRestoreSelected}
       onSelectAll={onSelectAll}
+      onRemoveSelectedFromTrash={onRemoveSelectedFromTrash}
       />
       {mails.map((mail) => (
         <MailPreview

@@ -45,7 +45,7 @@ export class Mail extends React.Component {
     if (!user) return;
     userService.queryMails(user, searchBy, filterBy, sortedBy).then((mails) => {
       this.setState({ mails });
-      userService.getUnReadMails(mails).then((unreadMails) => {
+      userService.getUnReadMails(user.mails).then((unreadMails) => {
         this.setState({ unreadMails });
       });
     });
@@ -169,6 +169,20 @@ export class Mail extends React.Component {
       type: '',
     });
   };
+  onRemoveSelectedFromTrash = () => {
+    userService.removeSelectedMailfromTrash(this.state.mails, this.state.user);
+    this.loadMails(
+      this.state.user,
+      this.state.searchBy,
+      this.state.filterBy,
+      this.state.sortedBy
+    );
+    eventBusService.emit('user-msg', {
+      txt: 'Selected conversation deleted',
+      type: '',
+    });
+  }
+
   onSelectedArchive = () => {
     userService.moveSelectedToArchive(this.state.mails, this.state.user);
     this.loadMails(
@@ -209,10 +223,8 @@ export class Mail extends React.Component {
       type: '',
     });
   };
-  isSelected = false;
   onSelectAll = () => {
-    this.isSelected = !this.isSelected;
-    userService.selectAll(this.state.mails, this.isSelected);
+    userService.selectAll(this.state.mails);
     this.loadMails(
       this.state.user,
       this.state.searchBy,
@@ -270,6 +282,7 @@ export class Mail extends React.Component {
               onRestoreSelected={this.onRestoreSelected}
               onSelectAll={this.onSelectAll}
               onSetMailAsKeep={this.onSetMailAsKeep}
+              onRemoveSelectedFromTrash={this.onRemoveSelectedFromTrash}
             />
           )}
           {mail && (
