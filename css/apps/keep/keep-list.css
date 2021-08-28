@@ -9,3 +9,10 @@
   column-count: auto;
   column-width: 300px;
 }
+
+.title-pin {
+  padding: 10px 100px;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-style: double;
+}

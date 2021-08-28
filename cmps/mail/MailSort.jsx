@@ -57,7 +57,6 @@ export class MailSort extends React.Component {
             ) : (
               <img src="img/mail/select.png" />
             )}
-            {/* <img src="../img/mail/select.png" /> */}
           </button>
           <button
             onClick={() => {

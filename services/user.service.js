@@ -73,7 +73,6 @@ const gImgs = [
   'background7.jpg',
   'background8.jpg',
   'background9.jpg',
-  'background10.jpg',
 ];
 const gKeeps = [
   {

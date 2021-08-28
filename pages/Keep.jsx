@@ -131,7 +131,7 @@ export class Keep extends React.Component {
           {user && (
             <div className="keep-list-container">
               <div className="pinned-keep">
-                <h1>Pinned</h1>
+                <h1 className="title-pin">Pinned</h1>
                 {pinnedKeep && (
                   <KeepList
                     onKeepColorChange={this.onKeepColorChange}
@@ -145,7 +145,7 @@ export class Keep extends React.Component {
                 )}
               </div>
               <div className="unpinned-keep">
-                <h1>UnPinned</h1>
+                <h1 className="title-pin">UnPinned</h1>
                 {unPinnedKeep && (
                   <KeepList
                     onKeepColorChange={this.onKeepColorChange}

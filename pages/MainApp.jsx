@@ -10,7 +10,7 @@ export class MainApp extends React.Component {
     users: null,
     isAddUser: false,
     style: {
-      backgroundImage: 'url(img/background6.jpg)',
+      backgroundImage: 'url(img/background3.jpg)',
     },
   };
 
