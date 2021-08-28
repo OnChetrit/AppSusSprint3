@@ -6,11 +6,11 @@ class _AppHeader extends React.Component {
     const { user } = this.props;
     const logo =
       this.props.match.path === '/user/:userId/mail'
-        ? './img/our-logo.png'
+        ? 'img/our-logo.png'
         : this.props.match.path === '/user/:userId/keep'
-        ? './img/keep-react.png'
+        ? 'img/keep-react.png'
         : this.props.match.path === '/book'
-        ? './img/book-react.png'
+        ? 'img/book-react.png'
         : '';
     return (
       <nav className="app-header flex al-items-center">

@@ -16,7 +16,7 @@ export class MailSearch extends React.Component {
     return (
       <form className="mail-search" onChange={this.onSearch}>
         <label htmlFor="search"></label>
-        <img src="../img/search.png" />
+        <img src="img/search.png" />
         <input
           className="input-search"
           name="search"

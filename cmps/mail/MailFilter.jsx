@@ -39,7 +39,7 @@ export class MailFilter extends React.Component {
             className={`flex filter ${this.checkIsActive('inbox')} `}
           >
             <img
-              src={`../img/mail/${
+              src={`img/mail/${
                 filterBy === 'inbox' ? 'inbox-active' : 'inbox-filter'
               }.png`}
             />
@@ -54,7 +54,7 @@ export class MailFilter extends React.Component {
             }}
             className={`flex filter ${this.checkIsActive('stars')} `}
           >
-            <img src="../img/mail/star-filter.png" />
+            <img src="img/mail/star-filter.png" />
             Stars
           </div>
           <div
@@ -63,7 +63,7 @@ export class MailFilter extends React.Component {
             }}
             className={`flex filter ${this.checkIsActive('archive')} `}
           >
-            <img src="../img/mail/archive-filter.png" />
+            <img src="img/mail/archive-filter.png" />
             Important
           </div>
           <div
@@ -72,7 +72,7 @@ export class MailFilter extends React.Component {
             }}
             className={`flex filter ${this.checkIsActive('read')} `}
           >
-            <img src="../img/mail/unread.png" />
+            <img src="img/mail/unread.png" />
             Read
           </div>
           <div
@@ -81,7 +81,7 @@ export class MailFilter extends React.Component {
             }}
             className={`flex filter ${this.checkIsActive('unread')} `}
           >
-            <img src="../img/mail/read.png" />
+            <img src="img/mail/read.png" />
             UnRead
           </div>
           <div
@@ -90,7 +90,7 @@ export class MailFilter extends React.Component {
             }}
             className={`flex filter ${this.checkIsActive('sent')} `}
           >
-            <img src="../img/mail/send-filter.png" />
+            <img src="img/mail/send-filter.png" />
             Sent
           </div>
           <div
@@ -99,7 +99,7 @@ export class MailFilter extends React.Component {
             }}
             className={`flex filter ${this.checkIsActive('draft')} `}
           >
-            <img src="../img/mail/draft-filter.png" />
+            <img src="img/mail/draft-filter.png" />
             Draft
           </div>
           <div
@@ -108,7 +108,7 @@ export class MailFilter extends React.Component {
             }}
             className={`flex filter ${this.checkIsActive('trash')} `}
           >
-            <img src="../img/mail/trash-filter.png" />
+            <img src="img/mail/trash-filter.png" />
             Trash
           </div>
         </div>

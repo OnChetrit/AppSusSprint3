@@ -35,7 +35,7 @@ export class KeepActions extends React.Component {
             onRemoveKeep(keep.id);
           }}
         >
-          <img src="../img/keep/remove.png" className="trash btn" />
+          <img src="img/keep/remove.png" className="trash btn" />
         </button>
         <button
           title="Duplicate"
@@ -44,7 +44,7 @@ export class KeepActions extends React.Component {
             onDuplicateKeep(keep);
           }}
         >
-          <img src="../img/keep/duplicate.svg" className="duplicate btn" />
+          <img src="img/keep/duplicate.svg" className="duplicate btn" />
         </button>
         <button
           title="Pick a color"
@@ -74,7 +74,7 @@ export class KeepActions extends React.Component {
             this.onSetPinKeep(keep);
           }}
         >
-          <img src={`../img/keep/${keep.isPinned ? 'pin' : 'unpin'}.svg`} />
+          <img src={`img/keep/${keep.isPinned ? 'pin' : 'unpin'}.svg`} />
         </button>
         <button
           title="Send keep as mail"
