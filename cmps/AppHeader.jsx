@@ -4,11 +4,17 @@ class _AppHeader extends React.Component {
   state = {};
   render() {
     const { user } = this.props;
+    const logo =
+      this.props.match.path === '/user/:userId/mail'
+        ? './img/our-logo.png'
+        : this.props.match.path === '/user/:userId/keep'
+        ? './img/keep-react.png'
+        : this.props.match.path === '/book'
+        ? './img/book-react.png'
+        : '';
     return (
-      <nav className="flex al-items-center">
-        {/* <NavLink activeClassName="my-active" exact to="/">
-          Home
-        </NavLink> */}
+      <nav className="app-header flex al-items-center">
+        <img src={logo} />
         <NavLink to="/">
           <div className="img-user" style={{ backgroundColor: user.bgc }}>
             <h3>{user.username[0].toUpperCase()}</h3>

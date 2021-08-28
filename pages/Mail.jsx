@@ -239,6 +239,16 @@ export class Mail extends React.Component {
       type: '',
     });
   };
+  onGoBack= () => {
+    userService.goBack(this.state.mail)
+    this.setState({mail:null})
+    this.loadMails(
+      this.state.user,
+      this.state.searchBy,
+      this.state.filterBy,
+      this.state.sortedBy
+    );
+  }
 
   render() {
     const {
@@ -294,9 +304,9 @@ export class Mail extends React.Component {
               onIsStared={this.onIsStared}
               onRemoveMail={this.onRemoveMail}
               onSetArchive={this.onSetArchive}
-              onRestoreMail={this.onRestoreMail}
               onReplyMail={this.onReplyMail}
               onForwardMail={this.onForwardMail}
+              onGoBack={this.onGoBack}
             />
           )}
 

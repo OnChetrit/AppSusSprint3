@@ -24,7 +24,6 @@
 .replay-btn {
   align-items: center;
   border: none;
-  display: inline-flex;
   justify-content: center;
   outline: none;
   position: relative;
@@ -45,8 +44,13 @@
   min-width: 104px;
   padding-right: 10px;
   user-select: none;
-  margin-left: 40px;
+  margin-left: 20px;
+  margin-top: 20px;
   text-decoration: none;
+}
+
+.forward {
+  background-image: url(https://www.gstatic.com/images/icons/material/system/1x/forward_black_20dp.png);
 }
 
 .replay-btn:hover {
@@ -59,4 +63,10 @@
 
 .filter img {
   width: 20px;
+}
+
+.replay-forward-btn {
+  display: block;
+  position: absolute;
+  bottom: 60px;
 }

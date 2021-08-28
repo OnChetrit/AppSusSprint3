@@ -59,7 +59,7 @@ export class CreatUser extends React.Component {
               <button className="btn" onClick={this.goBack}>
                 Go Back
               </button>
-              <button className="btn">Register</button>
+              <button className="btn register">Register</button>
             </div>
           </form>
         </div>

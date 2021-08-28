@@ -3,6 +3,7 @@ import { storageService } from './storage.service.js';
 
 export const userService = {
   query,
+  queryImg,
   getUserById,
   addUser,
   findUserByMail,
@@ -42,6 +43,7 @@ export const userService = {
   removeSelectedMailfromTrash,
   toggleTodo,
   queryKeep,
+  goBack,
 };
 
 const gMonths = [
@@ -59,7 +61,15 @@ const gMonths = [
   'Dec',
 ];
 const gDay = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-
+const gImgs = [
+  'background0.jpg',
+  'background1.jpg',
+  'background2.jpg',
+  'background3.jpg',
+  'background4.jpg',
+  'background5.jpg',
+  'background6.jpg',
+];
 const gKeeps = [
   {
     id: utilService.makeId(),
@@ -163,6 +173,10 @@ function queryMails(user, searchBy, filterBy, sortedBy) {
   return Promise.resolve(user.mails);
 }
 
+function queryImg() {
+  return Promise.resolve(gImgs);
+}
+
 function _createUsers() {
   let users = storageService.loadFromStorage(USER_KEY);
   if (!users || !users.length) {
@@ -180,6 +194,13 @@ function _createUser(username, emailAddress) {
     username,
     emailAddress,
     mails: [
+      _createMail(
+        'Adir & On',
+        'Welcome!!!!!!',
+        "We're glad you were registered\nNow you can user all our features,\nEnjoy! ❤️",
+        'adircohen@gmail.com, onchetrit@gmail.com'
+      ),
+
       _createMail(
         'Reddit',
         'How much of your day do you spend googling?',
@@ -339,6 +360,12 @@ function composeMail(user, mail) {
     sendToUser.mails.unshift(mailToSend);
     user.sentEmails.unshift(mailToSend);
   }
+  storageService.saveToStorage(USER_KEY, gUsers);
+}
+
+function goBack(mail) {
+  console.log(mail);
+  mail.isRead = true;
   storageService.saveToStorage(USER_KEY, gUsers);
 }
 function getUnReadMails(mails) {
