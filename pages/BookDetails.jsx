@@ -194,7 +194,7 @@ export class BookDetails extends React.Component {
           <h5>{publishedDate}</h5>
           <h6>{this.getPublishYear(publishedDate)}</h6>
           <div className="return btn" onClick={this.onBack}>
-            <img className="return-img" src="./assets/img/return.png" />
+            <img className="return-img" src="./img/book/return.png" />
           </div>
         </section>
         {reviews && (

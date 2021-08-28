@@ -1,26 +1,29 @@
-.sort{
-    user-select: none;
-    width: 251px;
-    border-radius-width:1px ;
-    border: none;
-    height: 56px;
-    float: none;
-    cursor: pointer;
-    outline: none;
-    font-weight: 600;
-    white-space: nowrap;
-    border-collapse: separate; 
-    background-color: white;
-    text-align: left;
-
+.sort {
+  user-select: none;
+  width: 251px;
+  border-radius-width: 1px;
+  border: none;
+  height: 56px;
+  float: none;
+  cursor: pointer;
+  outline: none;
+  font-weight: 600;
+  white-space: nowrap;
+  border-collapse: separate;
+  background-color: white;
+  text-align: left;
 }
 .sort span {
-    margin-left: 10px;
+  margin-left: 10px;
 }
 .sort:hover {
-    background-color: #f1f3f4;
+  background-color: #f1f3f4;
 }
 
-.sort-title:after{
-    border-bottom: 4px solid #d93025;
+.sort-title:after {
+  border-bottom: 4px solid #d93025;
+}
+
+.sort-container .hide {
+  display: none;
 }

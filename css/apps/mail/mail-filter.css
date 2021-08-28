@@ -47,10 +47,6 @@
   margin-left: 20px;
   margin-top: 20px;
   text-decoration: none;
-  background-image: url(https://www.gstatic.com/images/icons/material/system/1x/reply_black_20dp.png);
-  background-position: left;
-  background-repeat: no-repeat;
-  background-size: 20px;
 }
 
 .forward {
@@ -72,5 +68,5 @@
 .replay-forward-btn {
   display: block;
   position: absolute;
-  bottom:60px;
+  bottom: 60px;
 }

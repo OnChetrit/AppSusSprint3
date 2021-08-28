@@ -51,7 +51,7 @@ nav a {
   color: red;
 }
 
-nav a:hover {
+nav a:not(:nth-child(2)):hover {
   text-decoration: underline;
   text-decoration-thickness: 3px;
 }

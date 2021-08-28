@@ -150,8 +150,8 @@ export class Keep extends React.Component {
                     onKeepColorChange={this.onKeepColorChange}
                     onDuplicateKeep={this.onDuplicateKeep}
                     onRemoveKeep={this.onRemoveKeep}
-                    onPinKeep={this.onPinKeep}
                     setSendMail={this.setSendMail}
+                    onPinKeep={this.onPinKeep}
                     keeps={unPinnedKeep}
                     user={user}
                   />
