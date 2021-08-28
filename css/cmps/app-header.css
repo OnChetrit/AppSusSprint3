@@ -2,7 +2,10 @@ header nav {
   height: 8vh;
   gap: 20px;
 }
-
+.app-header img {
+  width:140px;
+  margin-left: 10px;
+}
 nav a {
   text-decoration: none;
   color: inherit;

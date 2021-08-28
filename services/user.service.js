@@ -39,7 +39,8 @@ export const userService = {
   selectAll,
   setMailAsKeep,
   getSelectedMails,
-  removeSelectedMailfromTrash
+  removeSelectedMailfromTrash,
+  goBack
 };
 
 const gMonths = [
@@ -177,8 +178,9 @@ function _createUser(username, emailAddress) {
     id: utilService.makeId(),
     username,
     emailAddress,
-    mails: [
-      _createMail(
+    mails: [_createMail('Adir & On' , 'Welcome!!!!!!', 'We\'re glad you were registered\nNow you can user all our features,\nEnjoy! ❤️','adircohen@gmail.com, onchetrit@gmail.com'),
+ 
+       _createMail(
         'Reddit',
         'How much of your day do you spend googling?',
         "I think I spend at minimum 30 minutes per day googling – sometimes as much as a couple of hours. A lot of the time it's for things I've already googled in the past ,Do you ever get to a point where you don't have to google much",
@@ -337,6 +339,12 @@ function composeMail(user, mail) {
     sendToUser.mails.unshift(mailToSend);
     user.sentEmails.unshift(mailToSend);
   }
+  storageService.saveToStorage(USER_KEY, gUsers);
+}
+
+function goBack(mail) {
+  console.log(mail);
+  mail.isRead = true;
   storageService.saveToStorage(USER_KEY, gUsers);
 }
 function getUnReadMails(mails) {

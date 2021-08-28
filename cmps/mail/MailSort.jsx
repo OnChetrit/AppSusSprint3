@@ -7,6 +7,7 @@ export class MailSort extends React.Component {
 
   };
 
+
   onSetSort= (SortedBy) => {
     this.setState({ SortedBy }, () => {
       this.props.onSetSortedBy(SortedBy);

@@ -31,10 +31,14 @@
   margin-left: 10px;
   margin-top: 5px;
 }
+.mail-details-content h2, .mail-details-body {
+  margin-top: 20px;
+}
 
 .mail-details-from {
   display: flex;
   align-items: center;
+  margin-top: 20px;
 }
 
 .mail-details-from p {
@@ -43,4 +47,28 @@
 
 .mail-details-content p {
   margin-right: 70px;
+}
+
+.back-btn {
+  height: 50px;
+  width: 50px;
+  background-color: rgba(255, 255, 255, 0);
+  border: none;
+  padding:15px;
+}
+
+.mail-details-btn {
+  display: flex;
+  justify-content:left;
+  align-items:center;
+  margin: 0;
+  background-color: #e8eaed;
+  border-top-left-radius:15px;
+  border-top-right-radius:15px;
+  cursor: pointer;
+}
+
+.remove-details-btn{
+  border: none;
+  
 }

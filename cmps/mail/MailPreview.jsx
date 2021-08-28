@@ -18,13 +18,13 @@ export function MailPreview({
     mail.body.length > 80 ? mail.body.substr(0, 80) + '...' : mail.body;
   return (
     <div
-      key={mail.id}
-      onClick={() => {
-        onOpenMail(mail);
-      }}
-      className={`mail-preview flex space-between btn  ${
-        mail.isRead ? 'read' : ''
-      } ${mail.isSelected ? 'selected-mail' : ''}`}
+    key={mail.id}
+    onClick={() => {
+      onOpenMail(mail);
+    }}
+    className={`mail-preview flex space-between btn  ${
+      mail.isRead ? 'read' : ''
+    } ${mail.isSelected ? 'selected-mail' : ''}`}
     >
       <button
         title="Select"
