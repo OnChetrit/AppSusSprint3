@@ -1,8 +1,7 @@
 export class MailFilter extends React.Component {
-  state = { 
+  state = {
     filterBy: 'inbox',
   };
-
 
   onSetFilter = (filterBy) => {
     this.setState({ filterBy }, () => {
@@ -11,16 +10,16 @@ export class MailFilter extends React.Component {
   };
   checkIsActive = (folderName) => {
     if (folderName === this.state.filterBy) {
-      if(folderName === 'inbox') {
-        return 'marked-red'
+      if (folderName === 'inbox') {
+        return 'marked-red';
       } else {
-        return 'marked-gray'
+        return 'marked-gray';
       }
     }
   };
 
   render() {
-    const { onToggleCompose , unreadMails} = this.props;
+    const { onToggleCompose, unreadMails } = this.props;
     const { filterBy } = this.state;
     return (
       <div className="side-nav flex direction-col">
@@ -44,7 +43,10 @@ export class MailFilter extends React.Component {
                 filterBy === 'inbox' ? 'inbox-active' : 'inbox-filter'
               }.png`}
             />
-            Inbox <span className="unread-preview">{unreadMails ? unreadMails : ''}</span>
+            Inbox{' '}
+            <span className="unread-preview">
+              {unreadMails ? unreadMails : ''}
+            </span>
           </div>
           <div
             onClick={() => {
@@ -62,7 +64,7 @@ export class MailFilter extends React.Component {
             className={`flex filter ${this.checkIsActive('archive')} `}
           >
             <img src="../img/mail/archive-filter.png" />
-            Archive
+            Important
           </div>
           <div
             onClick={() => {

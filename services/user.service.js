@@ -429,7 +429,6 @@ function filterByRead(filterBy, mails) {
     filterBy === 'read'
       ? mails.filter((mail) => mail.isRead === true)
       : mails.filter((mail) => mail.isRead === false);
-  console.log(mailsToDisplay);
   return mailsToDisplay;
 }
 function sortBy(sortedBy, mails) {
@@ -546,14 +545,10 @@ function selectAll(mails, bool) {
 }
 
 function setMailAsKeep(mail, user) {
-  console.log(`mail`, mail);
   if (!mail) return;
   const type = 'txt';
   const title = mail.subject;
   const val = mail.body;
-  console.log(`type`, type);
-  console.log(`title`, title);
-  console.log(`val`, val);
   const keep = createKeep(type, title, val);
   user.keeps.unshift(keep);
   storageService.saveToStorage(USER_KEY, gUsers);
@@ -644,12 +639,31 @@ function AddKeep(user, type, title, txt) {
 
 function sendMail(user, keep) {
   console.log(`keep`, keep);
+  const type = keep.type;
+
+  const body =
+    type === 'txt'
+      ? keep.info.txt
+      : type === 'img'
+      ? keep.info.url
+      : getTodo(keep);
   const subject = keep.info.title;
-  const body = keep.info.txt;
   const from = user.username;
   const fromMail = user.emailAddress;
   const mail = _createMail(from, subject, body, fromMail);
   return Promise.resolve(mail);
+}
+
+function getTodo(keep) {
+  const todos = keep.info.todos;
+  if (!todo) return '';
+  let strHtml = '';
+  todos
+    .map((todo) => {
+      strHtml += `${todo.txt}\n`;
+    })
+    .join(',');
+  return strHtml;
 }
 
 function togglePin(keep) {

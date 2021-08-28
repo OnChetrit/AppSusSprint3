@@ -29,30 +29,25 @@ export class KeepActions extends React.Component {
     return (
       <div className="keep-actions">
         <button
+          title="Remove Keep"
           onClick={(ev) => {
             ev.stopPropagation();
             onRemoveKeep(keep.id);
           }}
         >
-          <img
-            title="Remove Keep"
-            src="../img/keep/remove.png"
-            className="trash btn"
-          />
+          <img src="../img/keep/remove.png" className="trash btn" />
         </button>
         <button
+          title="Duplicate"
           onClick={(ev) => {
             ev.stopPropagation();
             onDuplicateKeep(keep);
           }}
         >
-          <img
-            title="Duplicate"
-            src="../img/keep/duplicate.svg"
-            className="duplicate btn"
-          />
+          <img src="../img/keep/duplicate.svg" className="duplicate btn" />
         </button>
         <button
+          title="Pick a color"
           className="btn btn-reset"
           onClick={(ev) => {
             ev.stopPropagation();
@@ -72,15 +67,17 @@ export class KeepActions extends React.Component {
           </svg>
         </button>
         <button
+          title={keep.isPinned ? 'UnPin' : 'Pin'}
           className="btn btn-reset"
           onClick={(ev) => {
             ev.stopPropagation();
             this.onSetPinKeep(keep);
           }}
         >
-          <img src={`../img/keep/${keep.isPinned ? 'pinned' : 'pin'}.svg`} />
+          <img src={`../img/keep/${keep.isPinned ? 'pin' : 'unpin'}.svg`} />
         </button>
         <button
+          title="Send keep as mail"
           className="btn btn-reset"
           onClick={(ev) => {
             ev.stopPropagation();

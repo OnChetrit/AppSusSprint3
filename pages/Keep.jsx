@@ -14,10 +14,16 @@ export class Keep extends React.Component {
     unPinnedKeep: null,
     updateKeep: null,
     keepToMail: null,
+    isCompose: false,
   };
+
+  toggleMsg;
 
   componentDidMount() {
     this.loadUser();
+    this.removeEventBus = eventBusService.on('cars-count', (carsCount) => {
+      this.setState({ carsCount });
+    });
     // this.loadKeeps();
   }
 
@@ -36,13 +42,20 @@ export class Keep extends React.Component {
     });
   };
 
+  onToggleCompose = () => {
+    this.toggleMsg = !this.state.isCompose;
+    this.setState({ isCompose: this.toggleMsg, keepToMail: null });
+  };
+
+  onComposeMail = (mail) => {
+    userService.composeMail(this.state.user, mail);
+    eventBusService.emit('user-msg', { txt: 'Mail Sent!', type: '' });
+  };
+
   loadKeeps = (user) => {
-    console.log(`user`, user);
     if (!user) return;
     userService.queryKeeps(user).then((keeps) => {
-      console.log(`keeps`, keeps);
       userService.queryPin(keeps).then((notes) => {
-        console.log(`keeps`, notes);
         this.setState({ pinnedKeep: notes.pin, unPinnedKeep: notes.unpin });
 
         // this.setState({ keeps });
@@ -87,6 +100,7 @@ export class Keep extends React.Component {
     userService.sendMail(this.state.user, keep).then((keepToMail) => {
       this.setState({ keepToMail });
     });
+    this.onToggleCompose();
   };
 
   onAdd = (type, title, txt) => {
@@ -100,8 +114,8 @@ export class Keep extends React.Component {
   };
 
   render() {
-    const { user, pinnedKeep, unPinnedKeep, keepToMail } = this.state;
-    console.log(`unPinnedKeep`, unPinnedKeep);
+    const { user, pinnedKeep, unPinnedKeep, keepToMail, isCompose } =
+      this.state;
     if (!user) return <div className="">Loading...</div>;
     return (
       <div className="keep-app flex direction-col">
@@ -146,7 +160,14 @@ export class Keep extends React.Component {
             </div>
           )}
         </main>
-        {keepToMail && <ComposeMail keepToMail={keepToMail} user={user} />}
+        {keepToMail && isCompose && (
+          <ComposeMail
+            onToggleCompose={this.onToggleCompose}
+            onComposeMail={this.onComposeMail}
+            keepToMail={keepToMail}
+            user={user}
+          />
+        )}
       </div>
     );
   }

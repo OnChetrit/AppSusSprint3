@@ -105,10 +105,13 @@
   width: 50px;
   height: 50px;
 }
+
+.icon-container svg,
 .icon-container img {
   opacity: 0.3;
 }
 
+.btn-mail button:hover .icon-container svg,
 .btn-mail button:hover .icon-container img {
   opacity: 1;
 }

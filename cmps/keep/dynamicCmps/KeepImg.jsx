@@ -9,14 +9,11 @@ export function KeepImg({
   setSendMail,
 }) {
   return (
-    <div className="keep btn" style={{ backgroundColor: keep.color }}>
+    <div className="keep" style={{ backgroundColor: keep.color }}>
       <img className="radius-img" src={keep.info.url} />
       <h4>{keep.info.title}</h4>
       <p>{keep.info.txt}</p>
       <KeepActions
-        // onNoteColorChange={this.props.onNoteColorChange}
-        // onPinned={this.props.onPinned}
-        // onCopyToClipboard={this.props.onCopyToClipboard}
         onKeepColorChange={onKeepColorChange}
         onDuplicateKeep={onDuplicateKeep}
         onRemoveKeep={onRemoveKeep}

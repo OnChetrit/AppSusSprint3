@@ -100,13 +100,11 @@ function getEmailTimeSent(timestamp) {
 function removeMail(user, mailId) {
   const mailIdx = getMailIdxById(user.mails, mailId);
   const mails = user.mails;
-  console.log(mails[mailIdx]);
   mails.splice(mailIdx, 1);
   _saveToStorage();
 }
 function filterByStars(mails) {
   const mailsToDisplay = mails.filter((mail) => mail.isStared === true);
-  console.log('mails', mailsToDisplay);
   return mailsToDisplay;
 }
 function setSpam(user, mail) {

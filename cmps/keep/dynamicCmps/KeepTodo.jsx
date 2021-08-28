@@ -19,7 +19,7 @@ export class KeepTodo extends React.Component {
     } = this.props;
     if (!keep) return <div className=""></div>;
     return (
-      <div className="keep btn" style={{ backgroundColor: keep.color }}>
+      <div className="keep" style={{ backgroundColor: keep.color }}>
         <h4>{keep.info.title}</h4>
         <div className="note-content">
           {keep.info.todos.map((todo, idx) => {
@@ -29,9 +29,6 @@ export class KeepTodo extends React.Component {
           })}
         </div>
         <KeepActions
-          // onNoteColorChange={this.props.onNoteColorChange}
-          // onPinned={this.props.onPinned}
-          // onCopyToClipboard={this.props.onCopyToClipboard}
           onKeepColorChange={onKeepColorChange}
           onDuplicateKeep={onDuplicateKeep}
           onRemoveKeep={onRemoveKeep}

@@ -1,7 +1,3 @@
-import { ImgInput } from './dynamicInputs/ImgInput.jsx';
-import { TodoInput } from './dynamicInputs/TodoInput.jsx';
-import { TxtInput } from './dynamicInputs/TxtInput.jsx';
-
 export class KeepAdd extends React.Component {
   state = {
     type: 'txt',
@@ -26,7 +22,6 @@ export class KeepAdd extends React.Component {
   };
 
   onChangeInputType = (val) => {
-    console.log(`value`, val);
     this.setState({ type: val });
     this.onExpand(true);
   };
@@ -34,7 +29,6 @@ export class KeepAdd extends React.Component {
   onAddKeep = () => {
     const { type, title, txt } = this.state;
     if (!type || !txt) return;
-    console.log(`type,val`, type, title, txt);
     this.props.onAdd(type, title, txt);
     this.setState({
       type: 'txt',
@@ -47,22 +41,8 @@ export class KeepAdd extends React.Component {
   handleChange = ({ target }) => {
     const field = target.name;
     const val = target.value;
-    console.log(`val, field`, val, field);
     this.setState({ [field]: val });
   };
-
-  // handleChange = ({ target }) => {
-  //   console.log(`from KeepAdd target`, target);
-  //   const field = target.name;
-  //   const value = target.value;
-  //   console.log(`value, field`, value, field);
-  //   this.setState((prevState) => ({
-  //     keep: {
-  //       ...prevState.keep,
-  //       info: { ...prevState.info, [field]: value },
-  //     },
-  //   }));
-  // };
 
   render() {
     const { isExpanded } = this.state;
@@ -138,11 +118,3 @@ export class KeepAdd extends React.Component {
     );
   }
 }
-
-// <DynamicInputs
-//   type={type}
-//   handleChange={this.handleChange}
-//   onExpand={this.onExpand}
-//   onAddKeep={this.onAddKeep}
-//   keep={keep}
-// />

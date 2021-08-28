@@ -104,7 +104,6 @@ export class Mail extends React.Component {
     });
   };
   onSetSortedBy = (sortedBy) => {
-    console.log('hi', sortedBy);
     this.setState({ sortedBy }, () => {
       this.setState({ mail: null });
       this.loadMails(
@@ -142,7 +141,6 @@ export class Mail extends React.Component {
     this.setState({ replyMail });
   };
   onForwardMail = (forwardMail) => {
-    console.log(forwardMail);
     this.onToggleCompose();
     this.setState({ forwardMail });
   };
