@@ -124,7 +124,7 @@ export class Keep extends React.Component {
           <AppHeader user={user} />
         </header>
         <main className="flex direction-col">
-          <KeepFilter />
+          {/* <KeepFilter /> */}
           <div className="add-keep-container flex direction-col al-items-center">
             <KeepAdd onAdd={this.onAdd} />
           </div>

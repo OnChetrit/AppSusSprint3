@@ -19,7 +19,7 @@ export function UserList({ users, onToggleImgContainer }) {
           onToggleImgContainer();
         }}
         className="edit btn"
-        src="../img/edit.svg"
+        src="img/edit.svg"
       />
     </div>
   );
