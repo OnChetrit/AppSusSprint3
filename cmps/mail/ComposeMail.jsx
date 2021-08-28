@@ -7,8 +7,8 @@ export class ComposeMail extends React.Component {
       subject: '',
       body: '',
     },
+    draftId: null
   };
-  draftMailId = -1;
 
   componentDidMount() {
     const keepToMail = this.props.keepToMail;
