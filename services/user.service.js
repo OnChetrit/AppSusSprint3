@@ -20,7 +20,7 @@ export const userService = {
   removeSelectedMail,
   timeSendDetails,
   removeKeep,
-  createKeep,
+  AddKeep,
   keepColorChange,
   duplicateKeep,
   moveSelectedToArchive,
@@ -546,10 +546,15 @@ function selectAll(mails, bool) {
 }
 
 function setMailAsKeep(mail, user) {
+  console.log(`mail`, mail);
+  if (!mail) return;
   const type = 'txt';
   const title = mail.subject;
   const val = mail.body;
-  const keep = createKeep(user, type, title, val);
+  console.log(`type`, type);
+  console.log(`title`, title);
+  console.log(`val`, val);
+  const keep = createKeep(type, title, val);
   user.keeps.unshift(keep);
   storageService.saveToStorage(USER_KEY, gUsers);
 }
@@ -575,7 +580,7 @@ function queryPin(keeps) {
 //   return Promise.resolve(unPinnedKeeps);
 // }
 
-function createKeep(user, type, title, val) {
+function createKeep(type, title, val) {
   let newKeep = {};
 
   switch (type) {
@@ -628,10 +633,13 @@ function createKeep(user, type, title, val) {
     default:
       break;
   }
+  return newKeep;
+}
 
-  user.keeps.unshift(newKeep);
+function AddKeep(user, type, title, txt) {
+  const keep = createKeep(type, title, txt);
+  user.keeps.unshift(keep);
   storageService.saveToStorage(USER_KEY, gUsers);
-  return Promise.resolve(newKeep);
 }
 
 function sendMail(user, keep) {

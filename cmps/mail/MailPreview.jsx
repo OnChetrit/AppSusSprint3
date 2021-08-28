@@ -12,7 +12,7 @@ export function MailPreview({
   onOpenMail,
   onSetRead,
   onSelectMail,
-  onSetMailAsKeep
+  onSetMailAsKeep,
 }) {
   const bodyToPreview =
     mail.body.length > 80 ? mail.body.substr(0, 80) + '...' : mail.body;

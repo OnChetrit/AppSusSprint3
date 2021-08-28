@@ -62,7 +62,7 @@ export class Keep extends React.Component {
     userService.removeKeep(user, id).then(() => {
       this.loadUser();
     });
-    eventBusService.emit('user-msg', { txt: 'Keep remove!', type: '' });
+    eventBusService.emit('user-msg', { txt: 'Keep removed!', type: '' });
   };
 
   onDuplicateKeep = (keep) => {
@@ -74,8 +74,13 @@ export class Keep extends React.Component {
   };
 
   onPinKeep = (keep) => {
+    const msg = keep.isPinned ? 'un pinned' : 'pinned';
     userService.togglePin(keep);
     this.loadKeeps(this.state.user);
+    eventBusService.emit('user-msg', {
+      txt: 'keep is ',
+      type: msg,
+    });
   };
 
   setSendMail = (keep) => {
@@ -86,8 +91,11 @@ export class Keep extends React.Component {
 
   onAdd = (type, title, txt) => {
     const { user } = this.state;
-    userService.createKeep(user, type, title, txt).then(() => {
-      this.loadUser();
+    userService.AddKeep(user, type, title, txt);
+    this.loadKeeps(this.state.user);
+    eventBusService.emit('user-msg', {
+      txt: 'Keep added',
+      type: '',
     });
   };
 

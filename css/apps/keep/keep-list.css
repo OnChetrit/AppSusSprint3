@@ -5,7 +5,7 @@
 .keep-list {
   /* gap: 10px; */
   height: 100%;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   /* justify-content: center; */
   position: relative;
   column-count: auto;

@@ -10,18 +10,18 @@ import { userService } from '../services/user.service.js';
 export class Mail extends React.Component {
   state = {
     user: null,
-    isCompose: false,
     searchBy: null,
     mails: null,
     filterBy: null,
-    isMailOpen: false,
     mail: null,
     replyMail: null,
     forwardMail: null,
-    isTrash: false,
     sortedBy: null,
     draftMail: null,
     unreadMails: null,
+    isMailOpen: false,
+    isCompose: false,
+    isTrash: false,
   };
 
   toggleMsg;
@@ -55,7 +55,7 @@ export class Mail extends React.Component {
   };
   onComposeMail = (mail) => {
     userService.composeMail(this.state.user, mail);
-    eventBusService.emit('user-msg', { txt: 'Mail Sent!', type: 'success' });
+    eventBusService.emit('user-msg', { txt: 'Mail Sent!', type: '' });
   };
   onIsStared = (user, mailId) => {
     userService.setStar(user, mailId);
@@ -76,6 +76,10 @@ export class Mail extends React.Component {
   onRestoreMail = (mailId, mails, user) => {
     userService.restoreMail(mailId, mails, user);
     this.loadUser();
+    eventBusService.emit('user-msg', {
+      txt: 'Conversation restored to Inbox',
+      type: '',
+    });
   };
   onSetSearch = (searchBy) => {
     this.setState({ searchBy }, () => {
@@ -112,8 +116,13 @@ export class Mail extends React.Component {
     });
   };
   onSetArchive = (user, mail) => {
+    const msg = mail.isArchive ? 'inbox' : 'archive';
     userService.setArchive(user, mail);
     this.loadMails(user, this.state.searchBy, this.state.filterBy);
+    eventBusService.emit('user-msg', {
+      txt: 'Conversation sent to ',
+      type: msg,
+    });
   };
   onOpenMail = (mail) => {
     this.setState({ mail });
@@ -157,6 +166,10 @@ export class Mail extends React.Component {
       this.state.filterBy,
       this.state.sortedBy
     );
+    eventBusService.emit('user-msg', {
+      txt: 'Selected conversation moved to trash',
+      type: '',
+    });
   };
   onSelectedArchive = () => {
     userService.moveSelectedToArchive(this.state.mails, this.state.user);
@@ -166,6 +179,11 @@ export class Mail extends React.Component {
       this.state.filterBy,
       this.state.sortedBy
     );
+
+    eventBusService.emit('user-msg', {
+      txt: 'Selected conversation sent to archive',
+      type: '',
+    });
   };
   onSetSelectedRead = () => {
     userService.selectedRead(this.state.mails, this.state.user);
@@ -175,6 +193,10 @@ export class Mail extends React.Component {
       this.state.filterBy,
       this.state.sortedBy
     );
+    eventBusService.emit('user-msg', {
+      txt: 'Selected Conversation marked as read',
+      type: '',
+    });
   };
   onRestoreSelected = () => {
     userService.restoreSelectedMail(this.state.mails, this.state.user);
@@ -184,21 +206,29 @@ export class Mail extends React.Component {
       this.state.filterBy,
       this.state.sortedBy
     );
+    eventBusService.emit('user-msg', {
+      txt: 'Selected conversation restored to inbox',
+      type: '',
+    });
   };
   isSelected = false;
   onSelectAll = () => {
-    this.isSelected = !this.isSelected
-    userService.selectAll(this.state.mails, this.isSelected)
+    this.isSelected = !this.isSelected;
+    userService.selectAll(this.state.mails, this.isSelected);
     this.loadMails(
       this.state.user,
       this.state.searchBy,
       this.state.filterBy,
       this.state.sortedBy
     );
-  }
-  onSetMailAsKeep = (mail,user) => {
-    userService.setMailAsKeep(mail,user)
-  }
+  };
+  onSetMailAsKeep = (mail, user) => {
+    userService.setMailAsKeep(mail, user);
+    eventBusService.emit('user-msg', {
+      txt: 'Conversation saved as keep',
+      type: '',
+    });
+  };
 
   render() {
     const {
@@ -241,7 +271,7 @@ export class Mail extends React.Component {
               onSetSelectedRead={this.onSetSelectedRead}
               onRestoreSelected={this.onRestoreSelected}
               onSelectAll={this.onSelectAll}
-              onSetMailAdKeep={this.onSetMailAsKeep}
+              onSetMailAsKeep={this.onSetMailAsKeep}
             />
           )}
           {mail && (
