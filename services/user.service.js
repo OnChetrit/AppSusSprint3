@@ -202,7 +202,7 @@ function _createUser(username, emailAddress) {
       _createMail(
         'Adir & On',
         'Welcome!!!!!!',
-        "We're glad you were registered\nNow you can user all our features,\nEnjoy! ❤️",
+        "We're glad you were registered, Now you can user all our features, Enjoy! ❤️",
         'adircohen@gmail.com, onchetrit@gmail.com'
       ),
 
