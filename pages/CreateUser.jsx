@@ -7,7 +7,7 @@ export class CreatUser extends React.Component {
       emailAddress: '',
     },
     style: {
-      backgroundImage: 'url(/img/background3.jpg)',
+      backgroundImage: 'url(img/background3.jpg)',
     },
   };
   handleChange = ({ target }) => {

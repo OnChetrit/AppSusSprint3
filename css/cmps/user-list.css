@@ -160,6 +160,15 @@
   overflow-y: scroll;
 }
 
+.close-modal {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border-radius: 50%;
+  background-color: rgba(211, 211, 211, 0.835);
+  width: 30px;
+}
+
 .img-card {
   border-radius: 10px;
   width: 200px;
