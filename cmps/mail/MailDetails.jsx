@@ -24,7 +24,7 @@ export function MailDetails({
               onGoBack();
             }}
           >
-            <img src="../../../img/go-back.png" />
+            <img src="img/go-back.png" />
           </button>
 
           <div
@@ -53,7 +53,7 @@ export function MailDetails({
             }}
           >
             <div className="">
-              <img src="../img/mail/trash-filter.png" />
+              <img src="img/mail/trash-filter.png" />
             </div>
           </button>
           <button
@@ -66,7 +66,7 @@ export function MailDetails({
             }}
           >
             <div className="">
-              <img src="../img/mail/archive-filter.png" />
+              <img src="img/mail/archive-filter.png" />
             </div>
           </button>
         </div>
@@ -93,7 +93,7 @@ export function MailDetails({
             onReplyMail(mail);
           }}
         >
-          <img src="./img/mail/reply.png" />
+          <img src="img/mail/reply.png" />
           Reply
         </button>
         <button
@@ -102,7 +102,7 @@ export function MailDetails({
             onForwardMail(mail);
           }}
         >
-          <img src="./img/mail/forward.png" />
+          <img src="img/mail/forward.png" />
           Forward
         </button>
       </div>

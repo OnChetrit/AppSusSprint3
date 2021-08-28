@@ -53,9 +53,9 @@ export class MailSort extends React.Component {
             className={`btn selecting`}
           >
             {selected ? (
-              <img src="../img/mail/unselect.png" />
+              <img src="img/mail/unselect.png" />
             ) : (
-              <img src="../img/mail/select.png" />
+              <img src="img/mail/select.png" />
             )}
             {/* <img src="../img/mail/select.png" /> */}
           </button>
@@ -93,7 +93,7 @@ export class MailSort extends React.Component {
             className={`btn reset-btn selected remove-selected`}
           >
             <div className="icon-container">
-              <img src="../img/mail/trash-filter.png" />
+              <img src="img/mail/trash-filter.png" />
             </div>
           </button>
 

@@ -49,7 +49,7 @@ export class KeepAdd extends React.Component {
             className="txt btn reset-btn"
             onClick={() => this.onChangeInputType('txt')}
           >
-            <img src="../img/keep/text.svg" />
+            <img src="img/keep/text.svg" />
           </button>
           <button
             className="todo btn reset-btn"

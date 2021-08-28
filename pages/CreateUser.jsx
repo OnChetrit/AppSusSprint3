@@ -30,7 +30,7 @@ export class CreatUser extends React.Component {
     return (
       <div className="add-user-container flex justify-center al-items-center direction-col">
         <div className="form flex direction-col al-items-center">
-          <img src="../img/add-user.png" />
+          <img src="img/add-user.png" />
           <form
             className="add-user flex direction-col justify-center"
             onSubmit={this.onAddUser}

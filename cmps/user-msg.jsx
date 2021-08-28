@@ -35,7 +35,7 @@ export class UserMsg extends React.Component {
           {msg.type}
         </h1>
         <button className="btn reset-btn" onClick={this.onCloseMsg}>
-          <img src="../img/close.png"></img>
+          <img src="img/close.png"></img>
         </button>
       </section>
     );

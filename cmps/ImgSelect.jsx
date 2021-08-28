@@ -9,7 +9,7 @@ export function ImgSelect({ imgs, onSwitchBackground }) {
             }}
             className="btn img-card"
             key={idx}
-            src={`../img/${img}`}
+            src={`img/${img}`}
           />
         );
       })}

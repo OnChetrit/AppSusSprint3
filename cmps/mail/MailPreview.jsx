@@ -35,7 +35,7 @@ export function MailPreview({
         }}
       >
         <img
-          src={`../img/mail/${mail.isSelected ? 'unselect' : 'select'}.png`}
+          src={`img/mail/${mail.isSelected ? 'unselect' : 'select'}.png`}
         />
       </button>
       <div
@@ -80,7 +80,7 @@ export function MailPreview({
           }}
         >
           <div className="icon-container">
-            <img src="../img/mail/archive-filter.png" />
+            <img src="img/mail/archive-filter.png" />
           </div>
         </button>
         <button
@@ -92,7 +92,7 @@ export function MailPreview({
           }}
         >
           <div className="icon-container">
-            <img src="../img/mail/trash-filter.png" />
+            <img src="img/mail/trash-filter.png" />
           </div>
         </button>
 
@@ -105,7 +105,7 @@ export function MailPreview({
           }}
         >
           <div className="icon-container">
-            <img src="../img/mail/restore.png" />
+            <img src="img/mail/restore.png" />
           </div>
         </button>
         <button
@@ -118,7 +118,7 @@ export function MailPreview({
           }}
         >
           <div className="icon-container ">
-            <img src={`../img/mail/${mail.isRead ? 'unread' : 'read'}.png`} />
+            <img src={`img/mail/${mail.isRead ? 'unread' : 'read'}.png`} />
           </div>
         </button>
       </div>
