@@ -1,15 +1,8 @@
 .sort {
-  user-select: none;
-  width: 251px;
-  border-radius-width: 1px;
+  width: 150px;
   border: none;
-  height: 56px;
-  float: none;
   cursor: pointer;
-  outline: none;
   font-weight: 600;
-  white-space: nowrap;
-  border-collapse: separate;
   background-color: white;
   text-align: left;
 }

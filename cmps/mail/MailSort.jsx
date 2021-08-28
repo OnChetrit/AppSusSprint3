@@ -46,7 +46,7 @@ export class MailSort extends React.Component {
     const { selected } = this.state;
     return (
       <div className="sort-container flex">
-        <div className="sort-actions">
+        <div className="sort-actions flex al-items-center">
           <button
             onClick={() => this.onSetSelected()}
             title="Select All"
@@ -84,42 +84,50 @@ export class MailSort extends React.Component {
             <span>Date</span>
           </button>
         </div>
-        <div
-        // className={`selected-actions ${selected ? '' : 'hide'}`}
-        >
+        <div>
           <button
-            title="Remove"
+            title="Remove from inbox"
             onClick={() => this.onSetRemoveSelected()}
-            className={`btn reset-btn selected remove-selected`}
+            className="btn reset-btn selected remove-selected"
           >
-            <div className="icon-container">
+            <div className="icon-container btn sort-mail">
               <img src="img/mail/trash-filter.png" />
             </div>
           </button>
 
           <button
+            title="Remove from trash"
             onClick={() => this.onSetRemoveSelectedFromTrash()}
-            className={`selected remove-selected`}
+            className="selected remove-selected reset-btn"
           >
-            Remove trash Selected
+            <div className="icon-container btn sort-mail">
+              <img src="img/mail/trash-filter.png" />
+            </div>
           </button>
           <button
+            title="Restore to inbox"
             onClick={() => this.onSetRestoreSelected()}
-            className={`selected restore-selected`}
+            className="selected restore-selected reset-btn"
           >
-            Restore Selected
+            <div className="icon-container btn sort-mail">
+              <img src="img/mail/restore.png" />
+            </div>
           </button>
           <button
             onClick={() => this.onSetSelectedToArchive()}
-            className={`selected archive-selected`}
+            className="selected archive-selected reset-btn"
           >
-            Selected to archive
+            <div className="icon-container btn sort-mail">
+              <img src="img/mail/archive-filter.png" />
+            </div>
           </button>
           <button
             onClick={() => this.onSetSelectedRead()}
-            className={`selected read-selected`}
+            className="selected read-selected reset-btn"
           >
-            Selected to read/unread
+            <div className="icon-container btn sort-mail">
+              <img src={`img/mail/unread.png`} />
+            </div>
           </button>
         </div>
       </div>
